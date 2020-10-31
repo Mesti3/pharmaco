@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
                
-    <Grid>
+    <Grid Margin="0,2,0,-0.4">
         
     </Grid>
 </UserControl>

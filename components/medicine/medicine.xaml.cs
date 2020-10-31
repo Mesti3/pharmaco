@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace pharmaco.components.medicine
+namespace pharmaco.components.category
 {
     /// <summary>
-    /// Interaction logic for medicine.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class medicine : UserControl
+    public partial class UserControl1 : UserControl
     {
-        public medicine()
+        public UserControl1()
         {
             InitializeComponent();
         }
