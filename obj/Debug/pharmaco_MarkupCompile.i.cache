@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\
+C:\Users\DELL LATITUDE E5530\Documents\pharmaco\obj\Debug\
 pharmaco
 none
 false
 DEBUG;TRACE
+C:\Users\DELL LATITUDE E5530\Documents\pharmaco\App.xaml
+81718286193
 
-42109009352
-
-11-1423845055
-16535398935
-components\category\category.xaml;components\filter\filter.xaml;components\medicine\medicine.xaml;pages\menu\menu.xaml;
+152111620818
+16207460335
+components\button\green_button.xaml;components\filter\filter.xaml;components\medicine\medicine.xaml;components\medicine\medicine_text_block.xaml;components\shopping\shoping.xaml;components\shopping\shopping_item.xaml;MainWindow.xaml;pages\menu\menu.xaml;
 
 True
 
