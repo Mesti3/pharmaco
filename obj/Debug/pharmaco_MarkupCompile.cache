@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-42109009352
+4-649720506
 
-11-1423845055
+10-299879808
 16535398935
-components\category\category.xaml;components\filter\filter.xaml;components\medicine\medicine.xaml;pages\menu\menu.xaml;
+components\medicine\medicine.xaml;components\filter\filter.xaml;pages\category\category.xaml;pages\menu\menu.xaml;
 
-True
+False
 

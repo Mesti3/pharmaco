@@ -2,13 +2,11 @@ D:\Projects\Visual Studio\C# projects\pharmaco\bin\Debug\pharmaco.exe.config
 D:\Projects\Visual Studio\C# projects\pharmaco\bin\Debug\pharmaco.exe
 D:\Projects\Visual Studio\C# projects\pharmaco\bin\Debug\pharmaco.pdb
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pharmaco.csprojAssemblyReference.cache
-D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\components\category\category.g.cs
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\components\filter\filter.g.cs
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\components\medicine\medicine.g.cs
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pages\menu\menu.g.cs
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pharmaco_MarkupCompile.cache
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pharmaco_MarkupCompile.lref
-D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\components\category\category.baml
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\components\filter\filter.baml
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\components\medicine\medicine.baml
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pages\menu\menu.baml
@@ -18,3 +16,5 @@ D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pharmaco.Properties.Res
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pharmaco.csproj.GenerateResource.cache
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pharmaco.exe
 D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pharmaco.pdb
+D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pages\category\category.g.cs
+D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\pages\category\category.baml

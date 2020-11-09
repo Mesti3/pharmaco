@@ -50,20 +50,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="components\category\category.xaml.cs">
-      <DependentUpon>category.xaml</DependentUpon>
+    <Compile Include="components\medicine\medicine.xaml.cs">
+      <DependentUpon>medicine.xaml</DependentUpon>
     </Compile>
     <Compile Include="components\filter\filter.xaml.cs">
       <DependentUpon>filter.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="components\medicine\medicine.xaml.cs">
-      <DependentUpon>medicine.xaml</DependentUpon>
     </Compile>
     <Compile Include="home.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="home.Designer.cs">
       <DependentUpon>home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pages\category\category.xaml.cs">
+      <DependentUpon>category.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\menu\menu.xaml.cs">
       <DependentUpon>menu.xaml</DependentUpon>
@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="components\category\category.xaml">
+    <Page Include="components\medicine\medicine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,7 +105,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="components\medicine\medicine.xaml">
+    <Page Include="pages\category\category.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
