@@ -30,6 +30,13 @@ namespace pharmaco.data
         {
             return dataController.SaveOrder(order);
         }
-
+        public List<medicine> GetMainPageProducts()
+        {
+            return dataController.GetMainPageProducts();
+        }
+        public List<string> GetAllProductNames()
+        {
+            return dataController.GetAllProductNames();
+        }
     }
 }

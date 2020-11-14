@@ -10,7 +10,7 @@ namespace pharmaco.components.medicine_components
     /// </summary>
     public partial class medicine_detail : UserControl
     {
-        public event Action<medicine> product_ordered;
+        public event Action<pharmaco.components.filter.filter> product_ordered;
         public event Action<medicine_detail> product_list_needed;
         public int left_panel_width;
         private medicine med;
@@ -64,7 +64,7 @@ namespace pharmaco.components.medicine_components
 
         private void order_button_Click_1(object sender, RoutedEventArgs e)
         {
-            product_ordered(med);
+            product_ordered(medicine_filter);
         }
 
         private void back_button_Click_1(object sender, RoutedEventArgs e)

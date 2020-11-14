@@ -13,10 +13,10 @@ namespace pharmaco.components.filter
     /// </summary>
     public partial class filter : UserControl
     {
-        public event Action<medicine> product_ordered;
+        public event Action<filter> product_ordered;
         public event Action<medicine> product_detail_needed;
         // public event EventHandler product_ordered;
-        private medicine med;
+        public medicine med;
         public filter_mode mode
         {
             set
@@ -64,21 +64,7 @@ namespace pharmaco.components.filter
                 stock.Content = medicine.available_quantity_as_string;
             else if (medicine.available_quantity.HasValue)
                 stock.Content = "Na sklade: " + medicine.available_quantity;
-            if (!string.IsNullOrWhiteSpace(medicine.photo_path) && File.Exists(medicine.photo_path))
-                try
-                {
-                    image.Source = new BitmapImage(new Uri(medicine.photo_path, UriKind.Absolute));
-                }
-                catch (Exception ex)
-                {
-                    //logovanie
-
-                    image.Source = new BitmapImage(new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\medicine_default.jpg", UriKind.Absolute));
-                }
-            else
-                image.Source = new BitmapImage(new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\medicine_default.jpg", UriKind.Absolute));
-
-
+            image.Source = get_image_source();
 
             if (medicine.discountItem != null)
             {
@@ -115,7 +101,26 @@ namespace pharmaco.components.filter
 
         private void order_button_Click(object sender, RoutedEventArgs e)
         {
-            product_ordered(med);
+            product_ordered(this);
+
+        }
+
+        public BitmapImage get_image_source()
+        {
+            if (!string.IsNullOrWhiteSpace(med.photo_path) && File.Exists(med.photo_path))
+                try
+                {
+                    return new BitmapImage(new Uri(med.photo_path, UriKind.Absolute));
+                }
+                catch (Exception ex)
+                {
+                    //logovanie
+
+                    return  new BitmapImage(new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\medicine_default.jpg", UriKind.Absolute));
+                }
+            else
+                return  new BitmapImage(new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\medicine_default.jpg", UriKind.Absolute));
+
 
         }
     }

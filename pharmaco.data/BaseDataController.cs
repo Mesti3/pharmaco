@@ -29,6 +29,16 @@ namespace pharmaco.data
         /// <param name="order">order to save</param>
         /// <returns>string to print on tag</returns>
         public abstract string SaveOrder(order order);
+        /// <summary>
+        /// function to get list of product for main page
+        /// </summary>
+        /// <returns>list of medicine</returns>
+        public abstract List<medicine> GetMainPageProducts();
+        /// <summary>
+        /// function to get list of product names for main page
+        /// </summary>
+        /// <returns>list of names</returns>
+        public abstract List<string> GetAllProductNames();
 
     }
 }

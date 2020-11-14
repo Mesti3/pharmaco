@@ -1,7 +1,9 @@
 ﻿using pharmaco.components.filter;
 using pharmaco.components.medicine_components;
+using pharmaco.components.search;
 using pharmaco.data;
 using pharmaco.model;
+using pharmaco.pages.shopping_window;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,14 +20,42 @@ namespace pharmaco
     {
         private List<category> categories;
         private DataController data;
-        private List<orderItem> order_items;
+        private shopping_window shopping_window;
         private BackgroundWorker worker;
         public MainWindow()
         {
             InitializeComponent();
             data = new DataController();
             categories = new List<category>();
-            order_items = new List<orderItem>();
+            shopping_window = new shopping_window();
+            shopping_window.order_confirmed += Shopping_window_order_confirmed;
+            shopping_window.show_detail += Shopping_window_show_detail;
+            shopping_window.order_canceled += Shopping_window_order_canceled; 
+        }
+
+        private void Shopping_window_order_canceled()
+        {
+            load_main_page_products();
+        }
+
+        private void Shopping_window_show_detail(orderItem_with_image obj)
+        {
+            F_product_detail_needed(obj.med);
+        }
+
+        private void Shopping_window_order_confirmed(order order)
+        {
+            try
+            {
+                string tag = data.SaveOrder(order);
+                MessageBox.Show(@"tvoje čislo je" + Environment.NewLine + tag + Environment.NewLine);
+                // print tag
+            }
+            catch (Exception ex)
+            {
+                //hlaska
+                //email o chybe
+            }
         }
 
         private void FillWrapPanel(List<medicine> medicines)
@@ -56,6 +86,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             { 
+                
             }
         }
 
@@ -66,9 +97,10 @@ namespace pharmaco
             wrapPanel.Visibility = Visibility.Collapsed;           
         }
 
-        private void F_product_ordered(medicine obj)
+        private void F_product_ordered(filter obj)
         {
-            order_items.Add(new orderItem() { med = obj, quantity = 1 });
+            shopping_window.order_items.Add(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
+            open_order_window();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -79,9 +111,52 @@ namespace pharmaco
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Cursor = Cursors.Wait;
+
+            searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth;
+            load_categories();
+            load_main_page_products();
+            load_product_names();
+
+
+
+            this.Cursor = Cursors.Arrow;
+
+        }
+
+        private void load_product_names()
+        {
             try
             {
-                this.Cursor = Cursors.Wait;
+                var names = data.GetAllProductNames();
+                searchBox.set_items(names);
+                searchBox.list_max_height = (this.Height - 150) / 2;
+            }
+            catch (Exception ex)
+            {
+                //logovanie
+            }
+        }
+
+        private void load_main_page_products()
+        {
+            try
+            {
+                searchBox.text = "";
+                var medicines = data.GetMainPageProducts();
+                FillWrapPanel(medicines);
+                this.UpdateLayout();
+            }
+            catch (Exception ex)
+            {
+                //logovanie
+            }
+        }
+
+        private void load_categories()
+        {
+            try
+            {               
                 categories = data.GetCategories();
             }
             catch (Exception ex)
@@ -89,23 +164,22 @@ namespace pharmaco
                 //logovanie
                 //hlásk
             }
-            finally
-            {
-                this.Cursor = Cursors.Arrow;
-            }
+         
         }
-
-
-
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(textbox.Text))
+            do_search();
+        }
+
+        private void do_search()
+        {
+            if (!string.IsNullOrWhiteSpace(searchBox.text))
             {
                 try
                 {
                     this.Cursor = Cursors.Wait;
-                    var medicines = data.GetMedicines(textbox.Text);
+                    var medicines = data.GetMedicines(searchBox.text);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();
                 }
@@ -126,9 +200,19 @@ namespace pharmaco
             medicine_dateil.Visibility = Visibility.Collapsed;
         }
 
-        private void medicine_dateil_product_ordered(medicine obj)
+        private void medicine_dateil_product_ordered(filter obj)
         {
+            shopping_window.order_items.Add(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
+            open_order_window();
+        }
+        private void open_order_window()
+        {
+            shopping_window.ShowDialog();
+        }
 
+        private void searchBox_product_selected()
+        {
+            do_search();
         }
     }
 }

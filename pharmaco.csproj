@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -72,6 +73,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="components\search\search_box.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="components\shopping\numeric_up_down.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="components\shopping\shoping.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,6 +111,12 @@
     <Compile Include="components\medicine\medicine_text_block.xaml.cs">
       <DependentUpon>medicine_text_block.xaml</DependentUpon>
     </Compile>
+    <Compile Include="components\search\search_box.xaml.cs">
+      <DependentUpon>search_box.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\shopping\numeric_up_down.xaml.cs">
+      <DependentUpon>numeric_up_down.xaml</DependentUpon>
+    </Compile>
     <Compile Include="components\shopping\shoping.xaml.cs">
       <DependentUpon>shoping.xaml</DependentUpon>
     </Compile>
@@ -116,10 +131,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="pages\shopping_window\shopping_window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="objects\order_item_extension.cs" />
     <Compile Include="pages\menu\menu.xaml.cs">
       <DependentUpon>menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\shopping_window\shopping_window.xaml.cs">
+      <DependentUpon>shopping_window.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

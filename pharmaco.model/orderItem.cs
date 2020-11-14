@@ -5,7 +5,7 @@ using System.Text;
 namespace pharmaco.model
 {
     //dbclass only
-    public class orderItem
+    public partial class orderItem
     {
         public medicine med;
         public decimal quantity;

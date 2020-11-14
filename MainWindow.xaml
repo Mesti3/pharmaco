@@ -6,20 +6,21 @@
         xmlns:local="clr-namespace:pharmaco"
      xmlns:button="clr-namespace:pharmaco.components.button"
      xmlns:medicine_components="clr-namespace:pharmaco.components.medicine_components"
+     xmlns:search="clr-namespace:pharmaco.components.search"
      x:Class="pharmaco.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" IsEnabled="True" Loaded="Window_Loaded">
-    <Grid IsManipulationEnabled="True" Loaded="Grid_Loaded">
+    <Grid IsManipulationEnabled="True" Loaded="Grid_Loaded" Margin="0,12,0,12" Panel.ZIndex="1" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="234"/>
             <ColumnDefinition Width="1000*"/>
             <ColumnDefinition Width="234"/>
         </Grid.ColumnDefinitions>
-        <DockPanel x:Name="leftPanel"  Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,0,10" Width="234" Background="CornflowerBlue" Grid.RowSpan="2"/>
-        <StackPanel x:Name="rightPanel"  Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,10,10,10" Width="234" Background="CornflowerBlue" Grid.RowSpan="2"/>
-        <Grid x:Name="contentGrid" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel x:Name="leftPanel"  Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,0,10" Width="234" Background="CornflowerBlue" />
+        <StackPanel x:Name="rightPanel"  Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,10,10,10" Width="234" Background="CornflowerBlue" />
+        <Grid x:Name="contentGrid" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="150" />
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="1000*"/>
             </Grid.RowDefinitions>
@@ -34,11 +35,24 @@
                 <medicine_components:medicine_detail  x:Name="medicine_dateil" Grid.Row="0" Visibility="Collapsed"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" product_list_needed="medicine_dateil_product_list_needed" product_ordered="medicine_dateil_product_ordered"/>
 
             </Grid>
-            <Grid  x:Name="searchGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid  x:Name="searchGrid" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1000*"/>
                     <ColumnDefinition Width="234"/>
                 </Grid.ColumnDefinitions>
+
+                <!--<TextBox x:Name="textbox" Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="0,50,0,0" TextAlignment="Center"  FontSize="50"  ClipToBounds="True" Padding="0,20,0,0"  TextOptions.TextHintingMode="Fixed" IsManipulationEnabled="True" >
+                    <TextBox.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                            <GradientStop Color="#FFDDDDDD" Offset="1"/>
+                            <GradientStop Color="White" Offset="0.492"/>
+                            <GradientStop Color="#FFDDDDDD"/>
+                            <GradientStop Color="#FFFEFEFE" Offset="0.2"/>
+                            <GradientStop Color="White" Offset="0.8"/>
+                        </LinearGradientBrush>
+                    </TextBox.Background>
+                </TextBox>-->
+
                 <!--<Button x:Name="searchButton" Grid.Column="1" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" FontSize="50" ClipToBounds="True" IsManipulationEnabled="True" Grid.ColumnSpan="2" Margin="0,50,0,0" Click="searchButton_Click" RenderTransformOrigin="0.427,0.549" >
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -51,19 +65,9 @@
                     </Button.Background>
                     </Button>-->
                 <button:green_button x:Name="searchButton" Grid.Column="1" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="0,50,0,0" GreenButtonText="Vyhľadaj"  Click="searchButton_Click" />
-
-                <TextBox x:Name="textbox" Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="0,50,0,0" TextAlignment="Center"  FontSize="50"  ClipToBounds="True" Padding="0,20,0,0"  TextOptions.TextHintingMode="Fixed" IsManipulationEnabled="True" >
-                    <TextBox.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                            <GradientStop Color="#FFDDDDDD" Offset="1"/>
-                            <GradientStop Color="White" Offset="0.492"/>
-                            <GradientStop Color="#FFDDDDDD"/>
-                            <GradientStop Color="#FFFEFEFE" Offset="0.2"/>
-                            <GradientStop Color="White" Offset="0.8"/>
-                        </LinearGradientBrush>
-                    </TextBox.Background>
-                </TextBox>
-
+                <Canvas Grid.Column="0">
+                    <search:search_box x:Name="searchBox"   HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,50,0,0" Height="auto" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsManipulationEnabled="True"  Panel.ZIndex="100" text_box_heigh="100" list_font_height="30" product_selected="searchBox_product_selected" />
+                </Canvas>
             </Grid>
         </Grid>
     </Grid>

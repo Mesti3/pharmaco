@@ -1,6 +1,7 @@
 ﻿using pharmaco.model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -103,35 +104,39 @@ namespace pharmaco.data.DBDataCotroller
             {
                 using (SqlTransaction transaction = connection.BeginTransaction())
                 {
+                    SqlParameter outputIdParam = new SqlParameter("@newtag", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
                     try
                     {
                         string sql = @"
                             declare @order_id int;  
-                            insert into pharmaco_order (created, state, tag) values ('" + DBConversion.GetToDbDateTime(DateTime.Now) + @"', (select coalesce(max(tag)+1, 100) from pharmaco_order where datetime >  '" + DBConversion.GetToDbDateTime(DateTime.Now.Date) + @"' ));
-                            set @order_id = SELECT SCOPE_IDENTITY();
+                            set @newtag = (select coalesce(max(tag)+1, 100) from pharmaco_order where created >  " + DBConversion.GetToDbDateTime(DateTime.Now.Date) + @" ); 
+                            insert into pharmaco_order (created, state, tag) values (" + DBConversion.GetToDbDateTime(DateTime.Now) + @",1,  @newtag);
+                            set @order_id =( SELECT SCOPE_IDENTITY());
                             ";
 
                         foreach (orderItem item in order.items)
                             sql += @"
                                     insert into pharmaco_order_item (order_id, medicine_id, quantity) values 
-                                        (@order_id, " +DBConversion.GetToDbString(item.med.id)+ "," + DBConversion.GetToDbDecimal(item.quantity) + ");";
-                        sql = "select top 1 tag from pharmaco_order where id = @order_id";
+                                        (@order_id, " + DBConversion.GetToDbString(item.med.id) + "," + DBConversion.GetToDbDecimal(item.quantity) + ");";
+
                         using (var command = new SqlCommand(sql, connection))
                         {
+                            command.Parameters.Add(outputIdParam);
                             command.Transaction = transaction;
-                            using (SqlDataReader reader = command.ExecuteReader())
-                            {
-                                if (reader.Read())
-                                    tag =  reader[0].ToString();
-                            }
-                            // command.ExecuteNonQuery();
+                            var t = command.ExecuteNonQuery();
+                            transaction.Commit();
+                            tag = outputIdParam.Value.ToString();
                         }
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
                         //logovanie
-                        
+
                     }
                 }
             }
@@ -208,6 +213,49 @@ namespace pharmaco.data.DBDataCotroller
             }
             else
                 return null;
+        }
+
+        public override List<medicine> GetMainPageProducts() /*todo - odstránenie zbytočných funkcií*/
+        {
+            string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_for_main_page_sql' ");
+            if (!string.IsNullOrWhiteSpace(sql))
+            {
+                using (SqlConnection connection = DBAccess.CreateConnection())
+                {
+                    using (var command = new SqlCommand(sql, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            return LoadMedicineFromReader(reader);
+                        }
+                    }
+                }
+            }
+            else
+                throw new KeyNotFoundException("ERROR>>null>>select_medicine_for_main_page_sql");
+
+        }
+        public override List<string> GetAllProductNames() /*todo - odstránenie zbytočných funkcií*/
+        {
+            List<string> result = new List<string>();
+            string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_product_names_sql' ");
+            if (!string.IsNullOrWhiteSpace(sql))
+            {
+                using (SqlConnection connection = DBAccess.CreateConnection())
+                {
+                    using (var command = new SqlCommand(sql, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                                result.Add(reader[0].ToString());
+                        }
+                    }
+                }
+                return result;
+            }
+            else
+                throw new KeyNotFoundException("ERROR>>null>>select_medicine_for_main_page_sql");
         }
     }
 }

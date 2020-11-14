@@ -19,7 +19,7 @@ namespace pharmaco.data.DBDataCotroller
                 return "NULL";
             else
             {
-                var result = string.Format("CONVERT(DATETIME, '{0:yyyy-MM-dd} HH:mm:ss', 102)", value.Value);
+                var result = string.Format("CONVERT(DATETIME, '{0:yyyy-MM-dd HH:mm:s}', 102)", value.Value);
                 return result;
             }
         }
