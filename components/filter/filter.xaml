@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pharmaco.components.filter"
              xmlns:button="clr-namespace:pharmaco.components.button" x:Name="filter2" x:Class="pharmaco.components.filter.filter"
-             mc:Ignorable="d" Background="White" Width="400" Height="550" BorderThickness="1">
+             mc:Ignorable="d" Background="White" Width="400" Height="550" >
     <Grid x:Name="filter_grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>

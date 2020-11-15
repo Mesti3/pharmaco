@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="category.cs" />
     <Compile Include="discount.cs" />
+    <Compile Include="marketing.cs" />
     <Compile Include="medicine.cs" />
     <Compile Include="order.cs" />
     <Compile Include="orderItem.cs" />

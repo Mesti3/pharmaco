@@ -39,6 +39,9 @@ namespace pharmaco.data
         /// </summary>
         /// <returns>list of names</returns>
         public abstract List<string> GetAllProductNames();
+        public abstract List<marketing> GetMarketing();
+        public abstract List<medicine> GetProductsForMarketing(int marketing_id);
+
 
     }
 }

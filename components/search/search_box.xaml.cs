@@ -70,9 +70,12 @@ namespace pharmaco.components.search
 
         private void list_box_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            text_block.Text = (sender as ListView).SelectedItem.ToString();
-            list_box.Visibility = Visibility.Collapsed;
-            product_selected();
+            if ((sender as ListView).SelectedItem != null)
+            {
+                text_block.Text = (sender as ListView).SelectedItem.ToString();
+                list_box.Visibility = Visibility.Collapsed;
+                product_selected();
+            }
         }
 
         private void text_block_LostFocus(object sender, RoutedEventArgs e)

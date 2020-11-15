@@ -3,15 +3,18 @@ using pharmaco.components.medicine_components;
 using pharmaco.components.search;
 using pharmaco.data;
 using pharmaco.model;
+using pharmaco.objects;
 using pharmaco.pages.shopping_window;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace pharmaco
@@ -22,6 +25,8 @@ namespace pharmaco
         private DataController data;
         private shopping_window shopping_window;
         private BackgroundWorker worker;
+        private double filter_height;
+        private double filter_left_margin;
         public MainWindow()
         {
             InitializeComponent();
@@ -63,7 +68,9 @@ namespace pharmaco
             filter f;
             try
             {
+                
                 wrapPanel.Children.Clear();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
                 if (medicines.Count == 0)
                 {
                     wrapPanel.Children.Add(new Image() { 
@@ -74,15 +81,22 @@ namespace pharmaco
                 {
                     foreach (medicine m in medicines)
                     {
+                        Border b = new Border() { Width = filter_left_margin, Height = filter_height, BorderThickness = new Thickness(1), BorderBrush = new SolidColorBrush(Colors.Gray) };
+             
+                        Viewbox wb = new Viewbox() { Stretch = System.Windows.Media.Stretch.Uniform, Width = filter_left_margin, Height = filter_height };
+                   
                         f = new filter(m);
                         f.product_ordered += F_product_ordered;
                         f.product_detail_needed += F_product_detail_needed;
-                      //  f.Width = wrapPanel.ActualWidth / 5;
-                        
-                        wrapPanel.Children.Add(f);
+                        wb.Child = f;
+                        b.Child = wb;
+         //f.Margin = new Thickness( filter_left_margin, 0 , filter_left_margin,0);
+         // f.Width = wrapPanel.ActualWidth / 5;
+
+         wrapPanel.Children.Add(b);
                     }
                 }
-                wrapPanel.UpdateLayout();
+             //   wrapPanel.UpdateLayout();
             }
             catch (Exception ex)
             { 
@@ -113,14 +127,32 @@ namespace pharmaco
         {
             this.Cursor = Cursors.Wait;
 
-            searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth;
+            searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth - 2*leftPanel.Width;
+            set_size_of_medicines();
             load_categories();
             load_main_page_products();
             load_product_names();
-
+            load_marketing();
+           
 
 
             this.Cursor = Cursors.Arrow;
+
+        }
+
+        private void set_size_of_medicines()
+        {
+            filter f = new filter();
+            filter_height = f.Height;
+            double f_height = center_grid.ActualHeight - center_grid.Margin.Top - center_grid.Margin.Bottom;
+            double ratio = 1;
+            if (f_height < 2 * filter_height)
+            {
+                filter_height = f_height / 2;
+                ratio =  filter_height/ f.Height;
+            }
+
+            filter_left_margin= (center_grid.ActualWidth - 58) / Math.Truncate( (center_grid.ActualWidth -58)/ (f.Width*ratio))  ;//18 is default scrollbar width
 
         }
 
@@ -158,6 +190,8 @@ namespace pharmaco
             try
             {               
                 categories = data.GetCategories();
+                // horizontal_category_panel.set_categories(categories);
+                categories.ForEach(x => categories_menu.Items.Add(createCategoryItem(x)));
             }
             catch (Exception ex)
             {
@@ -165,6 +199,43 @@ namespace pharmaco
                 //hlásk
             }
          
+        }
+        private void load_marketing()
+        {
+            try
+            {
+                List<marketing_with_image> m =  data.GetMarketing().Select(x=>new marketing_with_image(x)).ToList();
+                if (m.Count > 0)
+                {
+                    if (m.Count == 1)
+                    {
+                        leftPanel.set_marketing(m);
+                        rightPanel.set_marketing(m);
+                    }
+                    else
+                    {
+                        leftPanel.set_marketing(m.Take(m.Count/2).ToList());
+                        rightPanel.set_marketing(m.Except(m.Take(m.Count / 2)).ToList());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //logovanie
+                //hlásk
+            }
+
+        }
+
+        private MenuItem createCategoryItem(category x)
+        {
+            MenuItem mi = new MenuItem();
+            mi.Header = x.name;
+            mi.Tag = x.id;
+            if (x.subcategories != null)
+                foreach (category c in x.subcategories)
+                    mi.Items.Add(createCategoryItem(c));
+            return mi;
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
@@ -179,6 +250,7 @@ namespace pharmaco
                 try
                 {
                     this.Cursor = Cursors.Wait;
+                    marketing_panel.Visibility = Visibility.Collapsed;
                     var medicines = data.GetMedicines(searchBox.text);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();
@@ -214,5 +286,35 @@ namespace pharmaco
         {
             do_search();
         }
+
+        private void categories_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void shopping_cart_button_Click(object sender, RoutedEventArgs e)
+        {
+            open_order_window();
+        }
+
+        private void leftPanel_marketing_needed(objects.marketing_with_image obj)
+        {
+            try
+            {
+                marketing_panel.set_marketing(obj);
+
+                searchBox.text = "";
+                var medicines = data.GetProductsForMarketing(obj.marketing.id);
+                FillWrapPanel(medicines);
+                this.UpdateLayout();
+                marketing_panel.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                //logovanie
+            }
+        }
+      
+
     }
 }

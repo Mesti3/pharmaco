@@ -23,7 +23,7 @@ namespace pharmaco.data.DBDataCotroller
                 {
                     var sql0 = sql.Replace("@condition", " is null");
                     using (var command = new SqlCommand(sql0, connection))
-                    {                        
+                    {
                         using (var reader = command.ExecuteReader())
                         {
                             newIds = LoadCaterotyesFromReader(categories, reader);
@@ -32,14 +32,14 @@ namespace pharmaco.data.DBDataCotroller
                     }
                     while (nextLevelNeeded)
                     {
-                    //     parameter = new SqlParameter("name", "'" + string.Join("','", newIds.Select(x=>x.id)) + "'");
+                        //     parameter = new SqlParameter("name", "'" + string.Join("','", newIds.Select(x=>x.id)) + "'");
                         sql0 = sql.Replace("@condition", " in ('" + string.Join("','", newIds.Select(x => x.id)) + "')");
                         using (var command = new SqlCommand(sql0, connection))
                         {
                             using (var reader = command.ExecuteReader())
                             {
                                 newIds = LoadCaterotyesFromReader(newIds, reader);
-                                nextLevelNeeded = newIds.Count>0;
+                                nextLevelNeeded = newIds.Count > 0;
                             }
                         }
                     }
@@ -50,19 +50,19 @@ namespace pharmaco.data.DBDataCotroller
             return categories;
         }
 
-     
+
 
         public override List<medicine> GetMedicinesInCategory(List<string> categories_ids)
         {
-            string sql = DBAccess.ReadFirstResult( "select value from pharmaco_db_access where [name] = 'select_medicine_by_category_sql' ");
+            string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_by_category_sql' ");
             if (!string.IsNullOrWhiteSpace(sql))
             {
-                SqlParameter parameter = new SqlParameter("@name", "'" + string.Join("','",categories_ids)+ "'");
+                SqlParameter parameter = new SqlParameter("@name", "'" + string.Join("','", categories_ids) + "'");
                 using (SqlConnection connection = DBAccess.CreateConnection())
                 {
                     using (var command = new SqlCommand(sql, connection))
                     {
-                            command.Parameters.Add(parameter);
+                        command.Parameters.Add(parameter);
                         using (var reader = command.ExecuteReader())
                         {
                             return LoadMedicineFromReader(reader);
@@ -70,7 +70,7 @@ namespace pharmaco.data.DBDataCotroller
                     }
                 }
             }
-            else 
+            else
                 throw new KeyNotFoundException("ERROR>>null>>select_medicine_by_name_sql");
         }
 
@@ -151,7 +151,7 @@ namespace pharmaco.data.DBDataCotroller
             {
                 category c = new category();
                 c.id = DBConversion.GetFromDbString(reader["id"]);
-                c.name =   DBConversion.GetFromDbString(reader["name"]);
+                c.name = DBConversion.GetFromDbString(reader["name"]);
                 c.parent_category_id = DBConversion.GetFromDbString(reader["parent_category_id"]);
                 newCategories.Add(c);
             }
@@ -198,7 +198,7 @@ namespace pharmaco.data.DBDataCotroller
                 }
                 catch (Exception ex)
                 {
-                   //  todo> logovanie 
+                    //  todo> logovanie 
                 }
 
             }
@@ -256,6 +256,70 @@ namespace pharmaco.data.DBDataCotroller
             }
             else
                 throw new KeyNotFoundException("ERROR>>null>>select_medicine_for_main_page_sql");
+        }
+        public override List<marketing> GetMarketing()
+        {
+            List<marketing> result = new List<marketing>();
+
+            string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_marketing_sql' ");
+            if (!string.IsNullOrWhiteSpace(sql))
+            {
+                using (SqlConnection connection = DBAccess.CreateConnection())
+                {
+                    using (var command = new SqlCommand(sql, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            List<medicine> medicines = new List<medicine>();
+                            while (reader.Read())
+                            {
+                                try
+                                {
+                                    marketing m = new marketing();
+                                    m.name = DBConversion.GetFromDbString(reader["name"]);
+                                    m.description = DBConversion.GetFromDbString(reader["description"]); 
+                                    m.id = DBConversion.GetFromDbInt(reader["id"]).Value;
+                                    m.horizontal_banner_path = DBConversion.GetFromDbString(reader["horizontal_banner_path"]);
+                                    m.vertical_banner_path = DBConversion.GetFromDbString(reader["vertical_banner_path"]);
+                                  
+                                    result.Add(m);
+                                }
+                                catch (Exception ex)
+                                {
+                                    //  todo> logovanie 
+                                }
+
+                            }
+                            return result;
+
+                        }
+                    }
+                }
+            }
+            else
+                throw new KeyNotFoundException("ERROR>>null>>select_marketing_sql");
+
+        }
+        public override List<medicine> GetProductsForMarketing(int marketing_id)
+        {
+            string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_by_marketing_id_sql' ");
+            if (!string.IsNullOrWhiteSpace(sql))
+            {
+                SqlParameter parameter = new SqlParameter("@param", marketing_id);
+                using (SqlConnection connection = DBAccess.CreateConnection())
+                {
+                    using (var command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.Add(parameter);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            return LoadMedicineFromReader(reader);
+                        }
+                    }
+                }
+            }
+            else
+                throw new KeyNotFoundException("ERROR>>null>>select_medicine_by_name_sql");
         }
     }
 }

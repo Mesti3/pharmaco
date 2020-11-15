@@ -38,5 +38,13 @@ namespace pharmaco.data
         {
             return dataController.GetAllProductNames();
         }
+        public List<marketing> GetMarketing()
+        {
+            return dataController.GetMarketing();
+        }
+        public List<medicine> GetProductsForMarketing(int marketing_id)
+        {
+            return dataController.GetProductsForMarketing(marketing_id);
+        }
     }
 }
