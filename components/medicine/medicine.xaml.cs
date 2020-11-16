@@ -1,28 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using pharmaco.model;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace pharmaco.components.category
+namespace pharmaco.components.medicine_components
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class medicine_detail : UserControl
     {
-        public UserControl1()
+        public event Action<medicine> product_ordered;
+        public event Action<medicine_detail> product_list_needed;
+        public int left_panel_width;
+        private medicine med;
+        public medicine_detail()
         {
             InitializeComponent();
         }
+        public medicine_detail(model.medicine obj):this()
+        {
+            FillMedicine(obj);
+        }
+
+        public void FillMedicine(medicine obj)
+        {
+            Clear();
+               med = obj;
+            medicine_filter.FillMedicine(med);
+            medicine_filter.mode = filter.filter_mode.detail;
+            medicine_filter.UpdateLayout();
+            medicine_name.Content = med.name;
+            if (!string.IsNullOrWhiteSpace(med.form))
+                medicine_form.Content = med.form;
+            else
+                medicine_form.Visibility = Visibility.Collapsed;
+            if (!string.IsNullOrWhiteSpace(med.description))
+                right_stack_panel.Children.Add(new medicine_text_block("Popis", med.description));
+            if (!string.IsNullOrWhiteSpace(med.usage))
+                right_stack_panel.Children.Add(new medicine_text_block("Spôsob použitia", med.usage));
+            if (!string.IsNullOrWhiteSpace(med.dosage))
+                right_stack_panel.Children.Add(new medicine_text_block("Dávkovanie", med.dosage));
+            if (!string.IsNullOrWhiteSpace(med.warning))
+                right_stack_panel.Children.Add(new medicine_text_block("Varovanie", med.warning));
+            if (!string.IsNullOrWhiteSpace(med.producer))
+                right_stack_panel.Children.Add(new medicine_text_block("Výrobca", med.producer));
+
+            UpdateLayout();
+            //public string producer { get; set; }
+            //public bool? prescription_only { get; set; }
+            //public string flyer { get; set; }
+        }
+
+        private void Clear()
+        {
+            medicine_filter.Clear();
+            medicine_name.Content = "";
+            medicine_form.Content = "";
+            medicine_form.Visibility = Visibility.Visible;
+            right_stack_panel.Children.Clear();
+
+        }
+
+        private void order_button_Click_1(object sender, RoutedEventArgs e)
+        {
+            product_ordered(med);
+        }
+
+        private void back_button_Click_1(object sender, RoutedEventArgs e)
+        {
+            product_list_needed(this);
+        }
+
+      
+
+
     }
 }

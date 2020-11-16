@@ -9,12 +9,12 @@ pharmaco
 none
 false
 DEBUG;TRACE
+D:\Projects\Visual Studio\C# projects\pharmaco\App.xaml
+81718286193
 
-4-649720506
+15580704964
+141183416626
+components\button\green_button.xaml;components\filter\filter.xaml;components\medicine\medicine.xaml;components\medicine\medicine_text_block.xaml;components\shopping\shoping.xaml;components\shopping\shopping_item.xaml;MainWindow.xaml;pages\menu\menu.xaml;
 
-10-299879808
-16535398935
-components\medicine\medicine.xaml;components\filter\filter.xaml;pages\category\category.xaml;pages\menu\menu.xaml;
-
-False
+True
 
