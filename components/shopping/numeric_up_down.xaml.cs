@@ -1,4 +1,5 @@
 ﻿using pharmaco.model;
+using pharmaco.pages.message_box;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace pharmaco.components.shopping
                 quantity_changed(order_qiantity);
             }
             else
-                MessageBox.Show("viac nemáme");
+                message_box.show_dialog("Viac nemáme", MessageBoxButton.OK);
         }
 
         private void minus_button_Click(object sender, RoutedEventArgs e)

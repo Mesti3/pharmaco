@@ -47,7 +47,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>-->
             <StackPanel x:Name="right_bottom_panel" Grid.Row="1">
-                <button:green_button x:Name="main_window_button" Grid.Row="0" GreenButtonText="Pokraćovať v nákupe" HorizontalAlignment="Stretch" Height="50" Margin="10,10,10,10" VerticalAlignment="Bottom" Click="main_window_button_Click"/>
+                <button:green_button x:Name="main_window_button" Grid.Row="0" GreenButtonText="Pokračovať v nákupe" HorizontalAlignment="Stretch" Height="50" Margin="10,10,10,10" VerticalAlignment="Bottom" Click="main_window_button_Click"/>
                 <button:orange_button x:Name="cance_button" Grid.Row="1" GreenButtonText="Zrušiť nákup" HorizontalAlignment="Stretch"  Height="50" Margin="10,10,10,10"  VerticalAlignment="Bottom" Click="cance_button_Click">
                     <!--<button:orange_button Content="orange_button" GreenButtonText="Zrušiť nákup"/>-->
                 </button:orange_button>

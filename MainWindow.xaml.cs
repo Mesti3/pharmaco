@@ -4,6 +4,7 @@ using pharmaco.components.search;
 using pharmaco.data;
 using pharmaco.model;
 using pharmaco.objects;
+using pharmaco.pages.message_box;
 using pharmaco.pages.shopping_window;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace pharmaco
             try
             {
                 string tag = data.SaveOrder(order);
-                MessageBox.Show(@"tvoje čislo je" + Environment.NewLine + tag + Environment.NewLine);
+                message_box.show_dialog(@"tvoje čislo je" + Environment.NewLine + tag + Environment.NewLine, MessageBoxButton.OK);
                 // print tag
             }
             catch (Exception ex)
@@ -152,7 +153,7 @@ namespace pharmaco
                 ratio =  filter_height/ f.Height;
             }
 
-            filter_left_margin= (center_grid.ActualWidth - 58) / Math.Truncate( (center_grid.ActualWidth -58)/ (f.Width*ratio))  ;//18 is default scrollbar width
+            filter_left_margin= (center_grid.ActualWidth - 38) / Math.Truncate( (center_grid.ActualWidth -38)/ (f.Width*ratio))  ;//18 is default scrollbar width
 
         }
 
@@ -188,10 +189,13 @@ namespace pharmaco
         private void load_categories()
         {
             try
-            {               
+            {
+                MenuItem mi = new MenuItem();
+                mi.Header = "Kategórie";
                 categories = data.GetCategories();
                 // horizontal_category_panel.set_categories(categories);
-                categories.ForEach(x => categories_menu.Items.Add(createCategoryItem(x)));
+                categories.ForEach(x => mi.Items.Add(createCategoryItem(x)));
+                categories_menu.Items.Add(mi);
             }
             catch (Exception ex)
             {
