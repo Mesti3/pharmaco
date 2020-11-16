@@ -57,12 +57,13 @@ namespace pharmaco.data.DBDataCotroller
             string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_by_category_sql' ");
             if (!string.IsNullOrWhiteSpace(sql))
             {
-                SqlParameter parameter = new SqlParameter("@name", "'" + string.Join("','", categories_ids) + "'");
+               // SqlParameter parameter = new SqlParameter("@ids", "'" + string.Join("','", categories_ids) + "'");
                 using (SqlConnection connection = DBAccess.CreateConnection())
                 {
+                    sql = sql.Replace("@ids", "'" + string.Join("','", categories_ids) + "'");
                     using (var command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.Add(parameter);
+                       // command.Parameters.Add(parameter);
                         using (var reader = command.ExecuteReader())
                         {
                             return LoadMedicineFromReader(reader);

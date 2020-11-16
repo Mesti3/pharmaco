@@ -158,6 +158,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="objects\category_extension.cs" />
     <Compile Include="objects\marketing_extension.cs" />
     <Compile Include="objects\order_item_extension.cs" />
     <Compile Include="pages\message_box\message_box.xaml.cs">

@@ -54,7 +54,7 @@
                     <ColumnDefinition Width="234"/>
                     <ColumnDefinition Width="234"/>
                 </Grid.ColumnDefinitions>
-                <Menu x:Name="categories_menu" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0"   />
+                <Menu x:Name="categories_menu" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" Background="{x:Null}"  />
 
                 <!--<button:green_button x:Name="categories_button" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" GreenButtonText="Kategórie" Click="categories_button_Click"  />-->
                 <Canvas Grid.Column="1">

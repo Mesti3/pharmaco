@@ -192,6 +192,11 @@ namespace pharmaco
             {
                 MenuItem mi = new MenuItem();
                 mi.Header = "Kategórie";
+                mi.FontSize = 50;
+                mi.Height = 100;
+                mi.Background = (Brush)(new BrushConverter().ConvertFrom("#FF16ED19"));
+                mi.BorderBrush = (Brush)(new BrushConverter().ConvertFrom("#FF109912"));
+                mi.BorderThickness = new Thickness(2);
                 categories = data.GetCategories();
                 // horizontal_category_panel.set_categories(categories);
                 categories.ForEach(x => mi.Items.Add(createCategoryItem(x)));
@@ -201,9 +206,9 @@ namespace pharmaco
             {
                 //logovanie
                 //hlásk
-            }
-         
+            }         
         }
+     
         private void load_marketing()
         {
             try
@@ -236,10 +241,27 @@ namespace pharmaco
             MenuItem mi = new MenuItem();
             mi.Header = x.name;
             mi.Tag = x.id;
+            mi.FontSize = 30;
+            mi.Background = Brushes.White;
+            mi.Click += category_menu_Click;
             if (x.subcategories != null)
                 foreach (category c in x.subcategories)
                     mi.Items.Add(createCategoryItem(c));
             return mi;
+        }
+
+        private void category_menu_Click(object sender, RoutedEventArgs e)
+        {
+            var t = (sender as MenuItem).Tag;
+            if (t != null)
+            {
+                searchBox.text = "";
+                List<string> ids = category_extension.find_subcategories_ids(categories, t.ToString());
+                List<medicine> medicines = data.GetMedicinesInCategory(ids);
+                FillWrapPanel(medicines);
+                this.UpdateLayout();
+            }
+            e.Handled = true;
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
