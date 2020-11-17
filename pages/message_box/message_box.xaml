@@ -1,0 +1,30 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pharmaco.pages.message_box"
+        xmlns:button="clr-namespace:pharmaco.components.button" x:Class="pharmaco.pages.message_box.message_box"
+        mc:Ignorable="d"
+        Title="message_box" Height="auto" Width="auto" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"  WindowStyle="None" BorderBrush="Black" BorderThickness="1" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="text" Grid.Row="0" Margin="50,50,50,20" Text="I am message box" FontSize="30"/>
+        <Grid x:Name="button_grid" Grid.Row="1" Margin="20,10,20,20" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  x:Name="yes_column" Width="1*"/>
+                <ColumnDefinition  x:Name="no_column" Width="1*"/>
+                <!--<ColumnDefinition  x:Name="cancel_column" Width="1*"/>-->
+            </Grid.ColumnDefinitions>
+
+            <button:green_button x:Name="green"   HorizontalAlignment="Stretch" Margin="10,0,10,0" Grid.Column="0" VerticalAlignment="Top" Click="yes_button_Click" Height="40"/>
+            <button:orange_button x:Name="orange"   HorizontalAlignment="Stretch" Margin="10,0,10,0" Grid.Column="1" VerticalAlignment="Top" Click="no_button_Click" Height="40"/>
+
+        </Grid>
+
+
+    </Grid>
+</Window>

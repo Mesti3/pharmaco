@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pharmaco.components.medicine_components"
-             xmlns:button="clr-namespace:pharmaco.components.button" xmlns:filter="clr-namespace:pharmaco.components.filter" xmlns:menu="clr-namespace:pharmaco.pages.menu" x:Class="pharmaco.components.medicine_components.medicine_detail"
+             xmlns:button="clr-namespace:pharmaco.components.button" xmlns:filter="clr-namespace:pharmaco.components.filter" x:Class="pharmaco.components.medicine_components.medicine_detail"
              mc:Ignorable="d" 
                  d:DesignHeight="800" d:DesignWidth="1200.667" Background="White">
 
@@ -17,8 +17,9 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel x:Name="left_stack_panel" Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <filter:filter x:Name="medicine_filter" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top"/>
-
+            <Viewbox  x:Name ="box" Stretch="Fill"  ScrollViewer.VerticalScrollBarVisibility="Disabled" >
+                <filter:filter x:Name="medicine_filter" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            </Viewbox>
             <button:green_button x:Name="order_button" Height="50" Margin="10,5,10,5" GreenButtonText="Objednať" Click="order_button_Click_1"/>
             <button:green_button x:Name="back_button" Height="50" Margin="10,5,10,5" GreenButtonText="Späť" Click="back_button_Click_1"/>
 
@@ -35,9 +36,7 @@
             </StackPanel>
 
             <ScrollViewer x:Name="scroll_view"  Grid.Row="1"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="10,10,0,10">
-                <StackPanel x:Name="right_stack_panel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
-                </StackPanel>
+               
             </ScrollViewer>
         </Grid>
     </Grid>

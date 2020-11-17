@@ -10,7 +10,7 @@ namespace pharmaco.components.medicine_components
     /// </summary>
     public partial class medicine_detail : UserControl
     {
-        public event Action<medicine> product_ordered;
+        public event Action<pharmaco.components.filter.filter> product_ordered;
         public event Action<medicine_detail> product_list_needed;
         public int left_panel_width;
         private medicine med;
@@ -36,20 +36,22 @@ namespace pharmaco.components.medicine_components
             else
                 medicine_form.Visibility = Visibility.Collapsed;
             if (!string.IsNullOrWhiteSpace(med.description))
-                right_stack_panel.Children.Add(new medicine_text_block("Popis", med.description));
+                big_right_stack_panel.Children.Add(new medicine_text_block("Popis", med.description));
             if (!string.IsNullOrWhiteSpace(med.usage))
-                right_stack_panel.Children.Add(new medicine_text_block("Spôsob použitia", med.usage));
+                big_right_stack_panel.Children.Add(new medicine_text_block("Spôsob použitia", med.usage));
             if (!string.IsNullOrWhiteSpace(med.dosage))
-                right_stack_panel.Children.Add(new medicine_text_block("Dávkovanie", med.dosage));
+                big_right_stack_panel.Children.Add(new medicine_text_block("Dávkovanie", med.dosage));
             if (!string.IsNullOrWhiteSpace(med.warning))
-                right_stack_panel.Children.Add(new medicine_text_block("Varovanie", med.warning));
+                big_right_stack_panel.Children.Add(new medicine_text_block("Varovanie", med.warning));
             if (!string.IsNullOrWhiteSpace(med.producer))
-                right_stack_panel.Children.Add(new medicine_text_block("Výrobca", med.producer));
+                big_right_stack_panel.Children.Add(new medicine_text_block("Výrobca", med.producer));
 
             UpdateLayout();
             //public string producer { get; set; }
             //public bool? prescription_only { get; set; }
             //public string flyer { get; set; }
+
+            fillText();
         }
 
         private void Clear()
@@ -58,13 +60,13 @@ namespace pharmaco.components.medicine_components
             medicine_name.Content = "";
             medicine_form.Content = "";
             medicine_form.Visibility = Visibility.Visible;
-            right_stack_panel.Children.Clear();
+            big_right_stack_panel.Children.Clear();
 
         }
 
         private void order_button_Click_1(object sender, RoutedEventArgs e)
         {
-            product_ordered(med);
+            product_ordered(medicine_filter);
         }
 
         private void back_button_Click_1(object sender, RoutedEventArgs e)
@@ -72,7 +74,34 @@ namespace pharmaco.components.medicine_components
             product_list_needed(this);
         }
 
-      
+        private void fillText() 
+        {
+            String breaker = "\n";
+
+            String label1 = "";
+            String label2 = "";
+
+
+            String label3 = "<b>Dávkovanie a dávkovacie schémy</b>\n\n\n";
+            String label4 = "";
+
+            String label5 = "<b>Spôsob použitia</b>\n\n\n";
+            String label6 = "";
+
+            String label7 = "<b>Upozornenie</b>\n\n\n";
+            String label8 = "";
+
+            String label9 = "<b>Zloženie</b>\n\n\n";
+            String label10 = "";
+
+            String label11 = "<b>Doplňujúce informácie</b>\n\n\n";
+            String label12 = "";
+
+            Label lab = new Label();
+            lab.Content = label3 + label4 + label5 + label6;
+
+            this.scroll_view.Content = lab;
+        }
 
 
     }

@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,11 +65,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="components\marketing\marketing_info_panel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="components\marketing\marketing_panel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="components\medicine\medicine.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="components\medicine\medicine_text_block.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="components\menu\green_menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="components\search\search_box.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="components\shopping\numeric_up_down.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,11 +117,26 @@
       <DependentUpon>filter.xaml</DependentUpon>
     </Compile>
     <Compile Include="components\filter\filter_mode.cs" />
+    <Compile Include="components\marketing\marketing_info_panel.xaml.cs">
+      <DependentUpon>marketing_info_panel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\marketing\marketing_panel.xaml.cs">
+      <DependentUpon>marketing_panel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="components\medicine\medicine.xaml.cs">
       <DependentUpon>medicine.xaml</DependentUpon>
     </Compile>
     <Compile Include="components\medicine\medicine_text_block.xaml.cs">
       <DependentUpon>medicine_text_block.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\menu\green_menu.xaml.cs">
+      <DependentUpon>green_menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\search\search_box.xaml.cs">
+      <DependentUpon>search_box.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\shopping\numeric_up_down.xaml.cs">
+      <DependentUpon>numeric_up_down.xaml</DependentUpon>
     </Compile>
     <Compile Include="components\shopping\shoping.xaml.cs">
       <DependentUpon>shoping.xaml</DependentUpon>
@@ -112,14 +148,24 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="pages\menu\menu.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="pages\message_box\message_box.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\shopping_window\shopping_window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="pages\menu\menu.xaml.cs">
-      <DependentUpon>menu.xaml</DependentUpon>
+    <Compile Include="objects\category_extension.cs" />
+    <Compile Include="objects\marketing_extension.cs" />
+    <Compile Include="objects\order_item_extension.cs" />
+    <Compile Include="pages\message_box\message_box.xaml.cs">
+      <DependentUpon>message_box.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\shopping_window\shopping_window.xaml.cs">
+      <DependentUpon>shopping_window.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

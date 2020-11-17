@@ -1,0 +1,15 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pharmaco.pages.shopping_window"
+        xmlns:shopping="clr-namespace:pharmaco.components.shopping" x:Class="pharmaco.pages.shopping_window.shopping_window"
+        mc:Ignorable="d"
+        Title="shopping_window" Height="450" Width="800" WindowStyle="None" WindowState="Maximized" ContentRendered="Window_ContentRendered">
+    <Grid>
+
+        <shopping:shoping x:Name="shopping" HorizontalAlignment="Stretch"  Margin="0,0,0,0" VerticalAlignment="Stretch" order_confirmed="shopping_order_confirmed" window_closed="shopping_window_closed" show_detail="shopping_show_detail" order_canceled="shopping_order_canceled"/>
+
+    </Grid>
+</Window>

@@ -1,12 +1,58 @@
-﻿<UserControl x:Class="pharmaco.components.shopping.shoping"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pharmaco.components.shopping"
+             xmlns:button="clr-namespace:pharmaco.components.button" x:Class="pharmaco.components.shopping.shoping"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" IsVisibleChanged="UserControl_IsVisibleChanged">
+    <Grid Background="White">        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column ="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1000*"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="price_label"  Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"  FontSize="40" FontWeight="Bold" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"  >
+                <AccessText x:Name="price_label_block" TextWrapping="Wrap" Text="Nákupný košík" />
+            </Label>
+            <ScrollViewer x:Name="scrol_viever" Grid.Row ="1" HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="left_panel" HorizontalAlignment="Stretch"  Margin="10,10,10,10" VerticalAlignment="Stretch" />
+            </ScrollViewer>
+        </Grid>
+        <Grid x:Name="right_panel" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="left_upper_panel" Grid.Row="0" HorizontalAlignment="Stretch"  Margin="10,10,10,10" VerticalAlignment="Stretch" >
+                <Label x:Name="shopping_label"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"  FontSize="22" FontWeight="Bold" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  >
+                    <AccessText x:Name="shopping_label_block" TextWrapping="Wrap" Text="Spolu:" />
+                </Label>
+                <Label x:Name="price"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"  FontSize="55" FontWeight="Bold" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  >
+                    <AccessText x:Name="price_block" TextWrapping="Wrap" Text="0.00" />
+                </Label>
+                <button:green_button x:Name="buy_button"  GreenButtonText="Kúpiť" HorizontalAlignment="Stretch" Height="50" Margin="10,10,10,10" VerticalAlignment="Top" Click="buy_button_Click"/>
+
+            </StackPanel>
+            <!--<Grid x:Name="right_bottom_panel" Grid.Row="1">-->
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>-->
+            <StackPanel x:Name="right_bottom_panel" Grid.Row="1">
+                <button:green_button x:Name="main_window_button" Grid.Row="0" GreenButtonText="Pokračovať v nákupe" HorizontalAlignment="Stretch" Height="50" Margin="10,10,10,10" VerticalAlignment="Bottom" Click="main_window_button_Click"/>
+                <button:orange_button x:Name="cance_button" Grid.Row="1" GreenButtonText="Zrušiť nákup" HorizontalAlignment="Stretch"  Height="50" Margin="10,10,10,10"  VerticalAlignment="Bottom" Click="cance_button_Click">
+                    <!--<button:orange_button Content="orange_button" GreenButtonText="Zrušiť nákup"/>-->
+                </button:orange_button>
+            </StackPanel>
+            <!--</Grid>-->
+        </Grid>
     </Grid>
 </UserControl>
