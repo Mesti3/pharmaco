@@ -32,17 +32,26 @@
                 <Border x:Name="border" BorderBrush="Gray" BorderThickness="2"  Grid.Column="1" Margin="10,10,10,10">
                     <Grid x:Name="center_grid" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"   >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
+                            <!--<RowDefinition Height="auto"/>-->
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="0*"/>
                         </Grid.RowDefinitions>
                         <!--<categories:category_panel x:Name   = "horizontal_category_panel" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="auto"/>-->
 
-                        <marketing:marketing_info_panel x:Name ="marketing_panel"  Grid.Row="0" Visibility="Collapsed" Margin="10,10,10,10"/>
-                        <ScrollViewer x:Name="scroll_view"  Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" BorderBrush="Gray" BorderThickness="2"  >
-                            <WrapPanel x:Name="wrapPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,10,10,10"  Height="Auto"  Width="Auto"  />
+                        <ScrollViewer x:Name="scroll_view"  Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" BorderBrush="Gray" BorderThickness="2"  >
+                            <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <marketing:marketing_info_panel x:Name ="marketing_panel" Grid.Row="0"  Visibility="Collapsed" Margin="10,10,10,10"/>
+
+                                <WrapPanel x:Name="wrapPanel" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,10,10,10"  Height="Auto"  Width="Auto" >
+
+                                </WrapPanel>
+                            </Grid>
                         </ScrollViewer>
-                        <medicine_components:medicine_detail  x:Name="medicine_dateil" Grid.Row="1" Visibility="Collapsed"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" product_list_needed="medicine_dateil_product_list_needed" product_ordered="medicine_dateil_product_ordered"/>
+                        <medicine_components:medicine_detail  x:Name="medicine_dateil" Grid.Row="0" Visibility="Collapsed"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" product_list_needed="medicine_dateil_product_list_needed" product_ordered="medicine_dateil_product_ordered"/>
 
                     </Grid>
                 </Border>

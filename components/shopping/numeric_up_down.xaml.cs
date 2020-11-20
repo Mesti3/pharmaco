@@ -74,6 +74,14 @@ namespace pharmaco.components.shopping
         {
             return order_qiantity;
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            plus_button.Width = plus_button.ActualHeight;
+            plus_button.corner_radius =(int)(plus_button.ActualHeight*0.8);
+            minus_button.Width = minus_button.ActualHeight;
+            minus_button.corner_radius = (int)(minus_button.ActualHeight*0.8);
+        }
     }
 
 }

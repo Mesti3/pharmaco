@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:pharmaco.components.shopping"
              xmlns:button="clr-namespace:pharmaco.components.button" x:Class="pharmaco.components.shopping.numeric_up_down"
              mc:Ignorable="d" 
-             d:DesignHeight="80" d:DesignWidth="280" Background="White">
+             d:DesignHeight="80" d:DesignWidth="240" Background="White" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.ColumnDefinitions >
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <button:green_button x:Name="plus_button"  Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,10,10,10" VerticalAlignment="Stretch" GreenButtonText="+" Click="green_button_Click"/>
+        <button:orange_button x:Name="plus_button"  Grid.Column="2" HorizontalAlignment="Left" Margin="5,10,10,10" VerticalAlignment="Stretch" GreenButtonText="+" Click="green_button_Click"/>
  
-        <button:orange_button x:Name="minus_button"  Grid.Column="0" HorizontalAlignment="Stretch" Margin="10,10,5,10" VerticalAlignment="Stretch" GreenButtonText="-" Click="minus_button_Click"/>
+        <button:orange_button x:Name="minus_button"  Grid.Column="0" HorizontalAlignment="Right" Margin="10,10,5,10" VerticalAlignment="Stretch" GreenButtonText="-" Click="minus_button_Click"/>
         <Viewbox  x:Name ="box" Grid.Column="1" Stretch="Uniform" ScrollViewer.VerticalScrollBarVisibility="Disabled"  >
             <TextBlock x:Name ="block" Text="number" Margin="2,2,2,2" FontSize="20"/>
         </Viewbox>

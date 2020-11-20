@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace pharmaco.components.button
@@ -6,6 +7,7 @@ namespace pharmaco.components.button
 
     public partial class green_button : Button
     {
+        private CornerRadius? cornerradius;
         public int corner_radius 
         { 
             set
@@ -13,12 +15,16 @@ namespace pharmaco.components.button
                 this.ApplyTemplate();
                 var im = this.Template.FindName("button_border", this);
                 if (im != null)
-                    (im as Border).CornerRadius = new System.Windows.CornerRadius(value);
+                {
+                    cornerradius = new System.Windows.CornerRadius(value);
+                    (im as Border).CornerRadius = cornerradius.Value;                    
+                }
             }
         }
         public green_button():base()
         {
             InitializeComponent();
+            cornerradius = null ;
         }
 
         [EditorBrowsable]
@@ -30,7 +36,8 @@ namespace pharmaco.components.button
 
         private void button_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            corner_radius = (int)this.ActualHeight / 3;
+            if (!cornerradius.HasValue)
+                corner_radius = (int)this.ActualHeight / 3;
         }
     }
 }

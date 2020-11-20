@@ -14,7 +14,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Border x:Name="button_border" Grid.Row="0" CornerRadius="20"  HorizontalAlignment="Stretch" Margin="0,0,0,0"  VerticalAlignment="Stretch" Background="White" BorderBrush="Black"  LostFocus="text_block_LostFocus" ClipToBounds="True" BorderThickness="1" >
+        <Border x:Name="button_border" Grid.Row="0" CornerRadius="30"  HorizontalAlignment="Stretch" Margin="0,0,0,0"  VerticalAlignment="Stretch" Background="White" BorderBrush="Black"  LostFocus="text_block_LostFocus" ClipToBounds="True" BorderThickness="1" >
             <TextBox x:Name="text_block"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap"  TextChanged="text_block_TextChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="50" MaxLines="1" AutomationProperties.HelpText="zadaj text" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
 
             </TextBox>
