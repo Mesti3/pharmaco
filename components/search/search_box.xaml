@@ -5,22 +5,73 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pharmaco.components.search"
              mc:Ignorable="d" 
-             d:DesignHeight="104" d:DesignWidth="800" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+             d:DesignHeight="104" d:DesignWidth="800" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+    
     <Grid x:Name="grid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="5">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <Border x:Name="button_border" Grid.Row="0" CornerRadius="20"  HorizontalAlignment="Stretch" Margin="0,0,0,0"  VerticalAlignment="Stretch" Background="White" BorderBrush="Black"  LostFocus="text_block_LostFocus" ClipToBounds="True" BorderThickness="1" >
+            <TextBox x:Name="text_block"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap"  TextChanged="text_block_TextChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="50" MaxLines="1" AutomationProperties.HelpText="zadaj text" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualStyle="{x:Null}" BorderThickness="0">
 
-            <TextBox x:Name="text_block" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Stretch" TextChanged="text_block_TextChanged" Background="{x:Null}" BorderBrush="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="text_block_LostFocus" ClipToBounds="True" FontSize="50" MaxLines="1" BorderThickness="1"/>
+            </TextBox>
+        </Border>
+        
+         <!---->
 
-        <!--<TextBlock x:Name="text_block" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Stretch"  LostFocus="text_block_LostFocus" KeyDown="text_block_KeyDown" IsManipulationEnabled="True" ClipToBounds="True" />-->
+        <!--<Border x:Name="list_border" Grid.Row="1"  CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"   ClipToBounds="True" BorderThickness="1" >
+            --><!--<Border.OpacityMask>
+                <VisualBrush Visual="{Binding ElementName=list_border, Mode=OneWay}"/>
+            </Border.OpacityMask>-->
+           
+            <!--<Border Name="mask" Background="White" CornerRadius="20"/>--><!--
+            <ListView  x:Name="list_box"  Grid.Row="1" HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0" ClipToBounds="True" >
+                --><!--<ListView.OpacityMask>
+                <VisualBrush Visual="{Binding ElementName=mask}"/>
+            </ListView.OpacityMask> --><!--
+                <ListView.Template>
+                    <ControlTemplate x:Name="border_temp" TargetType="ListView">
+                        <Grid>
+                            <Border Name="mask" Background="White" CornerRadius="20"/>
+
+                            <Border x:Name="list_box_border" CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"   ClipToBounds="True" BorderThickness="1" >
+                                <Border.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                </Border.OpacityMask>
+                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="auto" />
+                        </Border>
+                       </Grid>
+                    </ControlTemplate>
+                </ListView.Template>
+            </ListView>
+        </Border>-->
 
 
-        <ListView  x:Name="list_box" Grid.Row="1" HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6" >
+            <ListView  x:Name="list_box"  Grid.Row="1" HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0" ClipToBounds="True" >
+                <!--<ListView.OpacityMask>
+                <VisualBrush Visual="{Binding ElementName=mask}"/>
+            </ListView.OpacityMask> -->
+                <ListView.Template>
+                    <ControlTemplate x:Name="border_temp" TargetType="ListView">
+                        <Grid>
+                            <Border Name="mask" Background="White" CornerRadius="30"/>
 
-        </ListView>
+                            <Border x:Name="list_box_border" CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"   ClipToBounds="True" BorderThickness="1" >
+                                <Border.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                </Border.OpacityMask>
+                            <ScrollViewer Margin="10,10,10,10">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </ListView.Template>
+            </ListView>
+
 
     </Grid>
 </UserControl>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Controls;
 
 namespace pharmaco.components.button
 {
@@ -12,8 +6,13 @@ namespace pharmaco.components.button
     {
         public orange_button() : base()
         {
-            base.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 255, 112, 0));
-            base.BorderBrush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 220, 80, 0));
+            this.ApplyTemplate();
+            var im = this.Template.FindName("button_border", this);
+            if (im != null)
+            {
+                (im as Border).Background = System.Windows.Media.Brushes.White;
+                (im as Border).BorderBrush = System.Windows.Media.Brushes.LightGray;
+            }
             base.UpdateLayout();
         }
     }

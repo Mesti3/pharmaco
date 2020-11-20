@@ -128,7 +128,7 @@ namespace pharmaco
         {
             this.Cursor = Cursors.Wait;
 
-            searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth - 2*leftPanel.Width;
+            searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth - 2*leftPanel.Width - 35;
             set_size_of_medicines();
             load_categories();
             load_main_page_products();

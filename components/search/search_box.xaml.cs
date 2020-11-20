@@ -37,6 +37,8 @@ namespace pharmaco.components.search
         public double text_box_width { get { return text_block.Width; } set { text_block.Width = value; } }
         [EditorBrowsable]
         public double text_box_heigh { get { return text_block.Height; } set { text_block.Height = value; } }
+        [EditorBrowsable]
+        public double text_box_corner_radius { get { return button_border.CornerRadius.TopLeft; } set { button_border.CornerRadius  =new CornerRadius(value); } }
         public search_box()
         {
             InitializeComponent();
@@ -100,6 +102,7 @@ namespace pharmaco.components.search
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            button_border.CornerRadius = new CornerRadius(text_box_heigh / 3);
         }
     }
 }

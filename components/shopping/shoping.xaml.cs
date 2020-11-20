@@ -58,7 +58,6 @@ namespace pharmaco.components.shopping
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             refresh_items();
-            calc_total_price();
         }
 
         public void refresh_items()
@@ -73,7 +72,7 @@ namespace pharmaco.components.shopping
                 si.show_detail += Si_show_detail;
                 left_panel.Children.Add(si);
             }
-
+            calc_total_price();
         }
 
         private void Si_show_detail(orderItem_with_image obj)
