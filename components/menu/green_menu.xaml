@@ -6,8 +6,18 @@
              xmlns:local="clr-namespace:pharmaco.components.menu"
              mc:Ignorable="d" Height="441.03" Width="646.013">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto"/>
-        </ScrollViewer>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.Column="0" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" LostFocus="ScrollViewer_LostFocus" MouseLeave="ScrollViewer_MouseLeave">
+                <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto"/>
+            </ScrollViewer>
+        </Canvas>
+        <Canvas x:Name="canvas_for_child" Grid.Column="1" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
+           
+        </Canvas>
+
     </Grid>
 </UserControl>

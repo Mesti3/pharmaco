@@ -85,8 +85,8 @@ namespace pharmaco.components.filter
                 original_price.Visibility = Visibility.Collapsed;
                 marketing.Visibility = Visibility.Collapsed;
             }
-        //    detail_button.corner_radius =(int) detail_button.ActualHeight / 3;
-        //    order_button.corner_radius = (int)order_button.ActualHeight / 3;
+            detail_button.corner_radius =(int) detail_button.ActualHeight / 3;
+            order_button.corner_radius = (int)order_button.ActualHeight / 3;
         }
 
         internal void Clear()

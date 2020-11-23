@@ -20,10 +20,15 @@ namespace pharmaco.objects
 
         private BitmapImage load_image(string path)
         {
-            if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
+            if (!string.IsNullOrWhiteSpace(path) )
             {
+
                 try
                 {
+                    //if (!File.Exists(path))
+                    //{
+                    //    path = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, path);
+                    //}
                     return new BitmapImage(new Uri(path, UriKind.Absolute));
                 }
                 catch (Exception ex)

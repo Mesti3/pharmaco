@@ -81,7 +81,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="components\menu\button_menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="components\menu\green_menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="components\menu\menu_item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -129,8 +137,14 @@
     <Compile Include="components\medicine\medicine_text_block.xaml.cs">
       <DependentUpon>medicine_text_block.xaml</DependentUpon>
     </Compile>
+    <Compile Include="components\menu\button_menu.xaml.cs">
+      <DependentUpon>button_menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="components\menu\green_menu.xaml.cs">
       <DependentUpon>green_menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\menu\menu_item.xaml.cs">
+      <DependentUpon>menu_item.xaml</DependentUpon>
     </Compile>
     <Compile Include="components\search\search_box.xaml.cs">
       <DependentUpon>search_box.xaml</DependentUpon>
@@ -160,6 +174,7 @@
   <ItemGroup>
     <Compile Include="objects\category_extension.cs" />
     <Compile Include="objects\marketing_extension.cs" />
+    <Compile Include="objects\menu_item_object.cs" />
     <Compile Include="objects\order_item_extension.cs" />
     <Compile Include="pages\message_box\message_box.xaml.cs">
       <DependentUpon>message_box.xaml</DependentUpon>

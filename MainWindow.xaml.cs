@@ -69,7 +69,7 @@ namespace pharmaco
             filter f;
             try
             {
-                
+                marketing_panel.Visibility = Visibility.Collapsed;
                 wrapPanel.Children.Clear();
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
                 if (medicines.Count == 0)
@@ -190,17 +190,17 @@ namespace pharmaco
         {
             try
             {
-                MenuItem mi = new MenuItem();
-                mi.Header = "Kategórie";
-                mi.FontSize = 50;
-                mi.Height = 100;
-                mi.Background = (Brush)(new BrushConverter().ConvertFrom("#FF16ED19"));
-                mi.BorderBrush = (Brush)(new BrushConverter().ConvertFrom("#FF109912"));
-                mi.BorderThickness = new Thickness(2);
+                //MenuItem mi = new MenuItem();
+                //mi.Header = "Kategórie";
+                //mi.FontSize = 50;
+                //mi.Height = 100;
+                //mi.Background = (Brush)(new BrushConverter().ConvertFrom("#FF16ED19"));
+                //mi.BorderBrush = (Brush)(new BrushConverter().ConvertFrom("#FF109912"));
+                //mi.BorderThickness = new Thickness(2);
                 categories = data.GetCategories();
-                // horizontal_category_panel.set_categories(categories);
-                categories.ForEach(x => mi.Items.Add(createCategoryItem(x)));
-                categories_menu.Items.Add(mi);
+               // horizontal_category_panel.set_categories(categories);
+            //    categories.ForEach(x => mi.Items.Add(createCategoryItem(x)));
+                categories_menu.set_items(categories);
             }
             catch (Exception ex)
             {
@@ -276,7 +276,6 @@ namespace pharmaco
                 try
                 {
                     this.Cursor = Cursors.Wait;
-                    marketing_panel.Visibility = Visibility.Collapsed;
                     var medicines = data.GetMedicines(searchBox.text);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();
@@ -340,7 +339,17 @@ namespace pharmaco
                 //logovanie
             }
         }
-      
 
+        private void categories_menu_item_selected(category obj)
+        {
+            if (obj != null)
+            {
+                searchBox.text = "";
+                List<string> ids = category_extension.find_subcategories_ids(obj);
+                List<medicine> medicines = data.GetMedicinesInCategory(ids);
+                FillWrapPanel(medicines);
+                this.UpdateLayout();
+            }
+        }
     }
 }
