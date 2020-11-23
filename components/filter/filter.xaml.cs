@@ -131,6 +131,7 @@ namespace pharmaco.components.filter
 
         private void image_click(object sender, RoutedEventArgs e)
         {
+            if (detail_button.Visibility == Visibility.Visible)
             product_detail_needed(med);
         }
     }

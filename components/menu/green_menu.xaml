@@ -11,10 +11,28 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Canvas Grid.Column="0" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" LostFocus="ScrollViewer_LostFocus" MouseLeave="ScrollViewer_MouseLeave">
-                <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto"/>
-            </ScrollViewer>
-        </Canvas>
+            <Border CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"  BorderThickness="1"  Panel.ZIndex="11" SnapsToDevicePixels="True">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Width="auto" Height="auto">
+                    <ScrollViewer.Template>
+                        <ControlTemplate x:Name="border_temp" TargetType="ScrollViewer">
+                            <Grid>
+                                <Border Name="mask" Background="White" CornerRadius="30"/>
+
+                                <Border x:Name="list_box_border" CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"  BorderThickness="0"  Panel.ZIndex="10" >
+                                    <Border.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                    </Border.OpacityMask>
+                                    <ScrollViewer Margin="0,0,0,0"   Width="auto" Height="auto">
+                                        <ScrollContentPresenter  />
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </ScrollViewer.Template>
+                    <StackPanel x:Name="panel" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto"/>
+                </ScrollViewer>
+            </Border>
+        </Canvas>   
         <Canvas x:Name="canvas_for_child" Grid.Column="1" HorizontalAlignment="Left" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto">
            
         </Canvas>

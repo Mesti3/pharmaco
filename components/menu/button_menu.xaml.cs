@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace pharmaco.components.menu
 {
-    /// <summary>
-    /// Interaction logic for button_menu.xaml
-    /// </summary>
     public partial class button_menu : UserControl
     {
         public event Action<category> item_selected;

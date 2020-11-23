@@ -39,7 +39,6 @@ namespace pharmaco.components.menu
                         (p as menu_item).child_opened = false;
                 }
             }
-
         }
 
         private void mi_item_selected(menu_item_object obj)
@@ -55,8 +54,6 @@ namespace pharmaco.components.menu
                 green_menu gm = new green_menu();
                 gm.set_items(obj.items);
                 gm.item_selected += child_item_selected;
-            
-                //   gm.LostFocus += child_LostFocus;
                 gm.MouseLeave += child_MouseLeave;
                 gm.Margin = new System.Windows.Thickness(panel.ActualWidth,0,0,0);
                 canvas_for_child.Children.Add(gm);
@@ -72,23 +69,9 @@ namespace pharmaco.components.menu
             }
         }
 
-        private void child_LostFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //if ((sender as green_menu).canvas_for_child.Children.Count == 0)
-            //{
-            //    delete_children();
-            //}
-        }
-
         private void child_item_selected(menu_item_object obj)
         {
             item_selected(obj);
-        }
-
-        private void ScrollViewer_LostFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-        //    delete_children();
-        //    this.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void delete_children()
@@ -105,9 +88,6 @@ namespace pharmaco.components.menu
             }
         }
 
-        private void ScrollViewer_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-
-        }
+ 
     }
 }

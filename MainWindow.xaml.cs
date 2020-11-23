@@ -36,7 +36,7 @@ namespace pharmaco
             shopping_window = new shopping_window();
             shopping_window.order_confirmed += Shopping_window_order_confirmed;
             shopping_window.show_detail += Shopping_window_show_detail;
-            shopping_window.order_canceled += Shopping_window_order_canceled; 
+            shopping_window.order_canceled += Shopping_window_order_canceled;
         }
 
         private void Shopping_window_order_canceled()
@@ -74,34 +74,34 @@ namespace pharmaco
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
                 if (medicines.Count == 0)
                 {
-                    wrapPanel.Children.Add(new Image() { 
-                        Source = new BitmapImage(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\not_found.jpg", UriKind.Absolute)), 
-                        Margin = new Thickness(20) , Width = 200, Height = 150});
+                    wrapPanel.Children.Add(new Image()
+                    {
+                        Source = new BitmapImage(new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\not_found.jpg", UriKind.Absolute)),
+                        Margin = new Thickness(20),
+                        Width = 200,
+                        Height = 150
+                    });
                 }
                 else
                 {
                     foreach (medicine m in medicines)
                     {
                         Border b = new Border() { Width = filter_left_margin, Height = filter_height, BorderThickness = new Thickness(1), BorderBrush = new SolidColorBrush(Colors.Gray) };
-             
+
                         Viewbox wb = new Viewbox() { Stretch = System.Windows.Media.Stretch.Uniform, Width = filter_left_margin, Height = filter_height };
-                   
+
                         f = new filter(m);
                         f.product_ordered += F_product_ordered;
                         f.product_detail_needed += F_product_detail_needed;
                         wb.Child = f;
                         b.Child = wb;
-         //f.Margin = new Thickness( filter_left_margin, 0 , filter_left_margin,0);
-         // f.Width = wrapPanel.ActualWidth / 5;
-
-         wrapPanel.Children.Add(b);
+                        wrapPanel.Children.Add(b);
                     }
                 }
-             //   wrapPanel.UpdateLayout();
             }
             catch (Exception ex)
-            { 
-                
+            {
+
             }
         }
 
@@ -109,7 +109,7 @@ namespace pharmaco
         {
             medicine_dateil.FillMedicine(obj);
             medicine_dateil.Visibility = Visibility.Visible;
-            wrapPanel.Visibility = Visibility.Collapsed;           
+            wrapPanel.Visibility = Visibility.Collapsed;
         }
 
         private void F_product_ordered(filter obj)
@@ -128,13 +128,13 @@ namespace pharmaco
         {
             this.Cursor = Cursors.Wait;
 
-            searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth - 2*leftPanel.Width - 35;
+            searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth - 2 * leftPanel.Width - 35;
             set_size_of_medicines();
             load_categories();
             load_main_page_products();
             load_product_names();
             load_marketing();
-           
+
 
 
             this.Cursor = Cursors.Arrow;
@@ -150,10 +150,10 @@ namespace pharmaco
             if (f_height < 2 * filter_height)
             {
                 filter_height = f_height / 2;
-                ratio =  filter_height/ f.Height;
+                ratio = filter_height / f.Height;
             }
 
-            filter_left_margin= (center_grid.ActualWidth - 38) / Math.Truncate( (center_grid.ActualWidth -38)/ (f.Width*ratio))  ;//18 is default scrollbar width
+            filter_left_margin = (center_grid.ActualWidth - 38) / Math.Truncate((center_grid.ActualWidth - 38) / (f.Width * ratio));//18 is default scrollbar width
 
         }
 
@@ -198,22 +198,22 @@ namespace pharmaco
                 //mi.BorderBrush = (Brush)(new BrushConverter().ConvertFrom("#FF109912"));
                 //mi.BorderThickness = new Thickness(2);
                 categories = data.GetCategories();
-               // horizontal_category_panel.set_categories(categories);
-            //    categories.ForEach(x => mi.Items.Add(createCategoryItem(x)));
+                // horizontal_category_panel.set_categories(categories);
+                //    categories.ForEach(x => mi.Items.Add(createCategoryItem(x)));
                 categories_menu.set_items(categories);
             }
             catch (Exception ex)
             {
                 //logovanie
                 //hlásk
-            }         
+            }
         }
-     
+
         private void load_marketing()
         {
             try
             {
-                List<marketing_with_image> m =  data.GetMarketing().Select(x=>new marketing_with_image(x)).ToList();
+                List<marketing_with_image> m = data.GetMarketing().Select(x => new marketing_with_image(x)).ToList();
                 if (m.Count > 0)
                 {
                     if (m.Count == 1)
@@ -223,7 +223,7 @@ namespace pharmaco
                     }
                     else
                     {
-                        leftPanel.set_marketing(m.Take(m.Count/2).ToList());
+                        leftPanel.set_marketing(m.Take(m.Count / 2).ToList());
                         rightPanel.set_marketing(m.Except(m.Take(m.Count / 2)).ToList());
                     }
                 }
