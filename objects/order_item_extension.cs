@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms.VisualStyles;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 
 namespace pharmaco.model
 {

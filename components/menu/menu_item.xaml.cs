@@ -1,8 +1,6 @@
-﻿using pharmaco.model;
-using pharmaco.objects;
+﻿using pharmaco.objects;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;

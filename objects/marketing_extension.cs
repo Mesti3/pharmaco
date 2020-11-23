@@ -1,11 +1,10 @@
 ﻿using pharmaco.model;
 using System;
-using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace pharmaco.objects
 {
-   public  class marketing_with_image
+    public  class marketing_with_image
     {
         public marketing marketing;
         public BitmapImage horizontal_image_source;

@@ -1,6 +1,5 @@
 ﻿using pharmaco.components.filter;
 using pharmaco.components.medicine_components;
-using pharmaco.components.search;
 using pharmaco.data;
 using pharmaco.model;
 using pharmaco.objects;
