@@ -11,13 +11,13 @@ namespace pharmaco.data
         /// </summary>
         /// <param name="category_id">id of category to select</param>
         /// <returns>list of product in selected category and its subcategories</returns>
-        public abstract List<medicine> GetMedicinesInCategory(List<string> categories_ids);
+        public abstract List<medicine> GetMedicinesInCategory(List<string> categories_id, int count, int offset);
         /// <summary>
         /// Find list of products with name like param
         /// </summary>
         /// <param name="name">name of product to find</param>
         /// <returns>list of product in selected category and its subcategories</returns>
-        public abstract List<medicine> GetMedicines(string name);
+        public abstract List<medicine> GetMedicines(string name, int count, int offset);
         /// <summary>
         /// Find categories
         /// </summary>
@@ -33,14 +33,14 @@ namespace pharmaco.data
         /// function to get list of product for main page
         /// </summary>
         /// <returns>list of medicine</returns>
-        public abstract List<medicine> GetMainPageProducts();
+        public abstract List<medicine> GetMainPageProducts(int count, int offset);
         /// <summary>
         /// function to get list of product names for main page
         /// </summary>
         /// <returns>list of names</returns>
         public abstract List<string> GetAllProductNames();
         public abstract List<marketing> GetMarketing();
-        public abstract List<medicine> GetProductsForMarketing(int marketing_id);
+        public abstract List<medicine> GetProductsForMarketing(int marketing_id, int count, int offset);
 
 
     }

@@ -24,9 +24,10 @@ namespace pharmaco
         private List<category> categories;
         private DataController data;
         private shopping_window shopping_window;
-        private BackgroundWorker worker;
         private double filter_height;
         private double filter_left_margin;
+        private int search_page_size = 20;
+        private int worker_run;
         public MainWindow()
         {
             InitializeComponent();
@@ -36,7 +37,10 @@ namespace pharmaco
             shopping_window.order_confirmed += Shopping_window_order_confirmed;
             shopping_window.show_detail += Shopping_window_show_detail;
             shopping_window.order_canceled += Shopping_window_order_canceled;
+            worker_run = 0;
         }
+
+      
 
         private void Shopping_window_order_canceled()
         {
@@ -63,14 +67,17 @@ namespace pharmaco
             }
         }
 
-        private void FillWrapPanel(List<medicine> medicines)
+        private void FillWrapPanel(List<medicine> medicines, bool clear_previous_result = true)
         {
             filter f;
             try
             {
-                marketing_panel.Visibility = Visibility.Collapsed;
-                wrapPanel.Children.Clear();
-                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+                if (clear_previous_result)
+                {
+                    marketing_panel.Visibility = Visibility.Collapsed;
+                    wrapPanel.Children.Clear();
+                    GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+                }
                 if (medicines.Count == 0)
                 {
                     wrapPanel.Children.Add(new Image()
@@ -134,10 +141,7 @@ namespace pharmaco
             load_product_names();
             load_marketing();
 
-
-
             this.Cursor = Cursors.Arrow;
-
         }
 
         private void set_size_of_medicines()
@@ -172,12 +176,15 @@ namespace pharmaco
 
         private void load_main_page_products()
         {
+            stop_worker();
             try
             {
                 searchBox.text = "";
-                var medicines = data.GetMainPageProducts();
+                var medicines = data.GetMainPageProducts(search_page_size,0);
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
+                if (medicines.Count == search_page_size)
+                    search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.main_page, count = search_page_size, offset = 1 });
             }
             catch (Exception ex)
             {
@@ -189,16 +196,7 @@ namespace pharmaco
         {
             try
             {
-                //MenuItem mi = new MenuItem();
-                //mi.Header = "Kategórie";
-                //mi.FontSize = 50;
-                //mi.Height = 100;
-                //mi.Background = (Brush)(new BrushConverter().ConvertFrom("#FF16ED19"));
-                //mi.BorderBrush = (Brush)(new BrushConverter().ConvertFrom("#FF109912"));
-                //mi.BorderThickness = new Thickness(2);
                 categories = data.GetCategories();
-                // horizontal_category_panel.set_categories(categories);
-                //    categories.ForEach(x => mi.Items.Add(createCategoryItem(x)));
                 categories_menu.set_items(categories);
             }
             catch (Exception ex)
@@ -251,14 +249,17 @@ namespace pharmaco
 
         private void category_menu_Click(object sender, RoutedEventArgs e)
         {
+            stop_worker();
             var t = (sender as MenuItem).Tag;
             if (t != null)
             {
                 searchBox.text = "";
                 List<string> ids = category_extension.find_subcategories_ids(categories, t.ToString());
-                List<medicine> medicines = data.GetMedicinesInCategory(ids);
+                List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
+                if (medicines.Count == search_page_size)
+                    search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1});
             }
             e.Handled = true;
         }
@@ -270,14 +271,21 @@ namespace pharmaco
 
         private void do_search()
         {
+            stop_worker();
             if (!string.IsNullOrWhiteSpace(searchBox.text))
             {
                 try
                 {
                     this.Cursor = Cursors.Wait;
-                    var medicines = data.GetMedicines(searchBox.text);
+                    var medicines = data.GetMedicines(searchBox.text, search_page_size, 0);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();
+
+                    if (medicines.Count == search_page_size)
+                    {
+                        search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.name, name = searchBox.text, count = search_page_size, offset = 1 });
+                        
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -323,15 +331,19 @@ namespace pharmaco
 
         private void leftPanel_marketing_needed(objects.marketing_with_image obj)
         {
+            stop_worker();
             try
             {
                 marketing_panel.set_marketing(obj);
 
                 searchBox.text = "";
-                var medicines = data.GetProductsForMarketing(obj.marketing.id);
+                var medicines = data.GetProductsForMarketing(obj.marketing.id, search_page_size,0);
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
                 marketing_panel.Visibility = Visibility.Visible;
+                if (medicines.Count == search_page_size)
+                    search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.markering, marketing_id = obj.marketing.id ,count = search_page_size, offset = 1 }) ;
+
             }
             catch (Exception ex)
             {
@@ -341,14 +353,85 @@ namespace pharmaco
 
         private void categories_menu_item_selected(category obj)
         {
+            stop_worker();
             if (obj != null)
             {
                 searchBox.text = "";
                 List<string> ids = category_extension.find_subcategories_ids(obj);
-                List<medicine> medicines = data.GetMedicinesInCategory(ids);
+                List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
+                if (medicines.Count == search_page_size)
+                    search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1 });
             }
         }
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                if ((e.Result as worker_result).input.worker_run == worker_run)
+                {
+                    if (e.Error != null)
+                        throw e.Error;
+                    if (!e.Cancelled)
+                    {
+                        if ((e.Result as worker_result).medicines.Count > 0)
+                        {
+                            FillWrapPanel((e.Result as worker_result).medicines, false);
+                            this.UpdateLayout();
+                        }
+
+                        if ((e.Result as worker_result).medicines.Count == (e.Result as worker_result).input.count)
+                        {
+                            (sender as BackgroundWorker).RunWorkerAsync((e.Result as worker_result).input);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            { 
+            }
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                if ((e.Argument as worker_params).worker_run == worker_run )
+                {
+                    switch ((e.Argument as worker_params).mode)
+                    {
+                        case search_mode_enum.category:
+                            e.Result = new worker_result() { medicines = data.GetMedicinesInCategory((e.Argument as worker_params).category_ids, (e.Argument as worker_params).count, (e.Argument as worker_params).count * (e.Argument as worker_params).offset), input = (e.Argument as worker_params).AddOffsetAndReturn() }; break;
+                        case search_mode_enum.name:
+                            e.Result = new worker_result() { medicines = data.GetMedicines((e.Argument as worker_params).name, (e.Argument as worker_params).count, (e.Argument as worker_params).count * (e.Argument as worker_params).offset), input = (e.Argument as worker_params).AddOffsetAndReturn() }; break;
+                        case search_mode_enum.markering:
+                            e.Result = new worker_result() { medicines = data.GetProductsForMarketing((e.Argument as worker_params).marketing_id, (e.Argument as worker_params).count, (e.Argument as worker_params).count * (e.Argument as worker_params).offset), input = (e.Argument as worker_params).AddOffsetAndReturn() }; break;
+                        case search_mode_enum.main_page:
+                            e.Result = new worker_result() { medicines = data.GetMainPageProducts((e.Argument as worker_params).count, (e.Argument as worker_params).count * (e.Argument as worker_params).offset), input = (e.Argument as worker_params).AddOffsetAndReturn() }; break;
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+        private void search_by_worker(worker_params worker_params)
+        {
+            var worker = new BackgroundWorker();
+            worker.WorkerSupportsCancellation = true;
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            worker.RunWorkerAsync(worker_params);
+        }
+        private void stop_worker()
+        {
+            worker_run++;
+        }
+
+
     }
 }

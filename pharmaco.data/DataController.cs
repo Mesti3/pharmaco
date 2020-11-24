@@ -14,13 +14,13 @@ namespace pharmaco.data
             }
         }
 
-        public List<medicine> GetMedicinesInCategory(List<string> categories_ids)
+        public List<medicine> GetMedicinesInCategory(List<string> categories_ids, int count=1000, int offset=0)
         {
-        return dataController.GetMedicinesInCategory(categories_ids);
+        return dataController.GetMedicinesInCategory(categories_ids, count, offset);
         }
-        public List<medicine> GetMedicines(string name)
+        public List<medicine> GetMedicines(string name, int count=1000, int offset=0)
         {
-            return dataController.GetMedicines(name);
+            return dataController.GetMedicines(name,count,offset);
         }
         public  List<category> GetCategories()
         {
@@ -30,9 +30,9 @@ namespace pharmaco.data
         {
             return dataController.SaveOrder(order);
         }
-        public List<medicine> GetMainPageProducts()
+        public List<medicine> GetMainPageProducts(int count =1000,int offset=0 )
         {
-            return dataController.GetMainPageProducts();
+            return dataController.GetMainPageProducts(count, offset);
         }
         public List<string> GetAllProductNames()
         {
@@ -42,9 +42,9 @@ namespace pharmaco.data
         {
             return dataController.GetMarketing();
         }
-        public List<medicine> GetProductsForMarketing(int marketing_id)
+        public List<medicine> GetProductsForMarketing(int marketing_id,int count=1000, int offset=0)
         {
-            return dataController.GetProductsForMarketing(marketing_id);
+            return dataController.GetProductsForMarketing(marketing_id, count, offset);
         }
     }
 }

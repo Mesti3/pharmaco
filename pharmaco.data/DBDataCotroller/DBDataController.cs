@@ -51,7 +51,7 @@ namespace pharmaco.data.DBDataCotroller
 
 
 
-        public override List<medicine> GetMedicinesInCategory(List<string> categories_ids)
+        public override List<medicine> GetMedicinesInCategory(List<string> categories_ids, int count, int offset)
         {
             string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_by_category_sql' ");
             if (!string.IsNullOrWhiteSpace(sql))
@@ -60,6 +60,7 @@ namespace pharmaco.data.DBDataCotroller
                 using (SqlConnection connection = DBAccess.CreateConnection())
                 {
                     sql = sql.Replace("@ids", "'" + string.Join("','", categories_ids) + "'");
+                    sql+= " OFFSET "+ offset +" ROWS FETCH FIRST "+count+" ROWS ONLY; ";
                     using (var command = new SqlCommand(sql, connection))
                     {
                        // command.Parameters.Add(parameter);
@@ -74,13 +75,14 @@ namespace pharmaco.data.DBDataCotroller
                 throw new KeyNotFoundException("ERROR>>null>>select_medicine_by_name_sql");
         }
 
-        public override List<medicine> GetMedicines(string name)
+        public override List<medicine> GetMedicines(string name, int count, int offset)
         {
             string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_by_name_sql' ");
             if (!string.IsNullOrWhiteSpace(sql))
             {
                 using (SqlConnection connection = DBAccess.CreateConnection())
                 {
+                    sql += " OFFSET " + offset + " ROWS FETCH FIRST " + count + " ROWS ONLY; ";
                     using (var command = new SqlCommand(sql, connection))
                     {
                         SqlParameter parameter = new SqlParameter("@medicinename", name);
@@ -215,13 +217,15 @@ namespace pharmaco.data.DBDataCotroller
                 return null;
         }
 
-        public override List<medicine> GetMainPageProducts() /*todo - odstránenie zbytočných funkcií*/
+        public override List<medicine> GetMainPageProducts(int count, int offset) /*todo - odstránenie zbytočných funkcií*/
         {
             string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_for_main_page_sql' ");
             if (!string.IsNullOrWhiteSpace(sql))
             {
                 using (SqlConnection connection = DBAccess.CreateConnection())
                 {
+                    sql += " OFFSET " + offset + " ROWS FETCH FIRST " + count + " ROWS ONLY; ";
+
                     using (var command = new SqlCommand(sql, connection))
                     {
                         using (var reader = command.ExecuteReader())
@@ -232,7 +236,7 @@ namespace pharmaco.data.DBDataCotroller
                 }
             }
             else
-                throw new KeyNotFoundException("ERROR>>null>>select_medicine_for_main_page_sql");
+                throw new KeyNotFoundException("ERROR>>null>>select_medicine_for_main_offset_sql");
 
         }
         public override List<string> GetAllProductNames() /*todo - odstránenie zbytočných funkcií*/
@@ -255,7 +259,7 @@ namespace pharmaco.data.DBDataCotroller
                 return result;
             }
             else
-                throw new KeyNotFoundException("ERROR>>null>>select_medicine_for_main_page_sql");
+                throw new KeyNotFoundException("ERROR>>null>>select_medicine_for_main_offset_sql");
         }
         public override List<marketing> GetMarketing()
         {
@@ -300,11 +304,12 @@ namespace pharmaco.data.DBDataCotroller
                 throw new KeyNotFoundException("ERROR>>null>>select_marketing_sql");
 
         }
-        public override List<medicine> GetProductsForMarketing(int marketing_id)
+        public override List<medicine> GetProductsForMarketing(int marketing_id, int count, int offset)
         {
             string sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_medicine_by_marketing_id_sql' ");
             if (!string.IsNullOrWhiteSpace(sql))
             {
+                sql += " OFFSET " + offset + " ROWS FETCH FIRST " + count + " ROWS ONLY; ";
                 SqlParameter parameter = new SqlParameter("@param", marketing_id);
                 using (SqlConnection connection = DBAccess.CreateConnection())
                 {
