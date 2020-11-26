@@ -224,9 +224,7 @@ namespace pharmaco.data.DBDataCotroller
             {
                 using (SqlConnection connection = DBAccess.CreateConnection())
                 {
-                    sql += " OFFSET " + offset + " ROWS FETCH FIRST " + count + " ROWS ONLY; ";
-
-                    using (var command = new SqlCommand(sql, connection))
+                   using (var command = new SqlCommand(sql, connection))
                     {
                         using (var reader = command.ExecuteReader())
                         {

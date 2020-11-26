@@ -41,6 +41,23 @@ namespace pharmaco.components.menu
             menu.Visibility = Visibility.Collapsed;
         }
 
-      
+        private void Canvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            menu.Visibility = Visibility.Collapsed;
+        }
+
+        private void menu_visibility_changed()
+        {
+            if (!menu.IsMouseOver)
+            {
+                menu.Visibility = Visibility.Collapsed;
+             //   menu.delete_children();
+                //foreach (var p in menu.panel.Children)
+                //{
+                //    if (!(p as menu_item).IsMouseOver)
+                //        (p as menu_item).child_opened = false;
+                //}
+            }
+        }
     }
 }

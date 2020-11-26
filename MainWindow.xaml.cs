@@ -156,7 +156,7 @@ namespace pharmaco
                 ratio = filter_height / f.Height;
             }
 
-            filter_left_margin = (center_grid.ActualWidth - 38) / Math.Truncate((center_grid.ActualWidth - 38) / (f.Width * ratio));//18 is default scrollbar width
+            filter_left_margin = (center_grid.ActualWidth - (20+20)) / Math.Truncate((center_grid.ActualWidth - (20 + 20)) / (f.Width * ratio));// (20+20) = magin + scrollbar width
 
         }
 
@@ -183,8 +183,7 @@ namespace pharmaco
                 var medicines = data.GetMainPageProducts(search_page_size,0);
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
-                if (medicines.Count == search_page_size)
-                    search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.main_page, count = search_page_size, offset = 1 });
+             
             }
             catch (Exception ex)
             {

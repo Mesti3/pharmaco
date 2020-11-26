@@ -11,7 +11,8 @@ namespace pharmaco.components.menu
     public partial class green_menu : UserControl
     {
         public event Action<menu_item_object> item_selected;
-       
+        public event Action visibility_changed;
+
         public green_menu()
         {
             InitializeComponent();
@@ -38,6 +39,11 @@ namespace pharmaco.components.menu
                     if (!(p as menu_item).IsMouseOver)
                         (p as menu_item).child_opened = false;
                 }
+                if (!this.IsMouseOver)
+                {
+                    this.Visibility = System.Windows.Visibility.Collapsed;
+                    visibility_changed();
+                }
             }
         }
 
@@ -55,9 +61,19 @@ namespace pharmaco.components.menu
                 gm.set_items(obj.items);
                 gm.item_selected += child_item_selected;
                 gm.MouseLeave += child_MouseLeave;
+                gm.visibility_changed += child_visibility_changed;
                 gm.Margin = new System.Windows.Thickness(panel.ActualWidth,0,0,0);
                 canvas_for_child.Children.Add(gm);
                 UpdateLayout();
+            }
+        }
+
+        private void child_visibility_changed()
+        {
+            if (!this.IsMouseOver)
+            {
+                this.Visibility = System.Windows.Visibility.Collapsed;
+                visibility_changed();
             }
         }
 

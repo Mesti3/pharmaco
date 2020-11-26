@@ -50,28 +50,29 @@
         </Border>-->
 
 
-            <ListView  x:Name="list_box"  Grid.Row="1" HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0" ClipToBounds="True" >
-                <!--<ListView.OpacityMask>
-                <VisualBrush Visual="{Binding ElementName=mask}"/>
-            </ListView.OpacityMask> -->
+        <Border x:Name="box_border"  Grid.Row="1" CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"   ClipToBounds="True" BorderThickness="1" SizeChanged="list_box_SizeChanged"  >
+
+            <ListView  x:Name="list_box"  HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6"  Background="{x:Null}" >
+               
                 <ListView.Template>
                     <ControlTemplate x:Name="border_temp" TargetType="ListView">
                         <Grid>
-                            <Border Name="mask" Background="White" CornerRadius="30"/>
+                           
+                            <Border Name="mask" Background="white" CornerRadius="30"  BorderThickness="0"/>
 
-                            <Border x:Name="list_box_border" CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"   ClipToBounds="True" BorderThickness="1" >
+                            <Border x:Name="list_box_border" CornerRadius="0"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderThickness="0,0,0,0" BorderBrush="#FFD0F9BD" ClipToBounds="True">
                                 <Border.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=mask}"/>
                                 </Border.OpacityMask>
-                            <ScrollViewer Margin="10,10,10,10">
-                                <ItemsPresenter />
-                            </ScrollViewer>
-                        </Border>
+                                <ScrollViewer Margin="0,0,0,0" Template="{DynamicResource ScrollViewerControlTemplate}">
+                                        <ItemsPresenter Margin="10,10,10,10" />
+                                </ScrollViewer>
+                            </Border>
                         </Grid>
                     </ControlTemplate>
                 </ListView.Template>
             </ListView>
 
-
+        </Border>
     </Grid>
 </UserControl>

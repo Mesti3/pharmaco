@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace pharmaco.components.search
 {
@@ -28,10 +29,11 @@ namespace pharmaco.components.search
         public double text_box_heigh { get { return text_block.Height; } set { text_block.Height = value; } }
         [EditorBrowsable]
         public double text_box_corner_radius { get { return button_border.CornerRadius.TopLeft; } set { button_border.CornerRadius  =new CornerRadius(value); } }
+        public double list_box_radius { get { return Math.Min( Math.Max((box_border.ActualHeight -20) / 2 ,0), 30); } }
         public search_box()
         {
             InitializeComponent();
-            list_box.Visibility = Visibility.Collapsed;
+            box_border.Visibility = Visibility.Collapsed;
             list_box.FontSize = 0.9 * text_block.FontSize;
         }
         public void  set_items(List<string> items)
@@ -52,10 +54,15 @@ namespace pharmaco.components.search
                 if (text_block.Text.Length >= 3)
                 {
                     CollectionViewSource.GetDefaultView(list_box.ItemsSource).Refresh();
-                    list_box.Visibility = Visibility.Visible;
+                    if (list_box.HasItems)
+                    {
+                        box_border.Visibility = Visibility.Visible;
+                    }
+                    else
+                        box_border.Visibility = Visibility.Collapsed;
                 }
                 else
-                    list_box.Visibility = Visibility.Collapsed;
+                    box_border.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -64,14 +71,14 @@ namespace pharmaco.components.search
             if ((sender as ListView).SelectedItem != null)
             {
                 text_block.Text = (sender as ListView).SelectedItem.ToString();
-                list_box.Visibility = Visibility.Collapsed;
+                box_border.Visibility = Visibility.Collapsed;
                 product_selected();
             }
         }
 
         private void text_block_LostFocus(object sender, RoutedEventArgs e)
         {
-            list_box.Visibility = Visibility.Collapsed;
+            box_border.Visibility = Visibility.Collapsed;
         }
 
         private void text_block_KeyDown(object sender, KeyEventArgs e)
@@ -82,16 +89,26 @@ namespace pharmaco.components.search
                 if (text_block.Text.Length >= 3)
                 {
                     CollectionViewSource.GetDefaultView(list_box.ItemsSource).Refresh();
-                    list_box.Visibility = Visibility.Visible;
+                    box_border.Visibility = Visibility.Visible;
                 }
                 else
-                    list_box.Visibility = Visibility.Collapsed;
+                    box_border.Visibility = Visibility.Collapsed;
             }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             button_border.CornerRadius = new CornerRadius(text_box_heigh / 3);
+        }
+
+        private void list_box_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+          double rad = list_box_radius;
+            {
+                (list_box.Template.FindName("mask", list_box) as Border).CornerRadius = new CornerRadius(rad - 0, rad -0, rad, rad);
+                (list_box.Template.FindName("list_box_border", list_box) as Border).CornerRadius = new CornerRadius(rad - 0, rad + 0, rad, rad);
+                box_border.CornerRadius = new CornerRadius(rad);
+            }
         }
     }
 }

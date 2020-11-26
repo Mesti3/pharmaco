@@ -13,8 +13,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <button:green_button x:Name="button" Grid.Row="0" GreenButtonText="Kategórie" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Height="100" Click="button_Click" />
-        <Canvas Grid.Row="1" >
-            <local:green_menu x:Name="menu" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" Height="auto" Width="auto" item_selected="menu_item_selected" />
+        <Canvas Grid.Row="1" MouseLeave="Canvas_MouseLeave" >
+            <local:green_menu x:Name="menu" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" Height="auto" Width="auto" item_selected="menu_item_selected" visibility_changed="menu_visibility_changed"/>
 
         </Canvas>
          </Grid>
