@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pharmaco.components.menu"
              mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="400" Loaded="UserControl_Loaded" Margin="0,0,0,0">
+             d:DesignHeight="70" d:DesignWidth="400" Loaded="UserControl_Loaded" Margin="-1,-1,-1,-1" BorderBrush="Black" BorderThickness="1">
     <Grid Height="auto" Width="auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,0" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
@@ -18,7 +18,7 @@
         </Button>
         <Canvas x:Name="canvas" Grid.Column="0"  MouseDown="canvas_MouseDown"  MouseUp="canvas_MouseUp" Height="auto" Margin="0,0,0,0" >
             <!--<Viewbox  x:Name ="canvas_box" Grid.Column="0" Stretch="None"  ScrollViewer.VerticalScrollBarVisibility="Disabled" Height="auto" >-->
-                <Polygon x:Name="polygon" Points="0,0 0,70 330,70 350,35 330,0" Fill="White" Stroke="Black" StrokeThickness="1" />
+                <Polygon x:Name="polygon" Points="-1,-1 -1,71 331,71 351,35 331,-0" Fill="White" Stroke="Black" StrokeThickness="1" />
             <!--</Viewbox>-->
         </Canvas>
         <Label x:Name ="block" Grid.Column="0" Content="text" Margin="2,2,2,2" HorizontalAlignment="Left" Width="auto" HorizontalContentAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="30" Height="auto" IsHitTestVisible="False"/>

@@ -15,18 +15,17 @@
     <Button.Template>
         <ControlTemplate x:Name="border_temp" TargetType="Button">
             <Border x:Name="button_border" CornerRadius="20" Background="#FF16ED19" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="#FF109912" BorderThickness="2" >
-                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                </Border>
-            </ControlTemplate>
+                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="button_border" Property="Background" Value="#FFD0F9BD"  />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Button.Template>
 
-<!--<Button.Resources>
-        <Style x:Name="buttn_style" TargetType="Border">
-            <Setter x:Name="corner_radius_property" Property="CornerRadius" Value="20"/>
-        </Style>
-    </Button.Resources>-->
-
     <Viewbox  x:Name ="box" Stretch="Uniform" ScrollViewer.VerticalScrollBarVisibility="Disabled" >
-            <TextBlock x:Name ="block" Text="greentext" Margin="5,2,5,2"/>
-        </Viewbox>
+        <TextBlock x:Name ="block" Text="greentext" Margin="5,2,5,2"/>
+    </Viewbox>
 </Button>

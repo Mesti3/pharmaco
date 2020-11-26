@@ -27,11 +27,11 @@ namespace pharmaco.components.menu
         public menu_item_object data_object;
         private Timer timer;
         private bool mouse_button_pressed;
-        public bool child_opened { get { return child_is_opened; }set { child_is_opened = value; if (value == false) polygon.Fill = Brushes.White; } }
+        public bool child_opened { get { return child_is_opened; }set { child_is_opened = value; if (value == false) { polygon.Fill = Brushes.White; dots_button.Background = Brushes.White; } } }
         public menu_item()
         {
             InitializeComponent();
-            hover_color = Brushes.LightGreen;
+            hover_color = new SolidColorBrush(Color.FromArgb(255, 208, 249, 189));
             child_is_opened = false;
             timer = new Timer();
             timer.Interval = 500;
@@ -70,24 +70,28 @@ namespace pharmaco.components.menu
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            dots_button.Height = canvas.ActualHeight;
+            dots_button.Height = canvas.ActualHeight+2;
             if (data_object.items.Count>0)
-                polygon.Points = new PointCollection(new List<Point>() { new Point(0, 0), new Point( canvas.ActualWidth,0), new Point( canvas.ActualWidth + 20, canvas.ActualHeight / 2), new Point( canvas.ActualWidth, canvas.ActualHeight), new Point(0,canvas.ActualHeight) });
+                polygon.Points = new PointCollection(new List<Point>() { new Point(0,0), new Point( canvas.ActualWidth,0), new Point( canvas.ActualWidth + 20, canvas.ActualHeight / 2), new Point( canvas.ActualWidth, canvas.ActualHeight+1), new Point(0,canvas.ActualHeight+1) });
             else
-                polygon.Points = new PointCollection(new List<Point>() { new Point(0, 0), new Point(this.ActualWidth, 0), new Point(this.ActualWidth, this.ActualHeight), new Point(0, this.ActualHeight) });
+                polygon.Points = new PointCollection(new List<Point>() { new Point(0, 0), new Point(this.ActualWidth , 0), new Point(this.ActualWidth, this.ActualHeight), new Point(0, this.ActualHeight) });
             this.UpdateLayout();
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
             polygon.Fill = hover_color;
+            dots_button.Background = hover_color;
             this.UpdateLayout();
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
             if (!child_is_opened)
-            polygon.Fill = Brushes.White;            
+            {
+                polygon.Fill = Brushes.White;
+                dots_button.Background = Brushes.White;
+            }
             this.UpdateLayout();
             mouse_leave();
         }

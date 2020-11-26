@@ -13,7 +13,6 @@
                 <RowDefinition />
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Rectangle x:Name="Corner" Grid.Column="1" Fill="blue" Grid.Row="1"/>
             <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.RowSpan="2" Margin="{TemplateBinding Padding}" Grid.ColumnSpan="2"/>
             <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" Width="20"/>
             <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}" Height="20"/>
@@ -88,7 +87,7 @@
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
                     <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="#FFD0F9BD">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="0.00001*"/>
+                            <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
                             <Track.DecreaseRepeatButton>
@@ -99,7 +98,6 @@
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
                                 <Thumb x:Name="Thumb"
-                                    Background="Red"
                                     Style="{DynamicResource VerticalThumb}" />
                             </Track.Thumb>
                         </Track>
@@ -118,7 +116,7 @@
                         <ControlTemplate TargetType="{x:Type ScrollBar}">
                             <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="#7FA7A7A7">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.00001*"/>
+                                    <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
                                 <Track x:Name="PART_Track" Grid.Column="1" IsEnabled="{TemplateBinding IsMouseOver}">
                                     <Track.DecreaseRepeatButton>
@@ -129,7 +127,6 @@
                                     </Track.IncreaseRepeatButton>
                                     <Track.Thumb>
                                         <Thumb x:Name="Thumb"
-                                    Background="Red"
                                     Style="{DynamicResource HorizontalThumb}" />
                                     </Track.Thumb>
                                 </Track>

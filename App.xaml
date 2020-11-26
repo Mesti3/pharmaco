@@ -6,8 +6,10 @@
     <Application.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="ResDictionary.xaml" />
-                </ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="resource_dicts/scrollview_dict.xaml" />
+                <ResourceDictionary Source="resource_dicts/listviewitem_dict.xaml" />
+                <ResourceDictionary Source="resource_dicts/button_dict.xaml" />
+            </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
     </Application.Resources>
 </Application>
