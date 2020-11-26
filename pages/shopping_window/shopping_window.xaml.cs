@@ -12,13 +12,20 @@ namespace pharmaco.pages.shopping_window
     {
         public event Action<order> order_confirmed;
         public event Action order_canceled;
+        public event Action<int> update_cart_info;
 
         public event Action<orderItem_with_image> show_detail;
-        public List<orderItem_with_image> order_items { get { return shopping.items; } set { shopping.items = value; } }
+        public int items_count { get { return shopping.items.Count; } }
+        //private List<orderItem_with_image> order_items;
+
+        public void add_to_order(orderItem_with_image item)
+        {
+            shopping.items.Add(item);
+        }
         public shopping_window()
         {
             InitializeComponent();
-            order_items = new List<orderItem_with_image>();
+            shopping.items = new List<orderItem_with_image>();
         }
 
         private void shopping_order_confirmed(order order)
@@ -28,11 +35,13 @@ namespace pharmaco.pages.shopping_window
 
         private void shopping_window_closed()
         {
+            update_cart_info(items_count);
             this.Hide();
         }
 
         private void shopping_show_detail(orderItem_with_image obj)
         {
+            update_cart_info(items_count);
             this.Hide();
             show_detail(obj);
         }
@@ -45,6 +54,11 @@ namespace pharmaco.pages.shopping_window
         private void shopping_order_canceled()
         {
             order_canceled();
+        }
+
+        internal void cancel_order()
+        {
+            shopping.cancel_order();
         }
     }
 }

@@ -37,14 +37,19 @@ namespace pharmaco
             shopping_window.order_confirmed += Shopping_window_order_confirmed;
             shopping_window.show_detail += Shopping_window_show_detail;
             shopping_window.order_canceled += Shopping_window_order_canceled;
+            shopping_window.update_cart_info += shopping_window_update_cart_info;
             worker_run = 0;
         }
 
-      
+        private void shopping_window_update_cart_info(int obj)
+        {
+            set_cart(obj);
+        }
 
         private void Shopping_window_order_canceled()
         {
             load_main_page_products();
+            
         }
 
         private void Shopping_window_show_detail(orderItem_with_image obj)
@@ -57,7 +62,8 @@ namespace pharmaco
             try
             {
                 string tag = data.SaveOrder(order);
-                message_box.show_dialog(@"tvoje čislo je" + Environment.NewLine + tag + Environment.NewLine, MessageBoxButton.OK);
+                message_box.show_dialog(@"Vaše číslo je" + Environment.NewLine + tag.PadLeft(9,' ') + Environment.NewLine, MessageBoxButton.OK);
+                shopping_window.cancel_order();
                 // print tag
             }
             catch (Exception ex)
@@ -120,8 +126,9 @@ namespace pharmaco
 
         private void F_product_ordered(filter obj)
         {
-            shopping_window.order_items.Add(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
+            shopping_window.add_to_order(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
             open_order_window();
+
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -136,12 +143,32 @@ namespace pharmaco
 
             searchBox.text_box_width = searchGrid.ActualWidth - searchButton.ActualWidth - 2 * leftPanel.Width - 35;
             set_size_of_medicines();
+            set_cart_info();
             load_categories();
             load_main_page_products();
             load_product_names();
             load_marketing();
+            
+
 
             this.Cursor = Cursors.Arrow;
+        }
+
+        private void set_cart_info()
+        {
+            cart_label.MinWidth = cart_label.ActualHeight;
+            cart_border.CornerRadius = new CornerRadius(cart_label.ActualHeight / 2);
+            set_cart(0);
+        }
+
+        private void set_cart(int quantity)
+        {
+            cart_label.Content = quantity;
+            if (quantity <= 0)
+                cart.Visibility = Visibility.Collapsed;
+            else
+                cart.Visibility = Visibility.Visible;
+            UpdateLayout();
         }
 
         private void set_size_of_medicines()
@@ -305,13 +332,14 @@ namespace pharmaco
 
         private void medicine_dateil_product_ordered(filter obj)
         {
-            shopping_window.order_items.Add(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
+            shopping_window.add_to_order(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
             open_order_window();
         }
         private void open_order_window()
         {
             shopping_window.ShowDialog();
-        }
+            //set_cart(shopping_window.items_count);
+        //}
 
         private void searchBox_product_selected()
         {

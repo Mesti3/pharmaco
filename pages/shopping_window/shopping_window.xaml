@@ -9,7 +9,7 @@
         Title="shopping_window" Height="450" Width="800" WindowStyle="None" WindowState="Maximized" ContentRendered="Window_ContentRendered">
     <Grid>
 
-        <shopping:shoping x:Name="shopping" HorizontalAlignment="Stretch"  Margin="0,0,0,0" VerticalAlignment="Stretch" order_confirmed="shopping_order_confirmed" window_closed="shopping_window_closed" show_detail="shopping_show_detail" order_canceled="shopping_order_canceled"/>
+        <shopping:shoping x:Name="shopping" HorizontalAlignment="Stretch"  Margin="0,0,0,0" VerticalAlignment="Stretch" order_confirmed="shopping_order_confirmed" window_closed="shopping_window_closed" show_detail="shopping_show_detail" order_canceled="shopping_order_canceled" />
 
     </Grid>
 </Window>

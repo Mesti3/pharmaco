@@ -70,7 +70,11 @@
                 </Canvas>
                 <button:green_button x:Name="searchButton" Grid.Column="2" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="0,50,10,0" GreenButtonText="Vyhľadaj"  Click="searchButton_Click" />
                 <button:green_button x:Name="shopping_cart_button" Grid.Column="3" VerticalAlignment="Top"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="0,50,10,0" GreenButtonText="Košík" Height="100" Click="shopping_cart_button_Click" OverridesDefaultStyle="True" />
-         
+                <Canvas x:Name="cart" Grid.Column="3" Margin="20,25,70,0" HorizontalAlignment="Right" >
+                    <Border x:Name="cart_border" CornerRadius="12"    VerticalAlignment="Top" Height="40"  Background="Red" Width="auto">
+                        <Label x:Name="cart_label"  Content="Label" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </Border>
+                </Canvas>
             </Grid>
 
         </Grid>

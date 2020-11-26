@@ -41,16 +41,20 @@ namespace pharmaco.components.shopping
                 order.created = DateTime.Now;
                 order.state = orderstate.created;
                 order.items = items.Select(x => x.order_item).ToList();
-
                 order_confirmed(order);
             }
         }
 
         private void cance_button_Click(object sender, RoutedEventArgs e)
         {
+            cancel_order();
+            order_canceled();
+        }
+
+        internal void cancel_order()
+        {
             items.Clear();
             refresh_items();
-            order_canceled();
             window_closed();
         }
 
