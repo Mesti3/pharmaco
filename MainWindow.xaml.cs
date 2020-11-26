@@ -339,7 +339,7 @@ namespace pharmaco
         {
             shopping_window.ShowDialog();
             //set_cart(shopping_window.items_count);
-        //}
+        }
 
         private void searchBox_product_selected()
         {
