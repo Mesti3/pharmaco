@@ -49,7 +49,7 @@ namespace pharmaco.components.search
         }
         private void text_block_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (list_box != null)
+            if (list_box != null && list_box.ItemsSource!= null)
             {
                 if (text_block.Text.Length >= 3)
                 {

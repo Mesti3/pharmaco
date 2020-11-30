@@ -1,6 +1,8 @@
 ﻿using pharmaco.components.filter;
 using pharmaco.components.medicine_components;
 using pharmaco.data;
+using pharmaco.error_handling;
+using pharmaco.log;
 using pharmaco.model;
 using pharmaco.objects;
 using pharmaco.pages.message_box;
@@ -31,7 +33,7 @@ namespace pharmaco
         public MainWindow()
         {
             InitializeComponent();
-            data = new DataController();
+            data = new DataController(System.Configuration.ConfigurationManager.AppSettings["ClientID"]);
             categories = new List<category>();
             shopping_window = new shopping_window();
             shopping_window.order_confirmed += Shopping_window_order_confirmed;
@@ -68,8 +70,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-                //hlaska
-                //email o chybe
+                error_handler.handle_ex(ex, "Vašu požiadavku sa nepodarilo uložiť." + Environment.NewLine + "Kontaktujte, prosím, personál.", "order_saving");
             }
         }
 
@@ -113,7 +114,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-
+                error_handler.handle_ex(ex, "Niečo sa pokazilo.", "FillWrapPanel");
             }
         }
 
@@ -197,7 +198,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-                //logovanie
+                error_handler.handle_ex(ex, "Zoznam produktov sa nepodarilo načítať. Pri vyhľadávaní podľa názvu sa nebude zobrazovať ponuka." + Environment.NewLine + "Kontaktujte, prosím, servis.");
             }
         }
 
@@ -214,7 +215,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-                //logovanie
+                error_handler.handle_ex(ex, "Pri vyhľadávaní sa stala chyba." + Environment.NewLine + "Kontaktujte, prosím, presonál.");
             }
         }
 
@@ -227,8 +228,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-                //logovanie
-                //hlásk
+                error_handler.handle_ex(ex, "Zoznam kategórií sa nepodarilo načítať. Vyhľadávanie podľa kategórií nebude funkčné." + Environment.NewLine + "Kontaktujte, prosím, servis.");
             }
         }
 
@@ -253,8 +253,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-                //logovanie
-                //hlásk
+                error_handler.handle_ex(ex, "Zoznam marketingových akcií sa nepodarilo načítať. Panely s reklamou sa nebudú zobrazovať." + Environment.NewLine + "Kontaktujte, prosím, servis.");
             }
 
         }
@@ -275,19 +274,33 @@ namespace pharmaco
 
         private void category_menu_Click(object sender, RoutedEventArgs e)
         {
-            stop_worker();
-            var t = (sender as MenuItem).Tag;
-            if (t != null)
+            try
             {
-                searchBox.text = "";
-                List<string> ids = category_extension.find_subcategories_ids(categories, t.ToString());
-                List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
-                FillWrapPanel(medicines);
-                this.UpdateLayout();
-                if (medicines.Count == search_page_size)
-                    search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1});
+                stop_worker();
+                var t = (sender as MenuItem).Tag;
+                if (t != null)
+                {
+                    try
+                    {
+                        searchBox.text = "";
+                        List<string> ids = category_extension.find_subcategories_ids(categories, t.ToString());
+                        List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
+                        FillWrapPanel(medicines);
+                        this.UpdateLayout();
+                        if (medicines.Count == search_page_size)
+                            search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1 });
+                    }
+                    catch (Exception ex)
+                    {
+                        error_handler.handle_ex(ex, "Pri vyhľadávaní nastala chyba." + Environment.NewLine + "Kontaktujte, prosím, personál");
+                    }
+                }
+                e.Handled = true;
             }
-            e.Handled = true;
+            catch (Exception ex)
+            {
+                error_handler.handle_ex(ex, "Niekde sa stala chyba");
+            }
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
@@ -310,12 +323,11 @@ namespace pharmaco
                     if (medicines.Count == search_page_size)
                     {
                         search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.name, name = searchBox.text, count = search_page_size, offset = 1 });
-                        
                     }
                 }
-                catch (Exception ex)
+              catch (Exception ex)
                 {
-                    //logovanie
+                    error_handler.handle_ex(ex, "Pri vyhľadávaní nastala chyba." + Environment.NewLine + "Kontaktujte, prosím, personál");
                 }
                 finally
                 {
@@ -364,17 +376,23 @@ namespace pharmaco
                 marketing_panel.set_marketing(obj);
 
                 searchBox.text = "";
-                var medicines = data.GetProductsForMarketing(obj.marketing.id, search_page_size,0);
-                FillWrapPanel(medicines);
-                this.UpdateLayout();
-                marketing_panel.Visibility = Visibility.Visible;
-                if (medicines.Count == search_page_size)
-                    search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.markering, marketing_id = obj.marketing.id ,count = search_page_size, offset = 1 }) ;
-
+                try
+                {
+                    var medicines = data.GetProductsForMarketing(obj.marketing.id, search_page_size, 0);
+                    FillWrapPanel(medicines);
+                    this.UpdateLayout();
+                    marketing_panel.Visibility = Visibility.Visible;
+                    if (medicines.Count == search_page_size)
+                        search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.markering, marketing_id = obj.marketing.id, count = search_page_size, offset = 1 });
+                }
+                catch (Exception ex)
+                {
+                    error_handler.handle_ex(ex, "Pri vyhľadávaní nastala chyba." + Environment.NewLine + "Kontaktujte, prosím, personál");
+                }
             }
-            catch (Exception ex)
+             catch (Exception ex)
             {
-                //logovanie
+                error_handler.handle_ex(ex, "Niekde sa stala chyba.");
             }
         }
 
@@ -416,7 +434,8 @@ namespace pharmaco
                 }
             }
             catch (Exception ex)
-            { 
+            {
+                logger.send_email(ex, System.Configuration.ConfigurationManager.AppSettings["ClientID"], "worker_RunWorkerCompleted" );
             }
         }
 
@@ -443,7 +462,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-                
+                error_handler.send_email(ex, "search");
             }
         }
         private void search_by_worker(worker_params worker_params)

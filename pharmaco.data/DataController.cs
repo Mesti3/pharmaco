@@ -5,12 +5,14 @@ namespace pharmaco.data
 {
     public class DataController
     {
+        protected string client_id;
         private BaseDataController dataController;
-        public DataController()
+        public DataController(string client_id)
         {
+            this.client_id = client_id;
             switch (System.Configuration.ConfigurationManager.AppSettings["DataMode"])
             {
-                case "SQL": { dataController = new DBDataCotroller.DBController(); break; }
+                case "SQL": { dataController = new DBDataCotroller.DBController(client_id); break; }
             }
         }
 

@@ -117,7 +117,10 @@ namespace pharmaco.components.filter
                 }
                 catch (Exception ex)
                 {
-                    //logovanie
+                    ex.Data.Add("function", "get_image_source");
+                    ex.Data.Add("path", med.photo_path);
+                    ex.Data.Add("datetime", DateTime.Now);
+                    error_handling.error_handler.send_email(ex, "get_image_source");
 
                     return  new BitmapImage(new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\medicine_default.jpg", UriKind.Absolute));
                 }

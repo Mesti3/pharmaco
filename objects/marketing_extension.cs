@@ -32,6 +32,9 @@ namespace pharmaco.objects
                 }
                 catch (Exception ex)
                 {
+                    ex.Data.Add("function", "load_image");
+                    ex.Data.Add("input path", path);
+                    ex.Data.Add("datetime", DateTime.Now);
                     return null;
                 }
             }

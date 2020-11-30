@@ -168,6 +168,7 @@
     <Compile Include="components\shopping\shopping_item.xaml.cs">
       <DependentUpon>shopping_item.xaml</DependentUpon>
     </Compile>
+    <Compile Include="error_handling\error_handler.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -225,6 +226,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\pharmaco.log\pharmaco.log.csproj">
+      <Project>{04b6a881-25ce-4994-b569-c96d94bba967}</Project>
+      <Name>pharmaco.log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\pharmaco\pharmaco.data\pharmaco.data.csproj">
       <Project>{d83ca348-ee88-4476-b983-0bb2ad71c91a}</Project>
       <Name>pharmaco.data</Name>
