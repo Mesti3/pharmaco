@@ -320,7 +320,7 @@ namespace pharmaco.data.DBDataCotroller
             try
             {
                 List<string> result = new List<string>();
-                sql = DBAccess.ReadFirstResult("select value , from pharmaco_db_access where [name] = 'select_product_names_sql' ");
+                sql = DBAccess.ReadFirstResult("select value  from pharmaco_db_access where [name] = 'select_product_names_sql' ");
                 if (!string.IsNullOrWhiteSpace(sql))
                 {
                     using (SqlConnection connection = DBAccess.CreateConnection())

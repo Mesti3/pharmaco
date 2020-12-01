@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D83CA348-EE88-4476-B983-0BB2AD71C91A}</ProjectGuid>
+    <ProjectGuid>{04B6A881-25CE-4994-B569-C96D94BBA967}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>pharmaco.data</RootNamespace>
-    <AssemblyName>pharmaco.data</AssemblyName>
+    <RootNamespace>pharmaco.log</RootNamespace>
+    <AssemblyName>pharmaco.log</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,22 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDataController.cs" />
-    <Compile Include="DataController.cs" />
-    <Compile Include="DBDataCotroller\DBAccess.cs" />
-    <Compile Include="DBDataCotroller\DBConversion.cs" />
-    <Compile Include="DBDataCotroller\DBDataController.cs" />
+    <Compile Include="logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\pharmaco.log\pharmaco.log.csproj">
-      <Project>{04B6A881-25CE-4994-B569-C96D94BBA967}</Project>
-      <Name>pharmaco.log</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\pharmaco.model\pharmaco.model.csproj">
-      <Project>{bbf8dd62-9402-4825-b934-6d65a28c1d9c}</Project>
-      <Name>pharmaco.model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
