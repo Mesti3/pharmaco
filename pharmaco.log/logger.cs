@@ -12,12 +12,16 @@ namespace pharmaco.log
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress(client_id+ ".pharmaco@gmail.com");
+                mail.From = new MailAddress("test@pharmaco.com");
                 mail.To.Add("zdenka.polakovicova@gmail.com");
                 mail.Subject = subject;
                 mail.Body = "Exception:" + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine;
-                while (ex.InnerException != null)
+                Exception ex2 = ex.InnerException;
+                while (ex2 != null)
+                {
                     mail.Body += "InnerException:" + Environment.NewLine + ex.ToString() + Environment.NewLine + Environment.NewLine;
+                    ex2 = ex2.InnerException;
+                }
                 foreach (System.Collections.DictionaryEntry d  in ex.Data)
                     mail.Body += d.Key + ":\t"+ d.Value + Environment.NewLine + Environment.NewLine;
 
