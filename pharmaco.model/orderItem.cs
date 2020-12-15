@@ -5,5 +5,6 @@
     {
         public medicine med;
         public decimal quantity;
+        public string name;
     }
 }

@@ -1,0 +1,27 @@
+﻿<Button x:Class="pharmaco.resources.components.button.collapse_button"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:pharmaco.resources.components.button"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Height="20" HorizontalAlignment="Stretch" Background="White" Loaded="Button_Loaded" >
+    <Button.Template>
+        <ControlTemplate x:Name="border_temp" TargetType="Button">
+            <Border x:Name="border" BorderThickness="1" BorderBrush="{StaticResource light_green}" Background="Transparent" CornerRadius="10">
+                <Canvas x:Name="canvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" >
+                    <Viewbox x:Name="box" Stretch="UniformToFill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  >
+                        <Polygon x:Name="polygon" Points="5 17 25 2 45 17 25 10" Stroke="{StaticResource dark_green}" Fill="{StaticResource light_green}"/>
+                    </Viewbox>         
+                </Canvas>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="polygon" Property="Fill" Value="{StaticResource hover_green }"  />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        </Button.Template>
+
+</Button>

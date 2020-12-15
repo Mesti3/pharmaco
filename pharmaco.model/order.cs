@@ -10,6 +10,7 @@ namespace pharmaco.model
         public orderstate state { get; set; }
 
         public string tag { get; set; }
+        public string user { get; set; }
 
         public List<orderItem> items {get; set;}
         

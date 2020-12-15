@@ -151,62 +151,6 @@ namespace pharmaco.data.DBDataCotroller
             }
         }
 
-        public override string SaveOrder(order order)
-        {
-            string tag = "***";
-            using (SqlConnection connection = DBAccess.CreateConnection())
-            {
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    SqlParameter outputIdParam = new SqlParameter("@newtag", SqlDbType.Int)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-
-                    string sql = "";
-                    try
-                    {
-                         sql = @"
-                            declare @order_id int;  
-                            set @newtag = (select coalesce(max(tag)+1, 100) from pharmaco_order where created >  " + DBConversion.GetToDbDateTime(DateTime.Now.Date) + @" ); 
-                            insert into pharmaco_order (created, state, tag) values (" + DBConversion.GetToDbDateTime(DateTime.Now) + @",1,  @newtag);
-                            set @order_id =( SELECT SCOPE_IDENTITY());
-                            ";
-
-                        foreach (orderItem item in order.items)
-                            sql += @"
-                                    insert into pharmaco_order_item (order_id, medicine_id, quantity) values 
-                                        (@order_id, " + DBConversion.GetToDbString(item.med.id) + "," + DBConversion.GetToDbDecimal(item.quantity) + ");";
-
-                        using (var command = new SqlCommand(sql, connection))
-                        {
-                            command.Parameters.Add(outputIdParam);
-                            command.Transaction = transaction;
-                            var t = command.ExecuteNonQuery();
-                            transaction.Commit();
-                            tag = outputIdParam.Value.ToString();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-
-                        ex.Data.Add("function", "SaveOrder");
-                        ex.Data.Add("sql", sql);
-                        ex.Data.Add("tag", tag);
-                        ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss" ));
-                        ex.Data.Add("order_as_string", order.ToString());
-                        ex.Data.Add("stack_trace", ex.StackTrace.ToString());
-
-                        throw ex;
-                        //logovanie
-
-                    }
-                }
-            }
-            return tag;
-        }
-
         private List<category> LoadCategoriesFromReader(List<category> lastLevelCategories, SqlDataReader reader)
         {
             List<category> newCategories = new List<category>();
@@ -432,14 +376,238 @@ namespace pharmaco.data.DBDataCotroller
                     }
                 }
                 else
-                    throw new KeyNotFoundException("ERROR>>null>>select_medicine_by_name_sql");
+                    throw new KeyNotFoundException("ERROR>>null>>select_medicine_by_marketing_id_sql");
             }
                catch (Exception ex)
             {
-                ex.Data.Add("function", "marketing_id");
+                ex.Data.Add("function", "GetProductsForMarketing");
                 ex.Data.Add("input marketing_id",marketing_id);
                 ex.Data.Add("input count", count);
                 ex.Data.Add("input offset",offset);
+                ex.Data.Add("sql", sql);
+                ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                ex.Data.Add("stack_trace", ex.StackTrace.ToString());
+
+                throw ex;
+            }
+        }
+        public override List<order> GetAllOrders(DateTime? time_from, DateTime? time_to, List<int> ids, orderstate order_state, int count, int offset)
+        {
+            string sql = "";
+            try
+            {
+                //tabuľa je naša, nepotrebujeme načítaať query z databázy
+                //  sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_all_orders' ");
+                //  if (!string.IsNullOrWhiteSpace(sql))
+                //  {
+                sql = @"
+select o.tag as tag, o.[state] as state , o.created as created, o.id as id, o.[user] as [user],
+oi.quantity as quantity, oi.[name] as name
+from pharmaco_order o
+join pharmaco_order_item oi on oi.order_id=o.id
+where 1=1   ";
+                if (time_from.HasValue)
+                    sql += " and [created] >= " + DBConversion.GetToDbDateTime(time_from.Value);
+                if (time_to.HasValue)
+                    sql += " and [created] <= " + DBConversion.GetToDbDateTime(time_to.Value);
+                if (order_state != orderstate.all)
+                    sql += " and [state] = " + (int)order_state;
+                if (ids != null && ids.Any())
+                    sql += " and o.id in (" + string.Join(",", ids) + ")";
+
+                sql += " order by [created],tag OFFSET " + offset + " ROWS FETCH FIRST " + count + " ROWS ONLY; ";
+
+                using (SqlConnection connection = DBAccess.CreateConnection())
+                {
+                    using (var command = new SqlCommand(sql, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            return LoadOrderFromReader(reader);
+                        }
+                    }
+                }
+             //   }
+             //   else
+             //       throw new KeyNotFoundException("ERROR>>null>>pharmaco_db_access");
+            }
+            catch (Exception ex)
+            {
+                ex.Data.Add("function", "GetAllOrders");
+                ex.Data.Add("input time_from", time_from?.ToString("yyyy-MM-dd HH:mm:ss") ?? "null");
+                ex.Data.Add("input time_to", time_to?.ToString("yyyy-MM-dd HH:mm:ss") ?? "null");
+                ex.Data.Add("input order_state", order_state.ToString());
+                ex.Data.Add("input ids", (ids== null ) ? "null":string.Join(",", ids));
+                ex.Data.Add("input count", count);
+                ex.Data.Add("input offset", offset);
+                ex.Data.Add("sql", sql);
+                ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                ex.Data.Add("stack_trace", ex.StackTrace.ToString());
+
+                throw ex;
+            }
+        }
+       
+        private List<order> LoadOrderFromReader(SqlDataReader reader)
+        {
+            List<order> orders = new List<order>();
+            int old_id = 0;
+            int new_id = 0;
+            order m = new order();
+            while (reader.Read())
+            {
+                try
+                {
+                    new_id = DBConversion.GetFromDbInt(reader["id"]).Value;
+                    if (new_id != old_id)
+                    {
+                        if (old_id!=0)
+                            orders.Add(m);
+                        m = new order();
+                        m.id = new_id;
+                        m.tag = DBConversion.GetFromDbString(reader["tag"]);
+                        m.user = DBConversion.GetFromDbString(reader["user"]);
+                        m.created =(DateTime)reader["created"] ;
+                        m.state =(orderstate)DBConversion.GetFromDbInt(reader["state"]).Value;
+                        old_id = new_id;
+                    }
+                    orderItem oi = new orderItem();
+                    oi.quantity = DBConversion.GetFromDbDecimal(reader["quantity"]).Value;
+                    oi.name = DBConversion.GetFromDbString(reader["name"]);
+
+                    m.items.Add(oi);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+            }
+            if (old_id != 0)
+                orders.Add(m);
+
+            return orders;
+        }
+
+        public override string SaveOrder(order order)
+        {
+            string tag = "***";
+            using (SqlConnection connection = DBAccess.CreateConnection())
+            {
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    SqlParameter outputIdParam = new SqlParameter("@newtag", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    string sql = "";
+                    try
+                    {
+                        sql = @"
+                            declare @order_id int;  
+                            set @newtag = (select coalesce(max(tag)+1, 100) from pharmaco_order where created >  " + DBConversion.GetToDbDateTime(DateTime.Now.Date) + @" ); 
+                            insert into pharmaco_order (created, state, tag) values (" + DBConversion.GetToDbDateTime(DateTime.Now) + @",1,  @newtag);
+                            set @order_id =( SELECT SCOPE_IDENTITY());
+                            ";
+
+                        foreach (orderItem item in order.items)
+                            sql += @"
+                                    insert into pharmaco_order_item (order_id, medicine_id, quantity, [name]) values 
+                                        (@order_id, " + DBConversion.GetToDbString(item.med.id) + "," + DBConversion.GetToDbDecimal(item.quantity) + "," + DBConversion.GetToDbString(item.med.name) + ");";
+
+                        using (var command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.Add(outputIdParam);
+                            command.Transaction = transaction;
+                            var t = command.ExecuteNonQuery();
+                            transaction.Commit();
+                            tag = outputIdParam.Value.ToString();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+
+                        ex.Data.Add("function", "SaveOrder");
+                        ex.Data.Add("sql", sql);
+                        ex.Data.Add("tag", tag);
+                        ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        ex.Data.Add("order_as_string", order.ToString());
+                        ex.Data.Add("stack_trace", ex.StackTrace.ToString());
+
+                        throw ex;
+                        //logovanie
+
+                    }
+                }
+            }
+            return tag;
+        }
+
+        public override void UpdateOrderState(int order_id, orderstate new_state, string? user)
+        {
+            using (SqlConnection connection = DBAccess.CreateConnection())
+            {
+            //    using (SqlTransaction transaction = connection.BeginTransaction())
+              //  {
+                    string sql = "";
+                    try
+                    {
+                        sql = @"
+                            update pharmaco_order set [state] = " + (int)new_state +", [user] =" + (user != null ? (DBConversion.GetToDbString(user)) : "null" )+ @" 
+                           where id = " + order_id;
+                           
+                       
+                        using (var command = new SqlCommand(sql, connection))
+                        {
+                           // command.Transaction = transaction;
+                            var t = command.ExecuteNonQuery();
+                          //  transaction.Commit();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                       // transaction.Rollback();
+
+                        ex.Data.Add("function", "UpdateOrderState");
+                        ex.Data.Add("sql", sql);
+                        ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        ex.Data.Add("stack_trace", ex.StackTrace.ToString());
+
+                        throw ex;
+                        //logovanie
+
+                    }
+              //  }
+            }
+        }
+        public override Tuple<orderstate, string> ReloadOrderHeader(int order_id)
+        {
+            string sql = "";
+            try
+            {
+                sql ="select [state] as state , [user] as [user] from pharmaco_order where id = " + order_id;
+              
+                    using (SqlConnection connection = DBAccess.CreateConnection())
+                    {
+                        using (var command = new SqlCommand(sql, connection))
+                        {
+                            using (var reader = command.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                    return new Tuple<orderstate, string>((orderstate)DBConversion.GetFromDbInt(reader["state"]).Value, DBConversion.GetFromDbString(reader["user"]));
+                                else
+                                    throw new Exception("order "  + order_id + " not found");
+                            }
+                        }
+                    }
+            
+            }
+            catch (Exception ex)
+            {
+                ex.Data.Add("function", "ReloadOrderHeader");
+                ex.Data.Add("input order_id", order_id);
                 ex.Data.Add("sql", sql);
                 ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 ex.Data.Add("stack_trace", ex.StackTrace.ToString());

@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -237,6 +239,10 @@
     <ProjectReference Include="pharmaco.model\pharmaco.model.csproj">
       <Project>{bbf8dd62-9402-4825-b934-6d65a28c1d9c}</Project>
       <Name>pharmaco.model</Name>
+    </ProjectReference>
+    <ProjectReference Include="pharmaco.resources\pharmaco.resources.csproj">
+      <Project>{3e3aba79-37a6-4db2-848c-66068235b547}</Project>
+      <Name>pharmaco.resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

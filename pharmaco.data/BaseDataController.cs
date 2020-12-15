@@ -1,5 +1,6 @@
 ﻿
 using pharmaco.model;
+using System;
 using System.Collections.Generic;
 
 namespace pharmaco.data
@@ -41,6 +42,9 @@ namespace pharmaco.data
         public abstract List<string> GetAllProductNames();
         public abstract List<marketing> GetMarketing();
         public abstract List<medicine> GetProductsForMarketing(int marketing_id, int count, int offset);
+        public abstract void UpdateOrderState(int order_id, orderstate new_state, string? user);
+        public abstract Tuple<orderstate, string> ReloadOrderHeader(int order_id);
+        public abstract List<order> GetAllOrders(DateTime? time_from, DateTime? time_to, List<int> ids, orderstate order_state, int count, int offset);
 
 
     }
