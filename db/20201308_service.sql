@@ -1,4 +1,4 @@
-alter table pharmaco_order_item add [name] nvarchar(max) null;
+alter table pharmaco_order_item add [name] nvarchar(1000) null;
 alter table pharmaco_order add [user] varchar(50) null;
 
 
