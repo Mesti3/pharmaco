@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="pharmaco.service.ui.notifications.order_items_list"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:pharmaco.service.ui.notifications" xmlns:button="clr-namespace:pharmaco.resources.components.button;assembly=pharmaco.resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="350" Height="auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <Rectangle x:Name="shadow_rectangle"  Grid.Row="0" Grid.RowSpan="1" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="1" >
+            <Rectangle.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Offset="0"/>
+                    <GradientStop Color="#DD7C7B7B" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.OpacityMask>
+        </Rectangle>
+        <StackPanel x:Name="items_panel" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+        <button:collapse_button x:Name="expand_button" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,10,0" Click="expand_button_Click" up="False" >
+            
+        </button:collapse_button>
+
+    </Grid>
+</UserControl>
