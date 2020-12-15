@@ -21,6 +21,7 @@ namespace pharmaco.data.DBDataCotroller
         {
             var categories = new List<category>();
             string sql = "";
+            var sql0 = "";
             try
             {
                 sql = DBAccess.ReadFirstResult("select value from pharmaco_db_access where [name] = 'select_categories_sql' ");
@@ -31,7 +32,7 @@ namespace pharmaco.data.DBDataCotroller
 
                     using (SqlConnection connection = DBAccess.CreateConnection())
                     {
-                        var sql0 = sql.Replace("@condition", " is null");
+                         sql0 = sql.Replace("@condition", " is null");
                         using (var command = new SqlCommand(sql0, connection))
                         {
                             using (var reader = command.ExecuteReader())
@@ -62,7 +63,7 @@ namespace pharmaco.data.DBDataCotroller
             catch (Exception ex)
             {
                 ex.Data.Add("function", "GetCategories");
-                ex.Data.Add("sql", sql);
+                ex.Data.Add("sql", sql0);
                 ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 ex.Data.Add("stack_trace", ex.StackTrace.ToString());
 
