@@ -51,7 +51,7 @@ namespace pharmaco.components.shopping
             order_canceled();
         }
 
-        internal void cancel_order()
+        public void cancel_order()
         {
             items.Clear();
             refresh_items();

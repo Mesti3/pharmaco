@@ -30,6 +30,7 @@ namespace pharmaco
         private double filter_left_margin;
         private int search_page_size = 20;
         private int worker_run;
+        private System.Timers.Timer timer;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,7 +41,31 @@ namespace pharmaco
             shopping_window.show_detail += Shopping_window_show_detail;
             shopping_window.order_canceled += Shopping_window_order_canceled;
             shopping_window.update_cart_info += shopping_window_update_cart_info;
+            shopping_window.interaction += interaction;
+            timer = new System.Timers.Timer();
+            timer.Interval = 300000;
+            timer.AutoReset = true;
+            timer.Elapsed += timer_Elapsed;
+            timer.Start();
             worker_run = 0;
+        }
+
+        private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                shopping_window.shopping.cancel_order();
+            }
+            );
+        }
+
+
+        private void interaction()
+        {
+            timer.Enabled = false;
+            timer.Stop();
+            timer.Enabled = true;
+            timer.Start();
         }
 
         private void shopping_window_update_cart_info(int obj)
@@ -478,6 +503,10 @@ namespace pharmaco
             worker_run++;
         }
 
-
+ 
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            interaction();
+        }
     }
 }

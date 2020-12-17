@@ -13,6 +13,7 @@ namespace pharmaco.pages.shopping_window
         public event Action<order> order_confirmed;
         public event Action order_canceled;
         public event Action<int> update_cart_info;
+        public event Action interaction;
 
         public event Action<orderItem_with_image> show_detail;
         public int items_count { get { return shopping.items.Count; } }
@@ -59,6 +60,11 @@ namespace pharmaco.pages.shopping_window
         internal void cancel_order()
         {
             shopping.cancel_order();
+        }
+
+        private void Window_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            interaction();
         }
     }
 }

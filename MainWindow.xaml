@@ -10,7 +10,7 @@
         xmlns:menu="clr-namespace:pharmaco.components.menu"
         x:Class="pharmaco.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" IsEnabled="True" Loaded="Window_Loaded">
+        Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" IsEnabled="True" Loaded="Window_Loaded" PreviewMouseDown="Window_PreviewMouseDown"  >
 
 
 
@@ -63,7 +63,7 @@
                     <ColumnDefinition Width="234"/>
                 </Grid.ColumnDefinitions>
                 <!--<Menu x:Name="categories_menu" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" Background="{x:Null}"  />-->
-                <menu:button_menu x:Name="categories_menu"  Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" Background="{x:Null}" item_selected="categories_menu_item_selected" />
+                <menu:button_menu x:Name="categories_menu"  Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" Background="{x:Null}" item_selected="categories_menu_item_selected"  />
                 <!--<button:green_button x:Name="categories_button" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" GreenButtonText="Kategórie" Click="categories_button_Click"  />-->
                 <Canvas Grid.Column="1">
                     <search:search_box x:Name="searchBox"   HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,50,0,0" Height="auto" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsManipulationEnabled="True"  Panel.ZIndex="100" text_box_heigh="100" list_font_height="30" product_selected="searchBox_product_selected" />
