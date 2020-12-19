@@ -31,6 +31,7 @@ namespace pharmaco
         private int search_page_size = 20;
         private int worker_run;
         private System.Timers.Timer timer;
+        private order_item_source source;
         public MainWindow()
         {
             InitializeComponent();
@@ -152,7 +153,7 @@ namespace pharmaco
 
         private void F_product_ordered(filter obj)
         {
-            shopping_window.add_to_order(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
+            shopping_window.add_to_order(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source(), source = source });
             open_order_window();
 
         }
@@ -236,7 +237,8 @@ namespace pharmaco
                 var medicines = data.GetMainPageProducts(search_page_size,0);
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
-             
+                source = order_item_source.main_window;
+
             }
             catch (Exception ex)
             {
@@ -344,6 +346,7 @@ namespace pharmaco
                     var medicines = data.GetMedicines(searchBox.text, search_page_size, 0);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();
+                    source = order_item_source.search;
 
                     if (medicines.Count == search_page_size)
                     {
@@ -369,7 +372,7 @@ namespace pharmaco
 
         private void medicine_dateil_product_ordered(filter obj)
         {
-            shopping_window.add_to_order(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source() });
+            shopping_window.add_to_order(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source(), source = source});
             open_order_window();
         }
         private void open_order_window()
@@ -406,6 +409,7 @@ namespace pharmaco
                     var medicines = data.GetProductsForMarketing(obj.marketing.id, search_page_size, 0);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();
+                    source = order_item_source.marketing;
                     marketing_panel.Visibility = Visibility.Visible;
                     if (medicines.Count == search_page_size)
                         search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.markering, marketing_id = obj.marketing.id, count = search_page_size, offset = 1 });
@@ -431,6 +435,7 @@ namespace pharmaco
                 List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
+                source = order_item_source.category;
                 if (medicines.Count == search_page_size)
                     search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1 });
             }

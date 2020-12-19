@@ -508,14 +508,14 @@ where 1=1   ";
                         sql = @"
                             declare @order_id int;  
                             set @newtag = (select coalesce(max(tag)+1, 100) from pharmaco_order where created >  " + DBConversion.GetToDbDateTime(DateTime.Now.Date) + @" ); 
-                            insert into pharmaco_order (created, state, tag) values (" + DBConversion.GetToDbDateTime(DateTime.Now) + @",1,  @newtag);
+                            insert into pharmaco_order (created, state, tag, price) values (" + DBConversion.GetToDbDateTime(DateTime.Now) + @",1,  @newtag,"+ DBConversion.GetToDbString(order.price) + @" );
                             set @order_id =( SELECT SCOPE_IDENTITY());
                             ";
 
                         foreach (orderItem item in order.items)
                             sql += @"
-                                    insert into pharmaco_order_item (order_id, medicine_id, quantity, [name]) values 
-                                        (@order_id, " + DBConversion.GetToDbString(item.med.id) + "," + DBConversion.GetToDbDecimal(item.quantity) + "," + DBConversion.GetToDbString(item.med.name) + ");";
+                                    insert into pharmaco_order_item (order_id, medicine_id, quantity, [name], [source], price ) values 
+                                        (@order_id, " + DBConversion.GetToDbString(item.med.id) + "," + DBConversion.GetToDbDecimal(item.quantity) + "," + DBConversion.GetToDbString(item.med.name) + "," + DBConversion.GetToDbString((int)item.source) +"," + DBConversion.GetToDbString(item.price)  + ");";
 
                         using (var command = new SqlCommand(sql, connection))
                         {

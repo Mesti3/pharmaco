@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace pharmaco.data.DBDataCotroller
@@ -31,9 +32,24 @@ namespace pharmaco.data.DBDataCotroller
                 return (s as string).Trim();
         }
 
-        public static string GetToDbString(object s)
+        public static string GetToDbString(object o)
         {
-            return "'"+(s as string).Trim().Replace("'", "''")+ "'";
+            if (o == null)
+                return "null";
+            else
+            {
+                if (new List<Type>() { typeof(long), typeof(double), typeof(decimal) }.Contains(o.GetType()))
+                    return (Convert.ToDecimal(o)).ToString(CultureInfo.InvariantCulture);
+                if (o is bool)
+                    return (bool)o ? "1" : "0";
+                if (o is int)
+                    return o.ToString();
+                if (o is DateTime)
+                    return GetToDbDateTime((DateTime)o);
+                else
+                    return "'" + o.ToString().Replace("'", "''") + "'";
+            }
+           
         }
 
         public static Int32? GetFromDbInt(object s)

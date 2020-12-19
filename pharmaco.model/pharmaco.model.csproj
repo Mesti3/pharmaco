@@ -51,6 +51,7 @@
     <Compile Include="order.cs" />
     <Compile Include="orderItem.cs" />
     <Compile Include="orderstate.cs" />
+    <Compile Include="order_item_source.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

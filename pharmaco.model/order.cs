@@ -12,6 +12,7 @@ namespace pharmaco.model
         public string tag { get; set; }
         public string user { get; set; }
 
+        public decimal price { get; set; }
         public List<orderItem> items {get; set;}
         
         public string receiptCardReference { get; set; }

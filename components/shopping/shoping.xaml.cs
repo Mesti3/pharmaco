@@ -40,6 +40,7 @@ namespace pharmaco.components.shopping
                 order order = new order();
                 order.created = DateTime.Now;
                 order.state = orderstate.created;
+                order.price = calc_total_price();
                 order.items = items.Select(x => x.order_item).ToList();
                 order_confirmed(order);
             }
