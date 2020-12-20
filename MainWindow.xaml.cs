@@ -295,52 +295,6 @@ namespace pharmaco
 
         }
 
-        private MenuItem createCategoryItem(category x)
-        {
-            MenuItem mi = new MenuItem();
-            mi.Header = x.name;
-            mi.Tag = x.id;
-            mi.FontSize = 30;
-            mi.Background = Brushes.White;
-            mi.Click += category_menu_Click;
-            if (x.subcategories != null)
-                foreach (category c in x.subcategories)
-                    mi.Items.Add(createCategoryItem(c));
-            return mi;
-        }
-
-        private void category_menu_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                stop_worker();
-                var t = (sender as MenuItem).Tag;
-                if (t != null)
-                {
-                    try
-                    {
-                        searchBox.text = "";
-                        List<string> ids = category_extension.find_subcategories_ids(categories, t.ToString());
-                        List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
-                        FillWrapPanel(medicines);
-                        this.UpdateLayout();
-                        try_log_activity(activity_log_type.category_clicked, t.ToString());
-                        if (medicines.Count == search_page_size)
-                            search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1 });
-                    }
-                    catch (Exception ex)
-                    {
-                        error_handler.handle_ex(ex, "Pri vyhľadávaní nastala chyba." + Environment.NewLine + "Kontaktujte, prosím, personál");
-                    }
-                }
-                e.Handled = true;
-            }
-            catch (Exception ex)
-            {
-                error_handler.handle_ex(ex, "Niekde sa stala chyba");
-            }
-        }
-
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             do_search();
@@ -420,6 +374,8 @@ namespace pharmaco
                 {
                     var medicines = data.GetProductsForMarketing(obj.marketing.id, search_page_size, 0);
                     FillWrapPanel(medicines);
+                    medicine_dateil.Visibility = Visibility.Collapsed;
+                    wrapPanel.Visibility = Visibility.Visible;
                     this.UpdateLayout();
                     source = order_item_source.marketing;
                     marketing_panel.Visibility = Visibility.Visible;
@@ -449,6 +405,8 @@ namespace pharmaco
                 List<string> ids = category_extension.find_subcategories_ids(obj);
                 List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
                 FillWrapPanel(medicines);
+                medicine_dateil.Visibility = Visibility.Collapsed;
+                wrapPanel.Visibility = Visibility.Visible;
                 this.UpdateLayout();
                 source = order_item_source.category;
                 try_log_activity(activity_log_type.category_clicked,obj.id, obj.name);
