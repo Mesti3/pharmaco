@@ -45,6 +45,7 @@ namespace pharmaco.data
         public abstract void UpdateOrderState(int order_id, orderstate new_state, string? user);
         public abstract Tuple<orderstate, string> ReloadOrderHeader(int order_id);
         public abstract List<order> GetAllOrders(DateTime? time_from, DateTime? time_to, List<int> ids, orderstate order_state, int count, int offset);
+        public abstract void LogActivity( activity_log log);
 
 
     }

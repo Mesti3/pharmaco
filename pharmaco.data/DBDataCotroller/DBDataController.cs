@@ -616,5 +616,32 @@ where 1=1   ";
                 throw ex;
             }
         }
+        public override void LogActivity(activity_log log)
+        {
+            string sql = "";
+            try
+            {
+                sql = "insert into pharmaco_log ([type], referenced_object_id, additional_data) values (" + (int)log.type + "," + DBConversion.GetToDbString(log.referenced_object_id) + "," + DBConversion.GetToDbString(log.additional_data) + ")";
+
+                using (SqlConnection connection = DBAccess.CreateConnection())
+                {
+                    using (var command = new SqlCommand(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.Data.Add("function", "LogActivity");
+                ex.Data.Add("input log.type", (int)log.type);
+                ex.Data.Add("input log.additional_data", log.additional_data);
+                ex.Data.Add("sql", sql);
+                ex.Data.Add("datetime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                ex.Data.Add("stack_trace", ex.StackTrace.ToString());
+
+                throw ex;
+            }
+        }
     }
 }

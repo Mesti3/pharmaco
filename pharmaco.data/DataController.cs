@@ -67,5 +67,9 @@ namespace pharmaco.data
         {
             return dataController.ReloadOrderHeader(order_id);
         }
+        public void LogActivity( activity_log log)
+        {
+            dataController.LogActivity(log);
+        }
     }
 }

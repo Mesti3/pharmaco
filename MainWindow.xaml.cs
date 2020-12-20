@@ -43,12 +43,18 @@ namespace pharmaco
             shopping_window.order_canceled += Shopping_window_order_canceled;
             shopping_window.update_cart_info += shopping_window_update_cart_info;
             shopping_window.interaction += interaction;
+            shopping_window.item_removed += shopping_window_item_removed;
             timer = new System.Timers.Timer();
             timer.Interval = 300000;
             timer.AutoReset = true;
             timer.Elapsed += timer_Elapsed;
             timer.Start();
             worker_run = 0;
+        }
+
+        private void shopping_window_item_removed(medicine obj)
+        {
+            try_log_activity(activity_log_type.item_removed_from_shopping_cart, obj.id, obj.name);
         }
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -77,7 +83,8 @@ namespace pharmaco
         private void Shopping_window_order_canceled()
         {
             load_main_page_products();
-            
+
+            try_log_activity(activity_log_type.shopping_cart_cancelled);
         }
 
         private void Shopping_window_show_detail(orderItem_with_image obj)
@@ -92,6 +99,7 @@ namespace pharmaco
                 string tag = data.SaveOrder(order);
                 message_box.show_dialog(@"Vaše číslo je" + Environment.NewLine + tag.PadLeft(9,' ') + Environment.NewLine, MessageBoxButton.OK);
                 shopping_window.cancel_order();
+                try_log_activity(activity_log_type.shopping_cart_sold);
                 // print tag
             }
             catch (Exception ex)
@@ -149,13 +157,15 @@ namespace pharmaco
             medicine_dateil.FillMedicine(obj);
             medicine_dateil.Visibility = Visibility.Visible;
             wrapPanel.Visibility = Visibility.Collapsed;
+
+            try_log_activity(activity_log_type.detail_opened, obj.id,  obj.name );
         }
 
         private void F_product_ordered(filter obj)
         {
             shopping_window.add_to_order(new orderItem_with_image() { med = obj.med, quantity = 1, image_source = obj.get_image_source(), source = source });
+            try_log_activity(activity_log_type.item_added_to_shopping_cart, obj.med.id, obj.med.name);
             open_order_window();
-
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -314,6 +324,7 @@ namespace pharmaco
                         List<medicine> medicines = data.GetMedicinesInCategory(ids, search_page_size, 0);
                         FillWrapPanel(medicines);
                         this.UpdateLayout();
+                        try_log_activity(activity_log_type.category_clicked, t.ToString());
                         if (medicines.Count == search_page_size)
                             search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1 });
                     }
@@ -346,6 +357,7 @@ namespace pharmaco
                     var medicines = data.GetMedicines(searchBox.text, search_page_size, 0);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();
+                    try_log_activity(activity_log_type.searched, null, searchBox.text);
                     source = order_item_source.search;
 
                     if (medicines.Count == search_page_size)
@@ -402,7 +414,7 @@ namespace pharmaco
             try
             {
                 marketing_panel.set_marketing(obj);
-
+                
                 searchBox.text = "";
                 try
                 {
@@ -411,6 +423,7 @@ namespace pharmaco
                     this.UpdateLayout();
                     source = order_item_source.marketing;
                     marketing_panel.Visibility = Visibility.Visible;
+                    try_log_activity(activity_log_type.marketing_clicked, obj.marketing.id.ToString() , obj.marketing.name);
                     if (medicines.Count == search_page_size)
                         search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.markering, marketing_id = obj.marketing.id, count = search_page_size, offset = 1 });
                 }
@@ -425,6 +438,8 @@ namespace pharmaco
             }
         }
 
+     
+
         private void categories_menu_item_selected(category obj)
         {
             stop_worker();
@@ -436,6 +451,7 @@ namespace pharmaco
                 FillWrapPanel(medicines);
                 this.UpdateLayout();
                 source = order_item_source.category;
+                try_log_activity(activity_log_type.category_clicked,obj.id, obj.name);
                 if (medicines.Count == search_page_size)
                     search_by_worker(new worker_params(worker_run) { mode = search_mode_enum.category, category_ids = ids, count = search_page_size, offset = 1 });
             }
@@ -512,6 +528,17 @@ namespace pharmaco
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             interaction();
+        }
+        private void try_log_activity(activity_log_type type, string referenced_object_id = "", string additional_data = "")
+        {
+            try
+            {
+                data.LogActivity(new activity_log(type,referenced_object_id,additional_data));
+            }
+            catch(Exception ex)
+            {
+                error_handler.send_email(ex);
+            }
         }
     }
 }

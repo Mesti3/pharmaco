@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="activity_log.cs" />
+    <Compile Include="activity_log_type.cs" />
     <Compile Include="category.cs" />
     <Compile Include="discount.cs" />
     <Compile Include="marketing.cs" />

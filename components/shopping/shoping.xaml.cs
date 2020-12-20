@@ -14,6 +14,7 @@ namespace pharmaco.components.shopping
         public event Action order_canceled;
         public event Action window_closed;
         public event Action<orderItem_with_image> show_detail;
+        public event Action<medicine> item_removed;
         public shoping()
         {
             InitializeComponent();
@@ -94,6 +95,7 @@ namespace pharmaco.components.shopping
             items.Remove(obj.item);
             left_panel.Children.Remove(obj);
             calc_total_price();
+            item_removed(obj.item.med);
         }
 
         private void main_window_button_Click(object sender, RoutedEventArgs e)
