@@ -51,7 +51,6 @@ namespace pharmaco.components.medicine_components
             //public bool? prescription_only { get; set; }
             //public string flyer { get; set; }
 
-            fillText();
         }
 
         private void Clear()
@@ -76,33 +75,13 @@ namespace pharmaco.components.medicine_components
 
         private void fillText() 
         {
-            String breaker = "\n";
-
-            String label1 = "";
-            String label2 = "";
-
-
-            String label3 = "<b>Dávkovanie a dávkovacie schémy</b>\n\n\n";
-            String label4 = "";
-
-            String label5 = "<b>Spôsob použitia</b>\n\n\n";
-            String label6 = "";
-
-            String label7 = "<b>Upozornenie</b>\n\n\n";
-            String label8 = "";
-
-            String label9 = "<b>Zloženie</b>\n\n\n";
-            String label10 = "";
-
-            String label11 = "<b>Doplňujúce informácie</b>\n\n\n";
-            String label12 = "";
+            
 
             Label lab = new Label();
-            lab.Content = label3 + label4 + label5 + label6;
+          //  lab.Content = label3 + label4 + label5 + label6;
 
             this.scroll_view.Content = lab;
         }
-
 
     }
 }
