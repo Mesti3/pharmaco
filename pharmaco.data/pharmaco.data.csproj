@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\pharmaco.log\pharmaco.log.csproj">
+      <Project>{04B6A881-25CE-4994-B569-C96D94BBA967}</Project>
+      <Name>pharmaco.log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\pharmaco.model\pharmaco.model.csproj">
       <Project>{bbf8dd62-9402-4825-b934-6d65a28c1d9c}</Project>
       <Name>pharmaco.model</Name>

@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:pharmaco"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="resource_dicts/scrollview_dict.xaml" />
+                <ResourceDictionary Source="resource_dicts/listviewitem_dict.xaml" />
+                <ResourceDictionary Source="resource_dicts/button_dict.xaml" />
+                <ResourceDictionary Source="/pharmaco.resources;Component/global_resource_dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
     </Application.Resources>
 </Application>

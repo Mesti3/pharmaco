@@ -40,7 +40,7 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="total_price_text" Grid.Row="0" HorizontalAlignment="Stretch" Margin="10,10,10,10" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Stretch" FontSize="40" />
-            <local:numeric_up_down x:Name="numeric" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Height="60" quantity_changed="numeric_quantity_changed" />
+            <local:numeric_up_down x:Name="numeric" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Width="auto" Height="60" quantity_changed="numeric_quantity_changed" />
 
         </Grid>
         <button:orange_button x:Name="delete_button" GreenButtonText="Vymazať" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Center" Click="delete_button_Click" Height="40"/>

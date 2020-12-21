@@ -1,7 +1,6 @@
 ﻿using pharmaco.model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +14,7 @@ namespace pharmaco.components.shopping
         public event Action order_canceled;
         public event Action window_closed;
         public event Action<orderItem_with_image> show_detail;
+        public event Action<medicine> item_removed;
         public shoping()
         {
             InitializeComponent();
@@ -41,24 +41,28 @@ namespace pharmaco.components.shopping
                 order order = new order();
                 order.created = DateTime.Now;
                 order.state = orderstate.created;
+                order.price = calc_total_price();
                 order.items = items.Select(x => x.order_item).ToList();
-
                 order_confirmed(order);
             }
         }
 
         private void cance_button_Click(object sender, RoutedEventArgs e)
         {
+            cancel_order();
+            order_canceled();
+        }
+
+        public void cancel_order()
+        {
             items.Clear();
             refresh_items();
-            order_canceled();
             window_closed();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             refresh_items();
-            calc_total_price();
         }
 
         public void refresh_items()
@@ -73,7 +77,7 @@ namespace pharmaco.components.shopping
                 si.show_detail += Si_show_detail;
                 left_panel.Children.Add(si);
             }
-
+            calc_total_price();
         }
 
         private void Si_show_detail(orderItem_with_image obj)
@@ -91,6 +95,7 @@ namespace pharmaco.components.shopping
             items.Remove(obj.item);
             left_panel.Children.Remove(obj);
             calc_total_price();
+            item_removed(obj.item.med);
         }
 
         private void main_window_button_Click(object sender, RoutedEventArgs e)

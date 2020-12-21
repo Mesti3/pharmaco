@@ -11,8 +11,22 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="image" Grid.Row="0" Margin="10,10,10,50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <Label x:Name="medicine_name"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"  FontSize="22" FontWeight="Bold" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  >
+        <!--<Image x:Name="image" Grid.Row="0" Margin="10,10,10,50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+
+        <Button x:Name="image_button" Grid.Row="0" Margin="10,10,10,50" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="image_click">
+            <Button.Template>
+                <ControlTemplate x:Name="image_temp">
+                        <Image x:Name="image"/>
+                    <!--<ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="theBorder"
+                                Value="LightSkyBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>-->
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label x:Name="medicine_name"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10"  FontSize="22" FontWeight="Bold" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  IsHitTestVisible="False"   >
             <AccessText Name="medicine_name_block" TextWrapping="Wrap" Text="name" MaxWidth="367"/>
         </Label>
         <Label x:Name="marketing" Grid.Row="0"  Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="40" FontSize="20" Background="Red"/>

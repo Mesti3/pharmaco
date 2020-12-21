@@ -17,6 +17,8 @@ namespace pharmaco.components.medicine_components
         public medicine_detail()
         {
             InitializeComponent();
+            order_button.corner_radius = 50/3;
+            back_button.corner_radius = 50/3;
         }
         public medicine_detail(model.medicine obj):this()
         {

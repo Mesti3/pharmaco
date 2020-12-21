@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:pharmaco.resources" xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <SolidColorBrush x:Key="dark_green" Color="#FF109912" />
+    <SolidColorBrush x:Key="light_green" Color="#FF16ED19" />
+    <SolidColorBrush x:Key="hover_green" Color="#FFD0F9BD" />
+    <SolidColorBrush x:Key="border_grey" Color ="LightGray" />
+    <SolidColorBrush x:Key="fill_grey" Color ="White" />
+    <SolidColorBrush x:Key="collapsed_orders_back_color" Color ="#FF959595" />
+    <!--<system:String x:Key="ClientID">System.Configuration.ConfigurationManager.AppSettings["ClientID"]</system:String>-->
+</ResourceDictionary>

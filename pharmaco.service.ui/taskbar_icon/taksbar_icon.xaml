@@ -1,0 +1,23 @@
+﻿<Window x:Class="pharmaco.service.ui.taskbar_icon.taksbar_icon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:tb="http://www.hardcodet.net/taskbar"
+
+>
+    <Grid>
+
+        <!--
+      in order to create a NotifyIcon, all you need is the
+      namespace declaration (see above on line 4) and a simple
+      declaration
+    -->
+        <tb:TaskbarIcon x:Name="tb_icon"
+
+      IconSource="/icons/pharmaco_ico_32x32.ico"
+      ToolTipText="Pharmaco objednávky" TrayLeftMouseDown="tb_icon_TrayLeftMouseDown" 
+        
+                        
+            />
+
+    </Grid>
+</Window>

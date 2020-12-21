@@ -1,17 +1,22 @@
-﻿
-
+﻿D:\Projects\Visual Studio\C# projects\pharmaco\obj\Debug\GeneratedInternalTypeHelper.g.cs
+FD:\Projects\Visual Studio\C# projects\pharmaco\App.xaml;;
+FD:\Projects\Visual Studio\C# projects\pharmaco\resource_dicts\button_dict.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\button\green_button.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\filter\filter.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\marketing\marketing_info_panel.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\marketing\marketing_panel.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\medicine\medicine.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\medicine\medicine_text_block.xaml;;
+FD:\Projects\Visual Studio\C# projects\pharmaco\components\menu\button_menu.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\menu\green_menu.xaml;;
+FD:\Projects\Visual Studio\C# projects\pharmaco\components\menu\menu_item.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\search\search_box.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\shopping\numeric_up_down.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\shopping\shoping.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\components\shopping\shopping_item.xaml;;
+FD:\Projects\Visual Studio\C# projects\pharmaco\resource_dicts\listviewitem_dict.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\MainWindow.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\pages\message_box\message_box.xaml;;
 FD:\Projects\Visual Studio\C# projects\pharmaco\pages\shopping_window\shopping_window.xaml;;
+FD:\Projects\Visual Studio\C# projects\pharmaco\resource_dicts\scrollview_dict.xaml;;
 

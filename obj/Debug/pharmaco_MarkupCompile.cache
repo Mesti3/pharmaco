@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Projects\Visual Studio\C# projects\pharmaco\App.xaml
-14-1307485183
+191889236832
 
-231351941674
-17-1183362070
-components\button\green_button.xaml;components\filter\filter.xaml;components\marketing\marketing_info_panel.xaml;components\marketing\marketing_panel.xaml;components\medicine\medicine.xaml;components\medicine\medicine_text_block.xaml;components\menu\green_menu.xaml;components\search\search_box.xaml;components\shopping\numeric_up_down.xaml;components\shopping\shoping.xaml;components\shopping\shopping_item.xaml;MainWindow.xaml;pages\message_box\message_box.xaml;pages\shopping_window\shopping_window.xaml;
+31-1838912185
+211952980296
+resource_dicts\button_dict.xaml;components\button\green_button.xaml;components\filter\filter.xaml;components\marketing\marketing_info_panel.xaml;components\marketing\marketing_panel.xaml;components\medicine\medicine.xaml;components\medicine\medicine_text_block.xaml;components\menu\button_menu.xaml;components\menu\green_menu.xaml;components\menu\menu_item.xaml;components\search\search_box.xaml;components\shopping\numeric_up_down.xaml;components\shopping\shoping.xaml;components\shopping\shopping_item.xaml;resource_dicts\listviewitem_dict.xaml;MainWindow.xaml;pages\message_box\message_box.xaml;pages\shopping_window\shopping_window.xaml;resource_dicts\scrollview_dict.xaml;
 
-False
+True
 

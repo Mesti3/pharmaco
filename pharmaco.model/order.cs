@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Text;
 
 namespace pharmaco.model
 {
@@ -12,7 +10,9 @@ namespace pharmaco.model
         public orderstate state { get; set; }
 
         public string tag { get; set; }
+        public string user { get; set; }
 
+        public decimal price { get; set; }
         public List<orderItem> items {get; set;}
         
         public string receiptCardReference { get; set; }

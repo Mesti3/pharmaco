@@ -1,20 +1,7 @@
-﻿using pharmaco.model;
-using pharmaco.pages.message_box;
+﻿using pharmaco.pages.message_box;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Hosting;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace pharmaco.components.shopping
 {
@@ -73,6 +60,14 @@ namespace pharmaco.components.shopping
         public int get_item()
         {
             return order_qiantity;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            plus_button.Width = plus_button.ActualHeight;
+            plus_button.corner_radius =(int)(plus_button.ActualHeight*0.8);
+            minus_button.Width = minus_button.ActualHeight;
+            minus_button.corner_radius = (int)(minus_button.ActualHeight*0.8);
         }
     }
 

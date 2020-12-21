@@ -11,14 +11,21 @@
         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
         Background="#FF16ED19" 
         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-        BorderBrush="#FF109912" BorderThickness="2" >
-        
+        BorderBrush="#FF109912" BorderThickness="2" Loaded="button_Loaded" >
+    <Button.Template>
+        <ControlTemplate x:Name="border_temp" TargetType="Button">
+            <Border x:Name="button_border" CornerRadius="20" Background="#FF16ED19" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="#FF109912" BorderThickness="2" >
+                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="button_border" Property="Background" Value="#FFD0F9BD"  />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Button.Template>
 
-        <!--<Button x:Name="button"   Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF16ED19" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="#FF109912" BorderThickness="2" >-->
-            <Viewbox  x:Name ="box" Stretch="Uniform" ScrollViewer.VerticalScrollBarVisibility="Disabled" >
-                <TextBlock x:Name ="block" Text="greentext" Margin="5,2,5,2"/>
-            </Viewbox>
-        <!--</Button>-->
-
- 
+    <Viewbox  x:Name ="box" Stretch="Uniform" ScrollViewer.VerticalScrollBarVisibility="Disabled" >
+        <TextBlock x:Name ="block" Text="greentext" Margin="5,2,5,2"/>
+    </Viewbox>
 </Button>

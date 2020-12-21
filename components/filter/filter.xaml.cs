@@ -64,8 +64,11 @@ namespace pharmaco.components.filter
                 stock.Content = medicine.available_quantity_as_string;
             else if (medicine.available_quantity.HasValue)
                 stock.Content = "Na sklade: " + medicine.available_quantity;
-            image.Source = get_image_source();
-
+            image_button.ApplyTemplate();
+            var im = image_button.Template.FindName("image", image_button);
+            if (im != null)
+                (im as Image).Source = get_image_source();
+            
             if (medicine.discountItem != null)
             {
                 if (!string.IsNullOrWhiteSpace(medicine.discountItem.text))
@@ -114,7 +117,10 @@ namespace pharmaco.components.filter
                 }
                 catch (Exception ex)
                 {
-                    //logovanie
+                    ex.Data.Add("function", "get_image_source");
+                    ex.Data.Add("path", med.photo_path);
+                    ex.Data.Add("datetime", DateTime.Now);
+                    error_handling.error_handler.send_email(ex, "get_image_source");
 
                     return  new BitmapImage(new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\medicine_default.jpg", UriKind.Absolute));
                 }
@@ -122,6 +128,12 @@ namespace pharmaco.components.filter
                 return  new BitmapImage(new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\pics\\medicine_default.jpg", UriKind.Absolute));
 
 
+        }
+
+        private void image_click(object sender, RoutedEventArgs e)
+        {
+            if (detail_button.Visibility == Visibility.Visible)
+            product_detail_needed(med);
         }
     }
 }

@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,11 +34,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="resource_dicts\button_dict.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="components\button\green_button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,7 +89,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="components\menu\button_menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="components\menu\green_menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="components\menu\menu_item.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -98,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="components\shopping\shopping_item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="resource_dicts\listviewitem_dict.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -129,8 +149,14 @@
     <Compile Include="components\medicine\medicine_text_block.xaml.cs">
       <DependentUpon>medicine_text_block.xaml</DependentUpon>
     </Compile>
+    <Compile Include="components\menu\button_menu.xaml.cs">
+      <DependentUpon>button_menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="components\menu\green_menu.xaml.cs">
       <DependentUpon>green_menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\menu\menu_item.xaml.cs">
+      <DependentUpon>menu_item.xaml</DependentUpon>
     </Compile>
     <Compile Include="components\search\search_box.xaml.cs">
       <DependentUpon>search_box.xaml</DependentUpon>
@@ -144,6 +170,7 @@
     <Compile Include="components\shopping\shopping_item.xaml.cs">
       <DependentUpon>shopping_item.xaml</DependentUpon>
     </Compile>
+    <Compile Include="error_handler\error_handler.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -156,11 +183,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="resource_dicts\scrollview_dict.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="objects\category_extension.cs" />
     <Compile Include="objects\marketing_extension.cs" />
+    <Compile Include="objects\menu_item_object.cs" />
     <Compile Include="objects\order_item_extension.cs" />
+    <Compile Include="objects\search_mode_enum.cs" />
+    <Compile Include="objects\worker_params.cs" />
+    <Compile Include="objects\worker_result.cs" />
     <Compile Include="pages\message_box\message_box.xaml.cs">
       <DependentUpon>message_box.xaml</DependentUpon>
     </Compile>
@@ -197,9 +232,17 @@
       <Project>{d83ca348-ee88-4476-b983-0bb2ad71c91a}</Project>
       <Name>pharmaco.data</Name>
     </ProjectReference>
+    <ProjectReference Include="pharmaco.log\pharmaco.log.csproj">
+      <Project>{04B6A881-25CE-4994-B569-C96D94BBA967}</Project>
+      <Name>pharmaco.log</Name>
+    </ProjectReference>
     <ProjectReference Include="pharmaco.model\pharmaco.model.csproj">
       <Project>{bbf8dd62-9402-4825-b934-6d65a28c1d9c}</Project>
       <Name>pharmaco.model</Name>
+    </ProjectReference>
+    <ProjectReference Include="pharmaco.resources\pharmaco.resources.csproj">
+      <Project>{3e3aba79-37a6-4db2-848c-66068235b547}</Project>
+      <Name>pharmaco.resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

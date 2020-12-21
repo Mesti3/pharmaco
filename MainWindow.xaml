@@ -7,9 +7,10 @@
      xmlns:button="clr-namespace:pharmaco.components.button"
      xmlns:medicine_components="clr-namespace:pharmaco.components.medicine_components"
      xmlns:search="clr-namespace:pharmaco.components.search" xmlns:marketing="clr-namespace:pharmaco.components.marketing"
+        xmlns:menu="clr-namespace:pharmaco.components.menu"
         x:Class="pharmaco.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" IsEnabled="True" Loaded="Window_Loaded">
+        Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" IsEnabled="True" Loaded="Window_Loaded" PreviewMouseDown="Window_PreviewMouseDown"  >
 
 
 
@@ -32,17 +33,24 @@
                 <Border x:Name="border" BorderBrush="Gray" BorderThickness="2"  Grid.Column="1" Margin="10,10,10,10">
                     <Grid x:Name="center_grid" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"   >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
+                            <!--<RowDefinition Height="auto"/>-->
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="0*"/>
                         </Grid.RowDefinitions>
                         <!--<categories:category_panel x:Name   = "horizontal_category_panel" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="auto"/>-->
 
-                        <marketing:marketing_info_panel x:Name ="marketing_panel"  Grid.Row="0" Visibility="Collapsed" Margin="10,10,10,10"/>
-                        <ScrollViewer x:Name="scroll_view"  Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" BorderBrush="Gray" BorderThickness="2"  >
-                            <WrapPanel x:Name="wrapPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,10,10,10"  Height="Auto"  Width="Auto"  />
+                        <ScrollViewer x:Name="scroll_view"  Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" BorderBrush="Gray" BorderThickness="2"  >
+                            <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <marketing:marketing_info_panel x:Name ="marketing_panel" Grid.Row="0"  Visibility="Collapsed" Margin="10,10,10,10"/>
+
+                                <WrapPanel x:Name="wrapPanel" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,10,10,10"  Height="Auto"  Width="Auto" />
+                            </Grid>
                         </ScrollViewer>
-                        <medicine_components:medicine_detail  x:Name="medicine_dateil" Grid.Row="1" Visibility="Collapsed"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" product_list_needed="medicine_dateil_product_list_needed" product_ordered="medicine_dateil_product_ordered"/>
+                        <medicine_components:medicine_detail  x:Name="medicine_dateil" Grid.Row="0" Visibility="Collapsed"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" product_list_needed="medicine_dateil_product_list_needed" product_ordered="medicine_dateil_product_ordered"/>
 
                     </Grid>
                 </Border>
@@ -54,14 +62,19 @@
                     <ColumnDefinition Width="234"/>
                     <ColumnDefinition Width="234"/>
                 </Grid.ColumnDefinitions>
-                <Menu x:Name="categories_menu" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" Background="{x:Null}"  />
-
+                <!--<Menu x:Name="categories_menu" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" Background="{x:Null}"  />-->
+                <menu:button_menu x:Name="categories_menu"  Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" Background="{x:Null}" item_selected="categories_menu_item_selected"  />
                 <!--<button:green_button x:Name="categories_button" Grid.Column="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="10,50,0,0" GreenButtonText="Kategórie" Click="categories_button_Click"  />-->
                 <Canvas Grid.Column="1">
                     <search:search_box x:Name="searchBox"   HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,50,0,0" Height="auto" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsManipulationEnabled="True"  Panel.ZIndex="100" text_box_heigh="100" list_font_height="30" product_selected="searchBox_product_selected" />
                 </Canvas>
                 <button:green_button x:Name="searchButton" Grid.Column="2" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="0,50,10,0" GreenButtonText="Vyhľadaj"  Click="searchButton_Click" />
                 <button:green_button x:Name="shopping_cart_button" Grid.Column="3" VerticalAlignment="Top"  HorizontalAlignment="Stretch" IsManipulationEnabled="True"  Margin="0,50,10,0" GreenButtonText="Košík" Height="100" Click="shopping_cart_button_Click" OverridesDefaultStyle="True" />
+                <Canvas x:Name="cart" Grid.Column="3" Margin="20,25,70,0" HorizontalAlignment="Right" >
+                    <Border x:Name="cart_border" CornerRadius="12"    VerticalAlignment="Top" Height="40"  Background="Red" Width="auto">
+                        <Label x:Name="cart_label"  Content="Label" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </Border>
+                </Canvas>
             </Grid>
 
         </Grid>

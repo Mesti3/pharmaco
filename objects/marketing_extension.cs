@@ -1,11 +1,10 @@
 ﻿using pharmaco.model;
 using System;
-using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace pharmaco.objects
 {
-   public  class marketing_with_image
+    public  class marketing_with_image
     {
         public marketing marketing;
         public BitmapImage horizontal_image_source;
@@ -20,14 +19,22 @@ namespace pharmaco.objects
 
         private BitmapImage load_image(string path)
         {
-            if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
+            if (!string.IsNullOrWhiteSpace(path) )
             {
+
                 try
                 {
+                    //if (!File.Exists(path))
+                    //{
+                    //    path = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, path);
+                    //}
                     return new BitmapImage(new Uri(path, UriKind.Absolute));
                 }
                 catch (Exception ex)
                 {
+                    ex.Data.Add("function", "load_image");
+                    ex.Data.Add("input path", path);
+                    ex.Data.Add("datetime", DateTime.Now);
                     return null;
                 }
             }
