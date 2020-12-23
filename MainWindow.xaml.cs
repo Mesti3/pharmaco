@@ -183,12 +183,17 @@ namespace pharmaco
             set_cart_info();
             load_categories();
             load_main_page_products();
-            load_product_names();
             load_marketing();
-            
+            init_search_box();
 
 
             this.Cursor = Cursors.Arrow;
+        }
+
+        private void init_search_box()
+        {
+            load_product_names();
+            load_category_names();
         }
 
         private void set_cart_info()
@@ -237,7 +242,40 @@ namespace pharmaco
                 error_handler.handle_ex(ex, "Zoznam produktov sa nepodarilo načítať. Pri vyhľadávaní podľa názvu sa nebude zobrazovať ponuka." + Environment.NewLine + "Kontaktujte, prosím, servis.");
             }
         }
+        private void load_category_names()
+        {
+            try
+            {
+                List<Tuple<string, string>> category_names = new List<Tuple<string, string>>();
+                foreach (category c  in categories)
+                {
+                    add_category_name_to_list(category_names, c, "");
+                }
+                searchBox.set_items_cat(category_names);
+                searchBox.list_max_height = (this.Height - 150) / 2;
+            }
+            catch (Exception ex)
+            {
+                error_handler.handle_ex(ex, "Zoznam kategórií sa nepodarilo načítať. Pri vyhľadávaní podľa názvu sa nebude zobrazovať ponuka." + Environment.NewLine + "Kontaktujte, prosím, servis.");
+            }
+        }
 
+        private void add_category_name_to_list(List<Tuple<string, string>> list, category cat, string parent_name)
+        {
+            if (parent_name.Length > 0)
+            {
+                list.Add(new Tuple<string, string>( parent_name + " > " + cat.name, cat.id ));
+            }
+            else
+            {
+                list.Add(new Tuple<string, string>(cat.name, cat.id));
+            }
+                
+            foreach (category c in cat.subcategories)
+            {
+                add_category_name_to_list(list, c, (parent_name.Length > 0 ? (parent_name + " > ") : "" ) + cat.name);
+            }
+        }
         private void load_main_page_products()
         {
             stop_worker();
@@ -497,6 +535,11 @@ namespace pharmaco
             {
                 error_handler.send_email(ex);
             }
+        }
+
+        private void searchBox_category_selected(string obj)
+        {
+            categories_menu_item_selected(category_extension.find_category(categories, obj));
         }
     }
 }

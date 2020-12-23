@@ -52,27 +52,49 @@
 
         <Border x:Name="box_border"  Grid.Row="1" CornerRadius="30"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black"   ClipToBounds="True" BorderThickness="1" SizeChanged="list_box_SizeChanged"  >
 
-            <ListView  x:Name="list_box"  HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6"  Background="{x:Null}" >
-               
-                <ListView.Template>
-                    <ControlTemplate x:Name="border_temp" TargetType="ListView">
-                        <Grid>
-                           
-                            <Border Name="mask" Background="white" CornerRadius="30"  BorderThickness="0"/>
+            <StackPanel>
+                <ListView  x:Name="list_box"  HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6"  Background="{x:Null}" SnapsToDevicePixels="True" >
 
-                            <Border x:Name="list_box_border" CornerRadius="0"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderThickness="0,0,0,0" BorderBrush="#FFD0F9BD" ClipToBounds="True">
-                                <Border.OpacityMask>
-                                    <VisualBrush Visual="{Binding ElementName=mask}"/>
-                                </Border.OpacityMask>
-                                <ScrollViewer Margin="0,0,0,0" Template="{DynamicResource ScrollViewerControlTemplate}">
+                    <ListView.Template>
+                        <ControlTemplate x:Name="border_temp" TargetType="ListView">
+                            <Grid>
+
+                                <Border Name="mask" Background="white" CornerRadius="30"  BorderThickness="0"/>
+
+                                <Border x:Name="list_box_border" CornerRadius="0"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderThickness="0,0,0,1" BorderBrush="Black" ClipToBounds="True" SnapsToDevicePixels="True">
+                                    <Border.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                    </Border.OpacityMask>
+                                    <ScrollViewer Margin="0,0,0,0" Template="{DynamicResource ScrollViewerControlTemplate}">
                                         <ItemsPresenter Margin="10,10,30,10" />
-                                </ScrollViewer>
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </ListView.Template>
-            </ListView>
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </ListView.Template>
+                </ListView>
+                <ListView  x:Name="list_box_cat"  HorizontalAlignment="Stretch" Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="list_box_SelectionChanged" FontSize="30" Panel.ZIndex="6"  Background="{x:Null}"  FontStyle="Italic" MinHeight="0" SnapsToDevicePixels="True">
+                    <ListView.Template>
+                        <ControlTemplate x:Name="border_temp_cat" TargetType="ListView">
+                            <Grid>
 
+                                <Border Name="mask_cat" Background="white" CornerRadius="30"  BorderThickness="0"/>
+
+                                <Border x:Name="list_box_border_cat" CornerRadius="0"  HorizontalAlignment="Stretch"  Height="auto" Margin="0,0,0,0" VerticalAlignment="Top" Background="White" BorderThickness="0,0,0,0" BorderBrush="Black" ClipToBounds="True" SnapsToDevicePixels="True" >
+                                    <Border.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=mask_cat}"/>
+                                    </Border.OpacityMask>
+                                    <ScrollViewer Margin="0,0,0,0" Template="{DynamicResource ScrollViewerControlTemplate}">
+                                        <ItemsPresenter Margin="10,10,30,10" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </ListView.Template>
+                </ListView>
+
+
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>
