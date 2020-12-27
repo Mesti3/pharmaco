@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Projects\Visual Studio\C# projects\pharmaco\App.xaml
-191889236832
+20482252601
 
-31-1838912185
+311989437868
 211952980296
-resource_dicts\button_dict.xaml;components\button\green_button.xaml;components\filter\filter.xaml;components\marketing\marketing_info_panel.xaml;components\marketing\marketing_panel.xaml;components\medicine\medicine.xaml;components\medicine\medicine_text_block.xaml;components\menu\button_menu.xaml;components\menu\green_menu.xaml;components\menu\menu_item.xaml;components\search\search_box.xaml;components\shopping\numeric_up_down.xaml;components\shopping\shoping.xaml;components\shopping\shopping_item.xaml;resource_dicts\listviewitem_dict.xaml;MainWindow.xaml;pages\message_box\message_box.xaml;pages\shopping_window\shopping_window.xaml;resource_dicts\scrollview_dict.xaml;
+components\medicine\medicine_text_section.xaml;resource_dicts\button_dict.xaml;components\button\green_button.xaml;components\filter\filter.xaml;components\marketing\marketing_info_panel.xaml;components\marketing\marketing_panel.xaml;components\medicine\medicine.xaml;components\medicine\medicine_text_block.xaml;components\menu\button_menu.xaml;components\menu\green_menu.xaml;components\menu\menu_item.xaml;components\search\search_box.xaml;components\shopping\numeric_up_down.xaml;components\shopping\shoping.xaml;components\shopping\shopping_item.xaml;resource_dicts\listviewitem_dict.xaml;MainWindow.xaml;pages\message_box\message_box.xaml;pages\shopping_window\shopping_window.xaml;resource_dicts\scrollview_dict.xaml;
 
-True
+False
 

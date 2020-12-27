@@ -1,7 +1,7 @@
-﻿using pharmaco.model;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using pharmaco.model;
 
 namespace pharmaco.components.medicine_components
 {
@@ -14,12 +14,14 @@ namespace pharmaco.components.medicine_components
         public event Action<medicine_detail> product_list_needed;
         public int left_panel_width;
         private medicine med;
+
         public medicine_detail()
         {
             InitializeComponent();
             order_button.corner_radius = 50/3;
             back_button.corner_radius = 50/3;
         }
+
         public medicine_detail(model.medicine obj):this()
         {
             FillMedicine(obj);
@@ -37,22 +39,14 @@ namespace pharmaco.components.medicine_components
                 medicine_form.Content = med.form;
             else
                 medicine_form.Visibility = Visibility.Collapsed;
-            if (!string.IsNullOrWhiteSpace(med.description))
-                big_right_stack_panel.Children.Add(new medicine_text_block("Popis", med.description));
-            if (!string.IsNullOrWhiteSpace(med.usage))
-                big_right_stack_panel.Children.Add(new medicine_text_block("Spôsob použitia", med.usage));
-            if (!string.IsNullOrWhiteSpace(med.dosage))
-                big_right_stack_panel.Children.Add(new medicine_text_block("Dávkovanie", med.dosage));
-            if (!string.IsNullOrWhiteSpace(med.warning))
-                big_right_stack_panel.Children.Add(new medicine_text_block("Varovanie", med.warning));
-            if (!string.IsNullOrWhiteSpace(med.producer))
-                big_right_stack_panel.Children.Add(new medicine_text_block("Výrobca", med.producer));
 
+            this.scroll_view.Content = new medicine_text_section(med);
+                                
             UpdateLayout();
             //public string producer { get; set; }
             //public bool? prescription_only { get; set; }
             //public string flyer { get; set; }
-
+             
         }
 
         private void Clear()
@@ -75,15 +69,6 @@ namespace pharmaco.components.medicine_components
             product_list_needed(this);
         }
 
-        private void fillText() 
-        {
-            
-
-            Label lab = new Label();
-          //  lab.Content = label3 + label4 + label5 + label6;
-
-            this.scroll_view.Content = lab;
-        }
 
     }
 }

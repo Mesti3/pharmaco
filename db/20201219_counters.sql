@@ -1,6 +1,6 @@
-alter table pharmaco_order add price decimal (6,2) 
-alter table pharmaco_order_item add [source] int 
-alter table pharmaco_order_item add price decimal (6,2) 
+alter table [dbo].[pharmaco_order] add [price] decimal (6,2) 
+alter table [dbo].[pharmaco_order_item] add [source] int 
+alter table [dbo].[pharmaco_order_item] add [price] decimal (6,2) 
 
 create table pharmaco_order_item_source
 (
