@@ -61,6 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="pages\screen_saver_window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="resource_dicts\button_dict.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -191,6 +195,7 @@
   <ItemGroup>
     <Compile Include="objects\category_extension.cs" />
     <Compile Include="objects\marketing_extension.cs" />
+    <Compile Include="objects\marketing_panel_mode_enum.cs" />
     <Compile Include="objects\menu_item_object.cs" />
     <Compile Include="objects\order_item_extension.cs" />
     <Compile Include="objects\search_mode_enum.cs" />
@@ -198,6 +203,9 @@
     <Compile Include="objects\worker_result.cs" />
     <Compile Include="pages\message_box\message_box.xaml.cs">
       <DependentUpon>message_box.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\screen_saver_window.xaml.cs">
+      <DependentUpon>screen_saver_window.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\shopping_window\shopping_window.xaml.cs">
       <DependentUpon>shopping_window.xaml</DependentUpon>
@@ -255,6 +263,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="pics\click_here_100px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

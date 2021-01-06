@@ -7,6 +7,7 @@
         public string description { get; set; }
         public string horizontal_banner_path { get; set; }
         public string vertical_banner_path { get; set; }
+        public string fullscreen_banner_path { get; set; }
 
 
 

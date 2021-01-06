@@ -321,6 +321,7 @@ namespace pharmaco.data.DBDataCotroller
                                         m.id = DBConversion.GetFromDbInt(reader["id"]).Value;
                                         m.horizontal_banner_path = DBConversion.GetFromDbString(reader["horizontal_banner_path"]);
                                         m.vertical_banner_path = DBConversion.GetFromDbString(reader["vertical_banner_path"]);
+                                        m.fullscreen_banner_path = DBConversion.GetFromDbString(reader["fullscreen_banner_path"]);
 
                                         result.Add(m);
                                     }

@@ -5,6 +5,7 @@ using pharmaco.error_handling;
 using pharmaco.log;
 using pharmaco.model;
 using pharmaco.objects;
+using pharmaco.pages;
 using pharmaco.pages.message_box;
 using pharmaco.pages.shopping_window;
 using System;
@@ -26,6 +27,7 @@ namespace pharmaco
         private List<category> categories;
         private DataController data;
         private shopping_window shopping_window;
+        private screen_saver_window screen_saver_window;
         private double filter_height;
         private double filter_left_margin;
         private int search_page_size = 20;
@@ -44,12 +46,28 @@ namespace pharmaco
             shopping_window.update_cart_info += shopping_window_update_cart_info;
             shopping_window.interaction += interaction;
             shopping_window.item_removed += shopping_window_item_removed;
+            screen_saver_window = new screen_saver_window();
+            screen_saver_window.marketing_needed += screen_saver_window_marketing_needed;
+            screen_saver_window.search_button_clicked += screen_saver_window_search_button_clicked;
             timer = new System.Timers.Timer();
             timer.Interval = 300000;
             timer.AutoReset = true;
             timer.Elapsed += timer_Elapsed;
             timer.Start();
             worker_run = 0;
+        }
+
+        private void screen_saver_window_search_button_clicked()
+        {
+            interaction();
+            try_log_activity(activity_log_type.screensaver_closed);
+        }
+
+        private void screen_saver_window_marketing_needed(marketing_with_image obj)
+        {
+            interaction();
+            try_log_activity(activity_log_type.screensaver_closed);
+            leftPanel_marketing_needed(obj);
         }
 
         private void shopping_window_item_removed(medicine obj)
@@ -59,11 +77,24 @@ namespace pharmaco
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            if (screen_saver_window.Visibility != Visibility.Visible)
+            try
             {
-                shopping_window.shopping.cancel_order();
+                Dispatcher.Invoke(() =>
+                {
+                    screen_saver_window.Show();
+                    try_log_activity(activity_log_type.screensaver_activated);
+                    if (shopping_window.shopping.items.Any())                
+                        shopping_window.shopping.cancel_order();
+                    else
+                        load_main_page_products();                   
+                }
+                );
             }
-            );
+            catch (Exception ex)
+            {
+                error_handler.send_email(ex);
+            }
         }
 
 
@@ -116,6 +147,7 @@ namespace pharmaco
                 if (clear_previous_result)
                 {
                     marketing_panel.Visibility = Visibility.Collapsed;
+                    medicine_dateil.Visibility = Visibility.Collapsed;
                     wrapPanel.Children.Clear();
                     GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
                 }
@@ -316,15 +348,16 @@ namespace pharmaco
                 {
                     if (m.Count == 1)
                     {
-                        leftPanel.set_marketing(m);
-                        rightPanel.set_marketing(m);
+                        leftPanel.set_marketing(m, marketing_panel_mode_enum.vertical);
+                        rightPanel.set_marketing(m, marketing_panel_mode_enum.vertical);
                     }
                     else
                     {
-                        leftPanel.set_marketing(m.Take(m.Count / 2).ToList());
-                        rightPanel.set_marketing(m.Except(m.Take(m.Count / 2)).ToList());
+                        leftPanel.set_marketing(m.Where(x => x.vertical_image_source != null).Take(m.Where(x => x.vertical_image_source != null).Count() / 2).ToList(), marketing_panel_mode_enum.vertical);
+                        rightPanel.set_marketing(m.Where(x => x.vertical_image_source != null).Except(m.Where(x => x.vertical_image_source != null).Take(m.Count / 2)).ToList(), marketing_panel_mode_enum.vertical);
                     }
                 }
+                screen_saver_window.big_marketing.set_marketing(m.Where(x=>x.fullscreen_image_source != null ).ToList(), marketing_panel_mode_enum.fullscren);
             }
             catch (Exception ex)
             {

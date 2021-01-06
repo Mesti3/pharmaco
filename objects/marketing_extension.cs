@@ -9,12 +9,14 @@ namespace pharmaco.objects
         public marketing marketing;
         public BitmapImage horizontal_image_source;
         public BitmapImage vertical_image_source;
+        public BitmapImage fullscreen_image_source;
 
         public marketing_with_image(marketing marketing)
         {
             this.marketing = marketing;
             horizontal_image_source = load_image(marketing.horizontal_banner_path);
             vertical_image_source = load_image(marketing.vertical_banner_path);
+            fullscreen_image_source = load_image(marketing.fullscreen_banner_path);
         }
 
         private BitmapImage load_image(string path)
