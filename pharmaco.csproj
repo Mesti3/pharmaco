@@ -61,6 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="components\medicine\medicine_text_section.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\screen_saver_window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +156,9 @@
     </Compile>
     <Compile Include="components\medicine\medicine_text_block.xaml.cs">
       <DependentUpon>medicine_text_block.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="components\medicine\medicine_text_section.xaml.cs">
+      <DependentUpon>medicine_text_section.xaml</DependentUpon>
     </Compile>
     <Compile Include="components\menu\button_menu.xaml.cs">
       <DependentUpon>button_menu.xaml</DependentUpon>

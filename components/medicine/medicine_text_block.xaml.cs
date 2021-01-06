@@ -13,7 +13,7 @@ namespace pharmaco.components.medicine_components
             this.caption.Text = caption;
             this.info.Text = text;
             var texts = text.Split(new string[12] { "<p>", "</p>", "<span>", "</span>", "<strong>", "</strong>", "<br>", "</br>", "<ul>", "</ul>", "<li>", "</li>" },System.StringSplitOptions.RemoveEmptyEntries);
-         
+            
         }
     }
 }
