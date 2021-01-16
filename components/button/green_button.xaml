@@ -9,17 +9,17 @@
             x:Name="button"   
         Margin="0,0,0,0" 
         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-        Background="#FF16ED19" 
+        Background="{StaticResource light_green}" 
         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-        BorderBrush="#FF109912" BorderThickness="2" Loaded="button_Loaded" >
+        BorderBrush="{StaticResource dark_green}" BorderThickness="2" Loaded="button_Loaded" >
     <Button.Template>
         <ControlTemplate x:Name="border_temp" TargetType="Button">
-            <Border x:Name="button_border" CornerRadius="20" Background="#FF16ED19" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="#FF109912" BorderThickness="2" >
+            <Border x:Name="button_border" CornerRadius="20" Background="{StaticResource light_green}" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{StaticResource dark_green}" BorderThickness="2" >
                 <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="button_border" Property="Background" Value="#FFD0F9BD"  />
+                    <Setter TargetName="button_border" Property="Background" Value="{StaticResource hover_green}"  />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>

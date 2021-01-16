@@ -5,7 +5,9 @@
     <SolidColorBrush x:Key="light_green" Color="#FF16ED19" />
     <SolidColorBrush x:Key="hover_green" Color="#FFD0F9BD" />
     <SolidColorBrush x:Key="border_grey" Color ="LightGray" />
-    <SolidColorBrush x:Key="fill_grey" Color ="White" />
+    <SolidColorBrush x:Key="fill_grey" Color ="White" />    
     <SolidColorBrush x:Key="collapsed_orders_back_color" Color ="#FF959595" />
+    <system:Double x:Key="scrollbar_width" >30</system:Double>
+    <GridLength x:Key="scrollbar_corner_radius">15</GridLength>
     <!--<system:String x:Key="ClientID">System.Configuration.ConfigurationManager.AppSettings["ClientID"]</system:String>-->
 </ResourceDictionary>

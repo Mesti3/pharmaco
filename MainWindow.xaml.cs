@@ -257,7 +257,7 @@ namespace pharmaco
                 ratio = filter_height / f.Height;
             }
 
-            filter_left_margin = (center_grid.ActualWidth - (20+20)) / Math.Truncate((center_grid.ActualWidth - (20 + 20)) / (f.Width * ratio));// (20+20) = magin + scrollbar width
+            filter_left_margin = (center_grid.ActualWidth - ((Convert.ToInt32(FindResource("scrollbar_width"))) + 20)) / Math.Truncate((center_grid.ActualWidth - ((Convert.ToInt32(FindResource("scrollbar_width"))) + 20)) / (f.Width * ratio));// (20+20) = magin + scrollbar width
 
         }
 
@@ -322,7 +322,7 @@ namespace pharmaco
             }
             catch (Exception ex)
             {
-                error_handler.handle_ex(ex, "Pri vyhľadávaní sa stala chyba." + Environment.NewLine + "Kontaktujte, prosím, presonál.");
+                error_handler.handle_ex(ex, "Pri vyhľadávaní sa stala chyba." + Environment.NewLine + "Kontaktujte, prosím, personál.");
             }
         }
 

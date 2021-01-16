@@ -40,11 +40,11 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="{StaticResource ResourceKey=scrollbar_corner_radius}" />
+                            <ColumnDefinition Width="{StaticResource ResourceKey=scrollbar_corner_radius}" />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="{StaticResource ResourceKey=scrollbar_corner_radius}" />
+                            <ColumnDefinition Width="{StaticResource ResourceKey=scrollbar_corner_radius}" />
                         </Grid.ColumnDefinitions>
                         <Ellipse Grid.Column="0" Grid.ColumnSpan="2" Fill="LightGreen" />
                         <Rectangle Grid.Column="1" Grid.ColumnSpan="3" Fill="LightGreen" />
@@ -61,11 +61,11 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="10" />
+                            <RowDefinition Height="{StaticResource ResourceKey=scrollbar_corner_radius}" />
+                            <RowDefinition Height="{StaticResource ResourceKey=scrollbar_corner_radius}" />
                             <RowDefinition />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="10" />
+                            <RowDefinition Height="{StaticResource ResourceKey=scrollbar_corner_radius}" />
+                            <RowDefinition Height="{StaticResource ResourceKey=scrollbar_corner_radius}" />
                         </Grid.RowDefinitions>
                         <Ellipse Grid.Row="0" Grid.RowSpan="2" Fill="LightGreen" />
                         <Rectangle Grid.Row="1" Grid.RowSpan="3" Fill="LightGreen" />
@@ -80,8 +80,8 @@
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
         <Setter Property="Foreground" Value="#FFF0EEF0"/>
-        <Setter Property="Width" Value="20"/>
-        <Setter Property="MinWidth" Value="10"/>
+        <Setter Property="Width" Value="{StaticResource ResourceKey=scrollbar_width}"/>
+        <Setter Property="MinWidth" Value="{StaticResource ResourceKey=scrollbar_width}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -109,8 +109,8 @@
             <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="Width" Value="Auto"/>
                 <Setter Property="MinWidth" Value="0"/>
-                <Setter Property="Height" Value="10"/>
-                <Setter Property="MinHeight" Value="10"/>
+                <Setter Property="Height" Value="{StaticResource ResourceKey=scrollbar_width}"/>
+                <Setter Property="MinHeight" Value="{StaticResource ResourceKey=scrollbar_width}"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollBar}">
