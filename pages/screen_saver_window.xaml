@@ -8,15 +8,19 @@
         mc:Ignorable="d"
         Title="screen_saver_windiw" Height="450" Width="800" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize" IsVisibleChanged="Window_IsVisibleChanged">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="125"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <marketing:marketing_panel x:Name="big_marketing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" marketing_needed="big_marketing_marketing_needed"  />
-        <button:green_button  Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="100,100,100,0" GreenButtonText="Klikni, vyhľadaj, objednaj" corner_radius="30" Click="green_button_Click"/>
-        <Image  Height="122" Margin="0,120,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="127" Source="/pics/click_here_100px.png" RenderTransformOrigin="0.5,0.5">
+        <marketing:marketing_panel x:Name="big_marketing" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" marketing_needed="big_marketing_marketing_needed"  />
+        <button:green_button  Grid.Row="0" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="100,10,100,0" GreenButtonText="Klikni, vyhľadaj, objednaj" corner_radius="30" Click="green_button_Click"/>
+        <Image  Grid.Row="0" Height="135" Margin="0,10,66,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="127" Source="/pics/click_here_100px.png" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform/>
-                    <RotateTransform Angle="-25"/>
+                    <RotateTransform Angle="-45"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </Image.RenderTransform>
