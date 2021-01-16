@@ -30,12 +30,12 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="1000*"/>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="big_right_stack_panel" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Label x:Name="medicine_name" Content="Label"  HorizontalAlignment="Left"  VerticalAlignment="Top"  Margin="0,0,0,5" FontSize="40" FontWeight="Bold"/>
-                <Label x:Name="medicine_form" Content="Label"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,5,0,5" FontSize="30"/>
+            <StackPanel x:Name="big_right_stack_panel" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <TextBlock x:Name="medicine_name" Text="Label"  HorizontalAlignment="Left"  VerticalAlignment="Top"  Margin="10,0,0,5" FontSize="40" FontWeight="Bold" TextWrapping="Wrap"   />
+                <TextBlock x:Name="medicine_form" Text="Label"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,5,0,5" FontSize="30" TextWrapping="Wrap" />
             </StackPanel>
 
-            <ScrollViewer x:Name="scroll_view"  HorizontalScrollBarVisibility="Disabled" Margin="-5,126,15,22" RenderTransformOrigin="0.521,0.52" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="scroll_view" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" Margin="10,0,0,10"  Grid.RowSpan="1" VerticalScrollBarVisibility="Auto">
 
             </ScrollViewer>
         </Grid>

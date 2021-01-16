@@ -34,9 +34,9 @@ namespace pharmaco.components.medicine_components
             medicine_filter.FillMedicine(med);
             medicine_filter.mode = filter.filter_mode.detail;
             medicine_filter.UpdateLayout();
-            medicine_name.Content = med.name;
+            medicine_name.Text = med.name;
             if (!string.IsNullOrWhiteSpace(med.form))
-                medicine_form.Content = med.form;
+                medicine_form.Text = med.form;
             else
                 medicine_form.Visibility = Visibility.Collapsed;
 
@@ -52,10 +52,10 @@ namespace pharmaco.components.medicine_components
         private void Clear()
         {
             medicine_filter.Clear();
-            medicine_name.Content = "";
-            medicine_form.Content = "";
+            medicine_name.Text = "";
+            medicine_form.Text = "";
             medicine_form.Visibility = Visibility.Visible;
-            big_right_stack_panel.Children.Clear();
+            scroll_view.Content = null;
 
         }
 
