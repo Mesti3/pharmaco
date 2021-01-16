@@ -72,7 +72,7 @@ namespace pharmaco.components.menu
         {
             dots_button.Height = canvas.ActualHeight+2;
             if (data_object.items.Count>0)
-                polygon.Points = new PointCollection(new List<Point>() { new Point(0,0), new Point( canvas.ActualWidth,0), new Point( canvas.ActualWidth + 20, canvas.ActualHeight / 2), new Point( canvas.ActualWidth, canvas.ActualHeight+1), new Point(0,canvas.ActualHeight+1) });
+                polygon.Points = new PointCollection(new List<Point>() { new Point(0,0), new Point( canvas.ActualWidth,0), new Point( canvas.ActualWidth + 20, canvas.ActualHeight / 2), new Point( canvas.ActualWidth, canvas.ActualHeight+2), new Point(0,canvas.ActualHeight+2) });
             else
                 polygon.Points = new PointCollection(new List<Point>() { new Point(0, 0), new Point(this.ActualWidth , 0), new Point(this.ActualWidth, this.ActualHeight), new Point(0, this.ActualHeight) });
             this.UpdateLayout();
