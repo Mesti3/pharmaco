@@ -379,6 +379,8 @@ namespace pharmaco
                 try
                 {
                     this.Cursor = Cursors.Wait;
+                    wrapPanel.Visibility = Visibility.Visible;
+                    medicine_dateil.Visibility = Visibility.Collapsed;
                     var medicines = data.GetMedicines(searchBox.text, search_page_size, 0);
                     FillWrapPanel(medicines);
                     this.UpdateLayout();

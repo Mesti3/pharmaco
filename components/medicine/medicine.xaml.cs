@@ -69,6 +69,10 @@ namespace pharmaco.components.medicine_components
             product_list_needed(this);
         }
 
-
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+                scroll_view.ScrollToTop();
+        }
     }
 }

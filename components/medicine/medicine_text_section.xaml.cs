@@ -23,6 +23,8 @@ namespace pharmaco.components.medicine_components
                 this.vyrobca.Children.Add(new medicine_text_block("Výrobca", med.producer));
 
         }
+
+       
     }
 }
 
