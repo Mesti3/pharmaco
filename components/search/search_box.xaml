@@ -66,7 +66,7 @@
                                         <VisualBrush Visual="{Binding ElementName=mask}"/>
                                     </Border.OpacityMask>
                                     <ScrollViewer Margin="0,0,0,0" Template="{DynamicResource ScrollViewerControlTemplate}">
-                                        <ItemsPresenter Margin="10,10,30,10" />
+                                        <ItemsPresenter Margin="20,10,30,10" />
                                     </ScrollViewer>
                                 </Border>
                             </Grid>
@@ -85,7 +85,7 @@
                                         <VisualBrush Visual="{Binding ElementName=mask_cat}"/>
                                     </Border.OpacityMask>
                                     <ScrollViewer Margin="0,0,0,0" Template="{DynamicResource ScrollViewerControlTemplate}">
-                                        <ItemsPresenter Margin="10,10,30,10" />
+                                        <ItemsPresenter Margin="20,10,30,10" />
                                     </ScrollViewer>
                                 </Border>
                             </Grid>
